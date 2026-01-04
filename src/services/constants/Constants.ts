@@ -1,5 +1,4 @@
 import {Dimensions} from 'react-native';
-import {API_BASE_URL} from '@env';
 
 const DESIGN_WIDTH = 393;
 const DESIGN_HEIGHT = 852;
@@ -13,6 +12,9 @@ export const scaleWidth = (size: number): number => {
 export const scaleHeight = (size: number): number => {
   return (size / DESIGN_HEIGHT) * DEVICE_HEIGHT;
 };
+
+export const API_BASE_URL =
+  process.env.API_BASE_URL;
 
 export const API_ENDPOINTS = {
   HOME_PAGE: `${API_BASE_URL}/homePage.json`,

@@ -1,25 +1,27 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {NavigationContainer as RNNavigationContainer, DarkTheme} from '@react-navigation/native';
+import TabNavigator from './TabNavigator';
 
-const NavigationContainer = (): React.JSX.Element => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Navigation Container - To be implemented</Text>
-    </View>
-  );
+const navigationTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: '#F6245A',
+    background: '#0E0E0E',
+    card: '#0E0E0E',
+    text: '#FEFEFE',
+    border: '#0E0E0ECC',
+    notification: '#F6245A',
+  },
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#0E0E0E',
-  },
-  text: {
-    color: '#FEFEFE',
-  },
-});
+const NavigationContainer: React.FC = () => {
+  return (
+    <RNNavigationContainer theme={navigationTheme}>
+      <TabNavigator />
+    </RNNavigationContainer>
+  );
+};
 
 export default NavigationContainer;
 
