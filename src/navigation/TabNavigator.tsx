@@ -2,7 +2,8 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image, View, StyleSheet, Text} from 'react-native';
 import {useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context';
-import HomeScreen from '@/screens/home';
+import Home from '@/screens/Home';
+import Feed from '@/screens/Feed';
 import type {RootTabParamList} from './NavigationTypes';
 import {COLORS, SPACING} from '@/services/constants/Constants';
 
@@ -40,7 +41,7 @@ const TabNavigator: React.FC = () => {
       }}>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={Home}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({focused, color}) => (
@@ -58,6 +59,7 @@ const TabNavigator: React.FC = () => {
       />
       <Tab.Screen
         name="ForYou"
+        component={Feed}
         options={{
           tabBarLabel: 'For you',
           tabBarIcon: ({focused, color}) => (
@@ -71,9 +73,8 @@ const TabNavigator: React.FC = () => {
               resizeMode="contain"
             />
           ),
-        }}>
-        {() => <PlaceholderScreen title="For you" />}
-      </Tab.Screen>
+        }}
+      />
       <Tab.Screen
         name="Rewards"
         options={{

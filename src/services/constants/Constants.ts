@@ -14,7 +14,7 @@ export const scaleHeight = (size: number): number => {
 };
 
 export const API_BASE_URL =
-  process.env.API_BASE_URL;
+  process.env.API_BASE_URL || 'https://snips-testing-data.s3.us-east-2.amazonaws.com';
 
 export const API_ENDPOINTS = {
   HOME_PAGE: `${API_BASE_URL}/homePage.json`,
@@ -41,7 +41,7 @@ export const SPACING = {
 
 export const TYPOGRAPHY = {
   CARD_TITLE: {
-    fontFamily: 'Poppins',
+    fontFamily: 'Inter',
     fontWeight: '600' as const,
     fontSize: 20,
     lineHeight: 28,
