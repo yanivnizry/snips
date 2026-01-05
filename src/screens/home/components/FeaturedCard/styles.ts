@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     height: 129.24,
   },
   rankText: {
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-ExtraBold',
     fontWeight: '800',
     fontSize: 146.47,
     lineHeight: 146.47,
@@ -88,12 +88,19 @@ export const styles = StyleSheet.create({
   },
   speakerIconContainer: {
     position: 'absolute',
-    top: 7,
-    right: 7,
+    top: 6,
+    right: 6,
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    backgroundColor: '#0E0E0E33',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 7,
   },
   speakerIcon: {
     width: 17,
-    height: 17,
+    height: 17  ,
     tintColor: COLORS.SECONDARY_TEXT,
   },
 });

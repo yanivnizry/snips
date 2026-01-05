@@ -5,6 +5,8 @@ const DESIGN_HEIGHT = 852;
 
 const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
 
+export const FEATURED_COUNT = 5;
+
 export const scaleWidth = (size: number): number => {
   return (size / DESIGN_WIDTH) * DEVICE_WIDTH;
 };
@@ -27,13 +29,15 @@ export const COLORS = {
   SECONDARY_TEXT: '#FFFFFF99',
   WATCH_NOW_BUTTON: '#F6245A',
   CARD_BACKGROUND: '#0E0E0ECC',
+  OVERLAY_BACKGROUND: '#0E0E0E33',
+  WHITE: '#FFFFFF',
 } as const;
 
 export const SPACING = {
   BASE: 16,
   XS: 4,
   SM: 8,
-  MD: 16,
+  MD: 14,
   LG: 24,
   XL: 32,
   XXL: 48,
@@ -68,8 +72,8 @@ export const TYPOGRAPHY = {
 
 export const DIMENSIONS = {
   FEED_ITEM: {
-    WIDTH: scaleWidth(393),
-    HEIGHT: scaleHeight(764),
+    WIDTH: 393,
+    HEIGHT: 764,
   },
   DESIGN_BASE: {
     WIDTH: DESIGN_WIDTH,

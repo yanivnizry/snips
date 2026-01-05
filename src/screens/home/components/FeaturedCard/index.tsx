@@ -12,7 +12,7 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({title, rank, showBadges = fa
       <View style={styles.overlay} />
       <View style={styles.speakerIconContainer}>
         <Image
-          source={require('@/assets/images/speaker.png')}
+          source={require('@/assets/images/volume-off.png')}
           style={styles.speakerIcon}
           resizeMode="contain"
         />
@@ -20,12 +20,12 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({title, rank, showBadges = fa
       <View style={styles.content}>
       {title.genres.length > 0 && (
           <Text style={styles.subtitle} numberOfLines={1}>
-            {title.genres.join(' • ')}
+            {title.genres.join(' ')}
           </Text>
         )}
         <Text style={styles.title} numberOfLines={1}>
           {title.nameEn}
-        </Text>
+        </Text> 
         {showBadges && title.badges.length > 0 && (
           <View style={styles.badgesContainer}>
             {title.badges.map(badge => (

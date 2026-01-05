@@ -2,18 +2,20 @@ import {StyleSheet, Dimensions} from 'react-native';
 import {COLORS, SPACING, TYPOGRAPHY, scaleWidth, scaleHeight} from '@/services/constants/Constants';
 
 const CARD_BORDER_RADIUS = 8;
-const CARD_WIDTH = 177;
-const CARD_HEIGHT = 235;
-const CARD_GAP = 6;
-const IMAGE_HEIGHT = 200;
+const CARD_WIDTH = 160;
+const CARD_HEIGHT = 254;
+const CARD_GAP = 8;
+const IMAGE_WIDTH = 160;
+const IMAGE_HEIGHT = 213;
+const IMAGE_BORDER_RADIUS = 12;
 
 // Grid variant dimensions
-const {width: SCREEN_WIDTH} = Dimensions.get('window');
-const GRID_PADDING = SPACING.MD * 2;
-const GRID_GAP = SPACING.MD;
-const GRID_CARD_WIDTH = (SCREEN_WIDTH - GRID_PADDING - GRID_GAP) / 2;
-const GRID_CARD_HEIGHT = GRID_CARD_WIDTH * 1.4;
-const GRID_IMAGE_HEIGHT = GRID_CARD_HEIGHT * 0.7;
+// Total width: 362px (2 columns + 8px gap)
+// Each column: (362 - 8) / 2 = 177px
+const GRID_CARD_WIDTH = 177;
+const GRID_CARD_HEIGHT = 236;
+const GRID_IMAGE_HEIGHT = GRID_CARD_HEIGHT;
+const GRID_GAP = 8;
 
 export const styles = StyleSheet.create({
   card: {
@@ -25,8 +27,9 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   image: {
-    width: '100%',
+    width: IMAGE_WIDTH,
     height: IMAGE_HEIGHT,
+    borderRadius: IMAGE_BORDER_RADIUS,
     resizeMode: 'cover',
   },
   content: {
@@ -52,9 +55,10 @@ export const styles = StyleSheet.create({
     right: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: COLORS.OVERLAY_BACKGROUND,
     paddingHorizontal: 6,
     paddingVertical: 4,
+    borderRadius: 16,
   },
   eyeIcon: {
     width: 12,
@@ -75,9 +79,8 @@ export const styles = StyleSheet.create({
   gridCard: {
     width: GRID_CARD_WIDTH,
     height: GRID_CARD_HEIGHT,
-    borderRadius: CARD_BORDER_RADIUS,
+    borderRadius: 8,
     backgroundColor: COLORS.CARD_BACKGROUND,
-    marginBottom: SPACING.MD,
     overflow: 'hidden',
   },
   gridImage: {
@@ -92,13 +95,14 @@ export const styles = StyleSheet.create({
   },
   gridWatchContainer: {
     position: 'absolute',
-    bottom: GRID_CARD_HEIGHT - GRID_IMAGE_HEIGHT + 8,
+    bottom: 8,
     right: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: COLORS.OVERLAY_BACKGROUND,
     paddingHorizontal: 6,
     paddingVertical: 4,
+    borderRadius: 16,
   },
 });
 

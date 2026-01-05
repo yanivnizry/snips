@@ -9,11 +9,16 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: SPACING.MD,
+    paddingLeft: 20,
+    paddingRight: SPACING.MD,
     marginBottom: SPACING.MD,
   },
   title: {
-    ...TYPOGRAPHY.LABEL,
+    fontFamily: 'Poppins-SemiBold',
+    fontWeight: '600',
+    fontSize: 20,
+    lineHeight: 28,
+    letterSpacing: 0.2,
     color: COLORS.PRIMARY_TEXT,
   },
   arrowButton: {
@@ -22,9 +27,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  arrowText: {
-    color: COLORS.PRIMARY_TEXT,
-    fontSize: 18,
+  arrowIcon: {
+    width: 8,
+    height: 14,
+    tintColor: COLORS.PRIMARY_TEXT,
   },
 });
 

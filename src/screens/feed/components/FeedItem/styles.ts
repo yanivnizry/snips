@@ -15,8 +15,8 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   image: {
-    width: scaleWidth(IMAGE_WIDTH),
-    height: scaleHeight(IMAGE_HEIGHT),
+    width: IMAGE_WIDTH,
+    height: IMAGE_HEIGHT,
     resizeMode: 'cover',
     position: 'absolute',
     top: 0,
@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
     zIndex: 10,
   },
   title: {
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-SemiBold',
     fontWeight: '600',
     fontSize: 20,
     lineHeight: 28,
@@ -116,7 +116,7 @@ export const styles = StyleSheet.create({
   },
   watchNowButton: {
     backgroundColor: COLORS.WATCH_NOW_BUTTON,
-    width: scaleWidth(301),
+    width: 301,
     height: 44,
     borderRadius: 16,
     paddingTop: 6,

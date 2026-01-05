@@ -1,12 +1,24 @@
 import React, { forwardRef } from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent} from 'react-native';
 import {styles} from './styles';
-import type { HorizontalListProps } from './types.ts';
+import type { HorizontalListProps } from './types';
 
-const HorizontalList = forwardRef<FlatList, HorizontalListProps>(({data, renderItem, keyExtractor, onScrollToEnd, scrollEnabled = true}: HorizontalListProps, ref) => {
+const HorizontalList = forwardRef<FlatList, HorizontalListProps>(({data, renderItem, keyExtractor, onScrollToEnd, scrollEnabled = true, onScroll, onContentSizeChange, onLayout}: HorizontalListProps, ref) => {
   const handleEndReached = () => {
     if (onScrollToEnd) {
       onScrollToEnd();
+    }
+  };
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (onScroll) {
+      onScroll(event);
+    }
+  };
+
+  const handleContentSizeChange = (width: number, height: number) => {
+    if (onContentSizeChange) {
+      onContentSizeChange(width, height);
     }
   };
 
@@ -22,6 +34,10 @@ const HorizontalList = forwardRef<FlatList, HorizontalListProps>(({data, renderI
       showsVerticalScrollIndicator={false}
       onEndReached={handleEndReached}
       onEndReachedThreshold={0.5}
+      onScroll={handleScroll}
+      onContentSizeChange={handleContentSizeChange}
+      onLayout={onLayout}
+      scrollEventThrottle={16}
       contentContainerStyle={styles.horizontalList}
       removeClippedSubviews={true}
       maxToRenderPerBatch={10}

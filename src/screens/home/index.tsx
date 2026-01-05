@@ -1,37 +1,20 @@
-import React, {useMemo, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {View, Text, ScrollView, ActivityIndicator} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 import {useHomePage} from '@/services/queries/useHomePage';
+import {useHomeComponents} from './hooks/useHomeComponents';
 import FeaturedCard from '@/screens/Home/components/FeaturedCard';
 import CategorySection from '@/screens/Home/components/CategorySection';
 import Card from '@/components/Card';
 import HorizontalList from '@/components/HorizontalList';
+import ExploreMoreCard from '@/components/ExploreMoreCard';
 import {styles} from './styles';
-import {COLORS} from '@/services/constants/Constants';
+import {COLORS, FEATURED_COUNT} from '@/services/constants/Constants';
 
 const Home: React.FC = () => {
   const {data, isLoading, error} = useHomePage();
-
-  const {featuredComponent, categoryComponents, moreTitlesComponent} = useMemo(() => {
-    if (!data?.data?.components) {
-      return {
-        featuredComponent: null,
-        categoryComponents: [],
-        moreTitlesComponent: null,
-      };
-    }
-
-    const components = data.data.components;
-    const featured = components.find(c => c.componentType === 'LARGE_COVERS');
-    const categories = components.filter(c => c.componentType === 'REGULAR_COVERS');
-    const moreTitles = components.find(c => c.componentType === 'MORE_TITLES');
-
-    return {
-      featuredComponent: featured || null,
-      categoryComponents: categories,
-      moreTitlesComponent: moreTitles || null,
-    };
-  }, [data]);
+  const {featuredList, categoryList, moreList} = useHomeComponents(data);
 
   const renderFeaturedItem = useCallback(
     (title: any, index: number) => (
@@ -65,35 +48,41 @@ const Home: React.FC = () => {
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
-      <ScrollView
-        style={styles.content}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 40}}>
-        {featuredComponent && (
+      <LinearGradient
+        colors={['rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0)']}
+        locations={[0, 1]}
+        style={styles.gradient}>
+        <ScrollView
+          style={styles.content}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 40}}>
+        {featuredList && (
           <View style={styles.featuredSection}>
             <HorizontalList
-              data={featuredComponent.titles.slice(0, 5)}
+              data={featuredList.titles.slice(0, FEATURED_COUNT)}
               renderItem={renderFeaturedItem}
               keyExtractor={featuredKeyExtractor}
             />
           </View>
         )}
 
-        {categoryComponents.map(component => (
+        {categoryList.map(component => (
           <CategorySection key={component.id} component={component} />
         ))}
 
-        {moreTitlesComponent && (
+        {moreList && (
           <View style={styles.gridSection}>
-            <Text style={styles.sectionTitle}>More To Watch</Text>
+            <Text style={styles.sectionTitle}>More to watch</Text>
             <View style={styles.gridContainer}>
-              {moreTitlesComponent.titles.map(title => (
-                <Card key={title.id} title={title} variant="grid" />
+              {moreList.titles.map(title => (
+                <Card key={title.id} title={title} componentType="MORE_TITLES" />
               ))}
+              <ExploreMoreCard />
             </View>
           </View>
         )}
-      </ScrollView>
+        </ScrollView>
+      </LinearGradient>
     </SafeAreaView>
   );
 };

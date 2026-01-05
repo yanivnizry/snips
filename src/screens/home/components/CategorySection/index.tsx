@@ -1,22 +1,18 @@
-import React, {useRef, useCallback} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import React, {useCallback} from 'react';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import HorizontalList from '../../../../components/HorizontalList';
 import Card from '../../../../components/Card';
 import type {CategorySectionProps} from './types';
 import {styles} from './styles';
+import {useHorizontalScroll} from '../../hooks/useHorizontalScroll';
 
 const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToEnd}) => {
-  const listRef = useRef<FlatList>(null);
-
-  const handleArrowPress = useCallback(() => {
-    if (listRef.current) {
-      listRef.current.scrollToEnd({animated: true});
-    }
-  }, []);
+  const {listRef, handleScroll, handleContentSizeChange, handleLayout, handleArrowPress} =
+    useHorizontalScroll();
 
   const renderItem = useCallback(
-    (title: any, index: number) => <Card title={title} />,
-    [],
+    (title: any, index: number) => <Card title={title} componentType={component.componentType} />,
+    [component.componentType],
   );
 
   const keyExtractor = useCallback((title: any) => title.id, []);
@@ -26,7 +22,11 @@ const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToE
       <View style={styles.header}>
         <Text style={styles.title}>{component.sectionTitle}</Text>
         <TouchableOpacity style={styles.arrowButton} onPress={handleArrowPress}>
-          <Text style={styles.arrowText}>›</Text>
+          <Image
+            source={require('@/assets/images/arrow.png')}
+            style={styles.arrowIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
       </View>
       <HorizontalList
@@ -35,6 +35,9 @@ const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToE
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onScrollToEnd={onScrollToEnd}
+        onScroll={handleScroll}
+        onContentSizeChange={handleContentSizeChange}
+        onLayout={handleLayout}
       />
     </View>
   );

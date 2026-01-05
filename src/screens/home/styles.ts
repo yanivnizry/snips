@@ -1,16 +1,18 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING} from '@/services/constants/Constants';
+import {COLORS, SPACING, scaleWidth} from '@/services/constants/Constants';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.BACKGROUND,
   },
+  gradient: {
+    flex: 1,
+  },
   content: {
     flex: 1,
   },
   featuredSection: {
-    paddingHorizontal: SPACING.MD,
     paddingTop: SPACING.MD,
     marginBottom: SPACING.LG,
   },
@@ -18,24 +20,24 @@ export const styles = StyleSheet.create({
     marginBottom: SPACING.LG,
   },
   gridSection: {
-    paddingHorizontal: SPACING.MD,
+    paddingLeft: 20,
+    paddingRight: SPACING.MD,
     marginBottom: SPACING.LG,
   },
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    width: 362,
+    gap: 8,
   },
   sectionTitle: {
-    fontFamily: 'Inter',
-    fontWeight: '700',
-    fontSize: 11,
-    lineHeight: 11,
-    letterSpacing: 0,
-    textTransform: 'uppercase',
+    fontFamily: 'Poppins-SemiBold',
+    fontWeight: '600',
+    fontSize: 20,
+    lineHeight: 28,
+    letterSpacing: 0.2,
     color: COLORS.PRIMARY_TEXT,
-    marginBottom: SPACING.MD,
-    paddingHorizontal: SPACING.MD,
   },
   loadingContainer: {
     flex: 1,
