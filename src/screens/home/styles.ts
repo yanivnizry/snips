@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, scaleWidth, DIMENSIONS} from '@/services/constants/common';
+import { StyleSheet } from 'react-native';
+import { COLORS, SPACING, scaleWidth, DIMENSIONS } from '@/services/constants/common';
 
 export const styles = StyleSheet.create({
   container: {
@@ -23,12 +23,13 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: SPACING.MD,
     marginBottom: SPACING.LG,
+    justifyContent: 'flex-start',
   },
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    width: DIMENSIONS.DEVICE.WIDTH - (DIMENSIONS.DEVICE.WIDTH % (DIMENSIONS.CARD.GRID.WIDTH + DIMENSIONS.CARD.GRID.GAP)),
+    justifyContent: 'flex-start',
+    width: DIMENSIONS.CARD.GRID.WIDTH * 2 + DIMENSIONS.CARD.GRID.GAP,
     gap: DIMENSIONS.CARD.GRID.GAP,
   },
   sectionTitle: {
