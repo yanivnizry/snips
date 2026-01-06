@@ -22,4 +22,10 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
+  footerLoader: {
+    width: '100%',
+    paddingVertical: SPACING.MD,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

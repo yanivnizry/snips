@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY, scaleWidth, scaleHeight, DIMENSIONS} from '@/services/constants/common';
+import {COLORS, SPACING, TYPOGRAPHY, scaleWidth, scaleHeight, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
 
 const CARD_WIDTH = DIMENSIONS.CARD.FEATURED.WIDTH;
 const CARD_HEIGHT = DIMENSIONS.CARD.FEATURED.HEIGHT;
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     borderRadius: CORNER_MEDIUM,
     backgroundColor: COLORS.CARD_BACKGROUND,
-    marginRight: SPACING.MD,
+    marginRight: DIMENSIONS.CARD.REGULAR.GAP,
     overflow: 'hidden',
   },
   image: {
@@ -25,11 +25,11 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: `rgba(0, 0, 0, ${STYLE_CONSTANTS.OVERLAY_OPACITY})`,
   },
   content: {
     position: 'absolute',
-    bottom: -10 ,
+    bottom: STYLE_CONSTANTS.FEATURED_CARD_CONTENT_BOTTOM,
     left: 0,
     right: 0,
     padding: SPACING.MD,
@@ -50,20 +50,20 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     overflow: 'visible',
-    paddingTop: 30,
-    height: 220,
+    paddingTop: STYLE_CONSTANTS.RANK_OVERLAY_PADDING_TOP,
+    height: STYLE_CONSTANTS.RANK_OVERLAY_HEIGHT,
   },
   rankGradient: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    width: 146.47,
-    height: 180,
+    width: STYLE_CONSTANTS.RANK_GRADIENT_WIDTH,
+    height: STYLE_CONSTANTS.RANK_GRADIENT_HEIGHT,
   },
   rankText: {
     fontFamily: 'Poppins-ExtraBold',
-    fontWeight: '800',
-    fontSize: 146.47,
-    lineHeight: 220,
+    fontWeight: STYLE_CONSTANTS.RANK_TEXT_FONT_WEIGHT,
+    fontSize: STYLE_CONSTANTS.RANK_TEXT_FONT_SIZE,
+    lineHeight: STYLE_CONSTANTS.RANK_TEXT_LINE_HEIGHT,
     letterSpacing: 0,
     textAlign: 'right',
     color: 'white',
@@ -78,32 +78,32 @@ export const styles = StyleSheet.create({
   },
   badge: {
     paddingHorizontal: SPACING.XS,
-    paddingVertical: 2,
+    paddingVertical: STYLE_CONSTANTS.BADGE_PADDING_VERTICAL,
     backgroundColor: COLORS.WATCH_NOW_BUTTON,
-    borderRadius: 4,
+    borderRadius: STYLE_CONSTANTS.BADGE_BORDER_RADIUS,
     marginRight: SPACING.XS,
     marginBottom: SPACING.XS,
   },
   badgeText: {
     ...TYPOGRAPHY.CARD_SUBTITLE,
     color: COLORS.PRIMARY_TEXT,
-    fontSize: 9,
+    fontSize: STYLE_CONSTANTS.BADGE_FONT_SIZE,
   },
   speakerIconContainer: {
     position: 'absolute',
-    top: 6,
-    right: 6,
-    width: 28,
-    height: 28,
-    borderRadius: 6,
-    backgroundColor: '#0E0E0E33',
+    top: STYLE_CONSTANTS.SPEAKER_ICON_TOP,
+    right: STYLE_CONSTANTS.SPEAKER_ICON_RIGHT,
+    width: STYLE_CONSTANTS.SPEAKER_ICON_WIDTH,
+    height: STYLE_CONSTANTS.SPEAKER_ICON_HEIGHT,
+    borderRadius: STYLE_CONSTANTS.SPEAKER_ICON_BORDER_RADIUS,
+    backgroundColor: COLORS.OVERLAY_BACKGROUND,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 7,
+    gap: STYLE_CONSTANTS.SPEAKER_ICON_GAP,
   },
   speakerIcon: {
-    width: 17,
-    height: 17  ,
+    width: STYLE_CONSTANTS.SPEAKER_ICON_IMAGE_WIDTH,
+    height: STYLE_CONSTANTS.SPEAKER_ICON_IMAGE_HEIGHT,
     tintColor: COLORS.SECONDARY_TEXT,
   },
 });

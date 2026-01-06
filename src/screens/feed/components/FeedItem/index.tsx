@@ -6,6 +6,7 @@ import {styles} from './styles';
 import ExpandableDescription from '../ExpandableDescription';
 import SideIcons from './SideIcons';
 import {DEVICE_WIDTH, DEVICE_HEIGHT, BOTTOM_TAB_BAR_HEIGHT, DIMENSIONS} from '@/services/constants/common';
+import SnipsImage from '@/components/SnipsImage';
 
 const FeedItem: React.FC<FeedItemProps> = ({item}) => {
   const insets = useSafeAreaInsets();
@@ -14,7 +15,12 @@ const FeedItem: React.FC<FeedItemProps> = ({item}) => {
 
   return (
     <View style={[styles.card, {height: cardHeight}]}>
-      <Image source={{ uri: item.poster_url }} style={[styles.image, {height: cardHeight}]} resizeMode="cover" />
+      <SnipsImage
+        source={{uri: item.poster_url}}
+        style={[styles.image, {height: cardHeight}]}
+        resizeMode="cover"
+        loadingIndicatorSize="large"
+      />
       <View style={[styles.overlay, {height: cardHeight}]} />
       <TouchableOpacity style={styles.backButton}>
         <Image

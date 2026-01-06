@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY, scaleWidth, scaleHeight, DIMENSIONS} from '@/services/constants/common';
+import {COLORS, SPACING, TYPOGRAPHY, scaleWidth, scaleHeight, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
 
 const SCREEN_WIDTH = DIMENSIONS.SCREEN.WIDTH;
 const SCREEN_HEIGHT = DIMENSIONS.SCREEN.HEIGHT;
@@ -32,24 +32,24 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: `rgba(0, 0, 0, ${STYLE_CONSTANTS.OVERLAY_OPACITY})`,
     zIndex: 2,
     elevation: 2,
   },
   backButton: {
     position: 'absolute',
-    top: scaleHeight(66),
+    top: scaleHeight(STYLE_CONSTANTS.FEED_BACK_BUTTON_TOP),
     left: SPACING.MD,
     zIndex: 10,
     elevation: 10,
-    width: 24,
-    height: 24,
+    width: STYLE_CONSTANTS.FEED_BACK_ICON_SIZE,
+    height: STYLE_CONSTANTS.FEED_BACK_ICON_SIZE,
     justifyContent: 'center',
     alignItems: 'center',
   },
   backIcon: {
-    width: 24,
-    height: 24,
+    width: STYLE_CONSTANTS.FEED_BACK_ICON_SIZE,
+    height: STYLE_CONSTANTS.FEED_BACK_ICON_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   sideIconButton: {
@@ -57,20 +57,20 @@ export const styles = StyleSheet.create({
     gap: SPACING.XS,
   },
   sideIcon: {
-    width: 36,
-    height: 36,
+    width: STYLE_CONSTANTS.FEED_SIDE_ICON_SIZE,
+    height: STYLE_CONSTANTS.FEED_SIDE_ICON_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
-    sideIconSmall: {
-    width: 24,
-    height: 24,
+  sideIconSmall: {
+    width: STYLE_CONSTANTS.FEED_SIDE_ICON_SMALL_SIZE,
+    height: STYLE_CONSTANTS.FEED_SIDE_ICON_SMALL_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   sideIconText: {
     fontFamily: 'Inter',
     fontWeight: '400',
-    fontSize: 11,
-    lineHeight: 14,
+    fontSize: STYLE_CONSTANTS.FEED_SIDE_ICON_TEXT_FONT_SIZE,
+    lineHeight: STYLE_CONSTANTS.FEED_SIDE_ICON_TEXT_LINE_HEIGHT,
     color: COLORS.PRIMARY_TEXT,
     textAlign: 'center',
   },

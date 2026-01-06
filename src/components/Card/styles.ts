@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY, DIMENSIONS} from '@/services/constants/common';
+import {COLORS, SPACING, TYPOGRAPHY, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
 
 const CARD_BORDER_RADIUS = DIMENSIONS.CARD.REGULAR.BORDER_RADIUS;
 const CARD_WIDTH = DIMENSIONS.CARD.REGULAR.WIDTH;
@@ -37,30 +37,30 @@ export const styles = StyleSheet.create({
   title: {
     ...TYPOGRAPHY.CARD_TITLE,
     color: COLORS.PRIMARY_TEXT,
-    fontSize: 14,
-    lineHeight: 18,
+    fontSize: STYLE_CONSTANTS.CARD_TITLE_FONT_SIZE,
+    lineHeight: STYLE_CONSTANTS.CARD_TITLE_LINE_HEIGHT,
     marginBottom: SPACING.XS,
   },
   subtitle: {
     ...TYPOGRAPHY.CARD_SUBTITLE,
     color: COLORS.SECONDARY_TEXT,
-    fontSize: 9,
+    fontSize: STYLE_CONSTANTS.CARD_SUBTITLE_FONT_SIZE,
   },
   watchContainer: {
     position: 'absolute',
-    bottom: CARD_HEIGHT - IMAGE_HEIGHT + 8,
-    right: 8,
+    bottom: CARD_HEIGHT - IMAGE_HEIGHT + STYLE_CONSTANTS.WATCH_CONTAINER_BOTTOM_OFFSET,
+    right: STYLE_CONSTANTS.WATCH_CONTAINER_RIGHT_OFFSET,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.OVERLAY_BACKGROUND,
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-    borderRadius: 16,
+    paddingHorizontal: STYLE_CONSTANTS.WATCH_CONTAINER_PADDING_HORIZONTAL,
+    paddingVertical: STYLE_CONSTANTS.WATCH_CONTAINER_PADDING_VERTICAL,
+    borderRadius: STYLE_CONSTANTS.WATCH_CONTAINER_BORDER_RADIUS,
   },
   eyeIcon: {
-    width: 12,
-    height: 12,
-    marginRight: 4,
+    width: STYLE_CONSTANTS.EYE_ICON_WIDTH,
+    height: STYLE_CONSTANTS.EYE_ICON_HEIGHT,
+    marginRight: STYLE_CONSTANTS.EYE_ICON_MARGIN_RIGHT,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   watchText: {
@@ -72,11 +72,10 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.PRIMARY_TEXT,
   },
-  // Grid variant styles
   gridCard: {
     width: GRID_CARD_WIDTH,
     height: GRID_CARD_HEIGHT,
-    borderRadius: 8,
+    borderRadius: STYLE_CONSTANTS.GRID_BORDER_RADIUS,
     backgroundColor: COLORS.CARD_BACKGROUND,
     overflow: 'hidden',
   },
@@ -92,14 +91,14 @@ export const styles = StyleSheet.create({
   },
   gridWatchContainer: {
     position: 'absolute',
-    bottom: 8,
-    right: 8,
+    bottom: STYLE_CONSTANTS.WATCH_CONTAINER_BOTTOM_OFFSET,
+    right: STYLE_CONSTANTS.WATCH_CONTAINER_RIGHT_OFFSET,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.OVERLAY_BACKGROUND,
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-    borderRadius: 16,
+    paddingHorizontal: STYLE_CONSTANTS.WATCH_CONTAINER_PADDING_HORIZONTAL,
+    paddingVertical: STYLE_CONSTANTS.WATCH_CONTAINER_PADDING_VERTICAL,
+    borderRadius: STYLE_CONSTANTS.WATCH_CONTAINER_BORDER_RADIUS,
   },
 });
 

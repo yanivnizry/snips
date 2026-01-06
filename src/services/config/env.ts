@@ -1,23 +1,29 @@
-/**
- * Environment configuration
- * 
- * To use environment variables:
- * 1. Install: yarn add react-native-config
- * 2. Create .env file in project root with: API_BASE_URL=your_url
- * 3. For iOS: cd ios && pod install && cd ..
- * 4. Restart Metro bundler
- */
-
 let Config: {API_BASE_URL?: string} = {};
 
 try {
-  // Try to use react-native-config if available
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   Config = require('react-native-config').default || require('react-native-config');
 } catch {
-  // react-native-config not installed, will use fallback
+  // Ignore
 }
 
-export const API_BASE_URL =
-  Config.API_BASE_URL || process.env.API_BASE_URL;
+const getApiBaseUrl = (): string => {
+  const url = Config.API_BASE_URL || process.env.API_BASE_URL;
+  
+  if (!url || typeof url !== 'string' || url.trim() === '') {
+    throw new Error(
+      'API_BASE_URL is not configured. Please set API_BASE_URL in your .env file or environment variables.'
+    );
+  }
+
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    throw new Error(
+      'API_BASE_URL must be a valid URL starting with http:// or https://'
+    );
+  }
+
+  return url.trim();
+};
+
+export const API_BASE_URL = getApiBaseUrl();
 

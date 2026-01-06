@@ -13,8 +13,8 @@ const fetchApi = async <T>(endpoint: string): Promise<T> => {
 export const getHomePage = (): Promise<HomePageResponse> =>
   fetchApi<HomePageResponse>(API_ENDPOINTS.HOME_PAGE);
 
-export const getFeedPage = (): Promise<FeedPageResponse> =>
-  fetchApi<FeedPageResponse>(API_ENDPOINTS.FEED_PAGE);
+export const getFeedPage = (page: number = 1): Promise<FeedPageResponse> =>
+  fetchApi<FeedPageResponse>(`${API_ENDPOINTS.FEED_PAGE}?page=${page}`);
 
 export const apis = {
   getHomePage,
