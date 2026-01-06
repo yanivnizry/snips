@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING} from '@/services/constants/Constants';
+import {COLORS, SPACING, DIMENSIONS} from '@/services/constants/common';
 
-const CARD_WIDTH = 177;
-const CARD_HEIGHT = 236;
-const CARD_BORDER_RADIUS = 8;
+const CARD_WIDTH = DIMENSIONS.CARD.EXPLORE_MORE.WIDTH;
+const CARD_HEIGHT = DIMENSIONS.CARD.EXPLORE_MORE.HEIGHT;
+const CARD_BORDER_RADIUS = DIMENSIONS.CARD.EXPLORE_MORE.BORDER_RADIUS;
 
 export const styles = StyleSheet.create({
   card: {

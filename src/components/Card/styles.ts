@@ -1,21 +1,18 @@
-import {StyleSheet, Dimensions} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY, scaleWidth, scaleHeight} from '@/services/constants/Constants';
+import {StyleSheet} from 'react-native';
+import {COLORS, SPACING, TYPOGRAPHY, DIMENSIONS} from '@/services/constants/common';
 
-const CARD_BORDER_RADIUS = 8;
-const CARD_WIDTH = 160;
-const CARD_HEIGHT = 254;
-const CARD_GAP = 8;
-const IMAGE_WIDTH = 160;
-const IMAGE_HEIGHT = 213;
-const IMAGE_BORDER_RADIUS = 12;
+const CARD_BORDER_RADIUS = DIMENSIONS.CARD.REGULAR.BORDER_RADIUS;
+const CARD_WIDTH = DIMENSIONS.CARD.REGULAR.WIDTH;
+const CARD_HEIGHT = DIMENSIONS.CARD.REGULAR.HEIGHT;
+const CARD_GAP = DIMENSIONS.CARD.REGULAR.GAP;
+const IMAGE_WIDTH = DIMENSIONS.CARD.IMAGE.WIDTH;
+const IMAGE_HEIGHT = DIMENSIONS.CARD.IMAGE.HEIGHT;
+const IMAGE_BORDER_RADIUS = DIMENSIONS.CARD.IMAGE.BORDER_RADIUS;
 
-// Grid variant dimensions
-// Total width: 362px (2 columns + 8px gap)
-// Each column: (362 - 8) / 2 = 177px
-const GRID_CARD_WIDTH = 177;
-const GRID_CARD_HEIGHT = 236;
+const GRID_CARD_WIDTH = DIMENSIONS.CARD.GRID.WIDTH;
+const GRID_CARD_HEIGHT = DIMENSIONS.CARD.GRID.HEIGHT;
 const GRID_IMAGE_HEIGHT = GRID_CARD_HEIGHT;
-const GRID_GAP = 8;
+const GRID_GAP = DIMENSIONS.CARD.GRID.GAP;
 
 export const styles = StyleSheet.create({
   card: {

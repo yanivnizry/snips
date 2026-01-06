@@ -1,11 +1,12 @@
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 const DESIGN_WIDTH = 393;
 const DESIGN_HEIGHT = 852;
 
-const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
-
+export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
+export const isIPad = DEVICE_WIDTH >= 768;
 export const FEATURED_COUNT = 5;
+
 
 export const scaleWidth = (size: number): number => {
   return (size / DESIGN_WIDTH) * DEVICE_WIDTH;
@@ -15,8 +16,9 @@ export const scaleHeight = (size: number): number => {
   return (size / DESIGN_HEIGHT) * DEVICE_HEIGHT;
 };
 
-export const API_BASE_URL =
-  process.env.API_BASE_URL || 'https://snips-testing-data.s3.us-east-2.amazonaws.com';
+export const BOTTOM_TAB_BAR_HEIGHT = 60;
+
+export const API_BASE_URL = process.env.API_BASE_URL;
 
 export const API_ENDPOINTS = {
   HOME_PAGE: `${API_BASE_URL}/homePage.json`,
@@ -83,5 +85,57 @@ export const DIMENSIONS = {
     WIDTH: DEVICE_WIDTH,
     HEIGHT: DEVICE_HEIGHT,
   },
+  SCREEN: {
+    WIDTH: DEVICE_WIDTH,
+    HEIGHT: DEVICE_HEIGHT,
+  },
+  FEED: {
+    ASPECT_RATIO: 764 / 393,
+    ITEM_HEIGHT: Math.min((DEVICE_WIDTH * 764) / 393, DEVICE_HEIGHT),
+    IS_IPAD: DEVICE_WIDTH >= 768,
+  },
+  CARD: {
+    REGULAR: {
+      WIDTH: 160,
+      HEIGHT: 254,
+      BORDER_RADIUS: 8,
+      GAP: 8,
+    },
+    IMAGE: {
+      WIDTH: 160,
+      HEIGHT: 213,
+      BORDER_RADIUS: 12,
+    },
+    GRID: {
+      WIDTH: 177,
+      HEIGHT: 236,
+      BORDER_RADIUS: 8,
+      GAP: 8,
+    },
+    FEATURED: {
+      WIDTH: 235,
+      HEIGHT: 352,
+      BORDER_RADIUS: 12,
+    },
+    EXPLORE_MORE: {
+      WIDTH: 177,
+      HEIGHT: 236,
+      BORDER_RADIUS: 8,
+    },
+    FEED: {
+      BORDER_RADIUS: 0,
+      CONTENT_BOTTOM_OFFSET: 40,
+    },
+  },
+  SCROLL: {
+    ITEMS_TO_SCROLL: 3,
+    CARD_WIDTH: 160,
+    CARD_GAP: 8,
+  },
+} as const;
+
+export const SCROLL_CONSTANTS = {
+  ITEMS_TO_SCROLL: DIMENSIONS.SCROLL.ITEMS_TO_SCROLL,
+  SCROLL_OFFSET: (DIMENSIONS.SCROLL.CARD_WIDTH + DIMENSIONS.SCROLL.CARD_GAP) * DIMENSIONS.SCROLL.ITEMS_TO_SCROLL,
 } as const;
 

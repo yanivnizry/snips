@@ -5,17 +5,17 @@ import Card from '../../../../components/Card';
 import type {CategorySectionProps} from './types';
 import {styles} from './styles';
 import {useHorizontalScroll} from '../../hooks/useHorizontalScroll';
-
+import { Title } from '@/services/types/ApiTypes';
 const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToEnd}) => {
   const {listRef, handleScroll, handleContentSizeChange, handleLayout, handleArrowPress} =
     useHorizontalScroll();
 
   const renderItem = useCallback(
-    (title: any, index: number) => <Card title={title} componentType={component.componentType} />,
+    (title: Title, index: number) => <Card title={title} componentType={component.componentType} />,
     [component.componentType],
   );
 
-  const keyExtractor = useCallback((title: any) => title.id, []);
+  const keyExtractor = useCallback((title: Title) => title.id, []);
 
   return (
     <View style={styles.section}>
@@ -29,16 +29,18 @@ const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToE
           />
         </TouchableOpacity>
       </View>
-      <HorizontalList
-        ref={listRef}
-        data={component.titles}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        onScrollToEnd={onScrollToEnd}
-        onScroll={handleScroll}
-        onContentSizeChange={handleContentSizeChange}
-        onLayout={handleLayout}
-      />
+      {component.titles && component.titles.length > 0 && (
+        <HorizontalList
+          ref={listRef}
+          data={component.titles}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          onScrollToEnd={onScrollToEnd}
+          onScroll={handleScroll}
+          onContentSizeChange={handleContentSizeChange}
+          onLayout={handleLayout}
+        />
+      )}
     </View>
   );
 };

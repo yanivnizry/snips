@@ -6,9 +6,11 @@ export const useFeedPage = () => {
   return useQuery<FeedPageResponse>({
     queryKey: ['feedPage'],
     queryFn: getFeedPage,
-    staleTime: 2 * 60 * 1000, // 2 minutes
-    cacheTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 2 * 60 * 1000,
+    gcTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
+    refetchOnMount: true,
+    retry: 3,
   });
 };
 

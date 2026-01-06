@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, scaleWidth} from '@/services/constants/Constants';
+import {COLORS, SPACING, scaleWidth, DIMENSIONS} from '@/services/constants/common';
 
 export const styles = StyleSheet.create({
   container: {
@@ -28,8 +28,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    width: 362,
-    gap: 8,
+    width: DIMENSIONS.DEVICE.WIDTH - (DIMENSIONS.DEVICE.WIDTH % (DIMENSIONS.CARD.GRID.WIDTH + DIMENSIONS.CARD.GRID.GAP)),
+    gap: DIMENSIONS.CARD.GRID.GAP,
   },
   sectionTitle: {
     fontFamily: 'Poppins-SemiBold',
@@ -38,6 +38,7 @@ export const styles = StyleSheet.create({
     lineHeight: 28,
     letterSpacing: 0.2,
     color: COLORS.PRIMARY_TEXT,
+    marginBottom: SPACING.MD,
   },
   loadingContainer: {
     flex: 1,

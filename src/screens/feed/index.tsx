@@ -1,36 +1,37 @@
-import React, {useCallback, useMemo} from 'react';
-import {View, Text, FlatList, ActivityIndicator} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useFeedPage} from '@/services/queries/useFeedPage';
+import React, { useCallback, useMemo } from 'react';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFeedPage } from '@/services/queries/useFeedPage';
 import FeedItem from '@/screens/Feed/components/FeedItem';
-import type {FeedScreenProps} from './types';
-import {styles} from './styles';
-import {COLORS, DIMENSIONS} from '@/services/constants/Constants';
-import type {FeedItem as FeedItemType, FeedPageResponse} from '@/services/types/ApiTypes';
+import type { FeedScreenProps } from './types';
+import { styles } from './styles';
+import { COLORS } from '@/services/constants/common';
+import type { FeedItem as FeedItemType, FeedPageResponse } from '@/services/types/ApiTypes';
+import { DEVICE_WIDTH, DEVICE_HEIGHT, isIPad, BOTTOM_TAB_BAR_HEIGHT } from '@/services/constants/common';
 
 const Feed: React.FC<FeedScreenProps> = () => {
-  const {data, isLoading, isFetching, error} = useFeedPage();
+  const { data, isLoading, error } = useFeedPage();
+  const insets = useSafeAreaInsets();
+  const SCROLL_HEIGHT = DEVICE_HEIGHT - BOTTOM_TAB_BAR_HEIGHT - insets.bottom;
 
   const feedItems = useMemo(() => {
     return (data as FeedPageResponse | undefined)?.feedTitles || [];
   }, [data]);
 
-  const itemHeight = DIMENSIONS.FEED_ITEM.HEIGHT;
-
   const renderItem = useCallback(
-    ({item}: {item: FeedItemType}) => <FeedItem item={item} />,
+    ({ item }: { item: FeedItemType }) => <FeedItem item={item} />,
     [],
   );
 
   const keyExtractor = useCallback((item: FeedItemType) => item.id, []);
 
   const getItemLayout = useCallback(
-    (_: any, index: number) => ({
-      length: itemHeight,
-      offset: itemHeight * index,
+    (_: unknown, index: number) => ({
+      length: SCROLL_HEIGHT,
+      offset: SCROLL_HEIGHT * index,
       index,
     }),
-    [itemHeight],
+    [SCROLL_HEIGHT],
   );
 
   if (isLoading) {
@@ -60,10 +61,12 @@ const Feed: React.FC<FeedScreenProps> = () => {
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         getItemLayout={getItemLayout}
-        pagingEnabled={true}
-        snapToInterval={itemHeight}
+        pagingEnabled={!isIPad}
+        snapToInterval={SCROLL_HEIGHT}
         snapToAlignment="start"
-        decelerationRate="fast"
+        decelerationRate={0.92}
+        disableIntervalMomentum={false}
+        scrollEventThrottle={16}
         removeClippedSubviews={true}
         maxToRenderPerBatch={3}
         windowSize={5}

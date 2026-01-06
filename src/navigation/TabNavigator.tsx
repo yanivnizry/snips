@@ -1,15 +1,16 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Image, View, StyleSheet, Text} from 'react-native';
-import {useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image, View, StyleSheet, Text } from 'react-native';
+import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context';
 import Home from '@/screens/Home';
 import Feed from '@/screens/Feed';
-import type {RootTabParamList} from './NavigationTypes';
-import {COLORS, SPACING} from '@/services/constants/Constants';
+import type { RootTabParamList } from './NavigationTypes';
+import { COLORS, SPACING } from '@/services/constants/common';
+import styles from './styles';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
-const PlaceholderScreen: React.FC<{title: string}> = ({title}) => {
+const PlaceholderScreen: React.FC<{ title: string }> = ({ title }) => {
   return (
     <SafeAreaView edges={['top']} style={styles.placeholderContainer}>
       <Text style={styles.placeholderText}>{title}</Text>
@@ -44,14 +45,14 @@ const TabNavigator: React.FC = () => {
         component={Home}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <Image
               source={
                 focused
                   ? require('@/assets/images/home-fill.png')
                   : require('@/assets/images/home.png')
               }
-              style={[styles.icon, {tintColor: color}]}
+              style={[styles.icon, { tintColor: color }]}
               resizeMode="contain"
             />
           ),
@@ -62,14 +63,14 @@ const TabNavigator: React.FC = () => {
         component={Feed}
         options={{
           tabBarLabel: 'For you',
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <Image
               source={
                 focused
                   ? require('@/assets/images/shorts-fill.png')
                   : require('@/assets/images/shorts.png')
               }
-              style={[styles.icon, {tintColor: color}]}
+              style={[styles.icon, { tintColor: color }]}
               resizeMode="contain"
             />
           ),
@@ -79,10 +80,10 @@ const TabNavigator: React.FC = () => {
         name="Rewards"
         options={{
           tabBarLabel: 'Rewards',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Image
               source={require('@/assets/images/gift.png')}
-              style={[styles.icon, {tintColor: color}]}
+              style={[styles.icon, { tintColor: color }]}
               resizeMode="contain"
             />
           ),
@@ -93,10 +94,10 @@ const TabNavigator: React.FC = () => {
         name="Profile"
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Image
               source={require('@/assets/images/user.png')}
-              style={[styles.icon, {tintColor: color}]}
+              style={[styles.icon, { tintColor: color }]}
               resizeMode="contain"
             />
           ),
@@ -106,24 +107,6 @@ const TabNavigator: React.FC = () => {
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 24,
-    height: 24,
-  },
-  placeholderContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.BACKGROUND,
-  },
-  placeholderText: {
-    color: COLORS.PRIMARY_TEXT,
-    fontSize: 18,
-    fontWeight: '600',
-  },
-});
 
 export default TabNavigator;
 

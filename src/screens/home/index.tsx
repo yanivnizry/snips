@@ -10,20 +10,21 @@ import Card from '@/components/Card';
 import HorizontalList from '@/components/HorizontalList';
 import ExploreMoreCard from '@/components/ExploreMoreCard';
 import {styles} from './styles';
-import {COLORS, FEATURED_COUNT} from '@/services/constants/Constants';
+import {COLORS, FEATURED_COUNT} from '@/services/constants/common';
+import { Title } from '@/services/types/ApiTypes';
 
 const Home: React.FC = () => {
   const {data, isLoading, error} = useHomePage();
   const {featuredList, categoryList, moreList} = useHomeComponents(data);
 
   const renderFeaturedItem = useCallback(
-    (title: any, index: number) => (
+    (title: Title, index: number) => (
       <FeaturedCard title={title} rank={index + 1} showBadges={true} />
     ),
     [],
   );
 
-  const featuredKeyExtractor = useCallback((title: any) => title.id, []);
+  const featuredKeyExtractor = useCallback((title: Title) => title.id, []);
 
 
   if (isLoading) {
@@ -56,7 +57,7 @@ const Home: React.FC = () => {
           style={styles.content}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: 40}}>
-        {featuredList && (
+        {featuredList && featuredList.titles && featuredList.titles.length > 0 && (
           <View style={styles.featuredSection}>
             <HorizontalList
               data={featuredList.titles.slice(0, FEATURED_COUNT)}
@@ -70,7 +71,7 @@ const Home: React.FC = () => {
           <CategorySection key={component.id} component={component} />
         ))}
 
-        {moreList && (
+        {moreList && moreList.titles && moreList.titles.length > 0 && (
           <View style={styles.gridSection}>
             <Text style={styles.sectionTitle}>More to watch</Text>
             <View style={styles.gridContainer}>

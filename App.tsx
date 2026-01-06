@@ -1,18 +1,8 @@
 import React from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {QueryClientProvider} from '@tanstack/react-query';
 import NavigationContainer from './src/navigation/NavigationContainer';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 2 * 60 * 1000,
-      refetchOnWindowFocus: false,
-      retry: 3,
-      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-    },
-  },
-});
+import {queryClient} from './src/services/queries/queryClient';
 
 const App = (): React.JSX.Element => {
   return (

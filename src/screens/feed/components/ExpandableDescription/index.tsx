@@ -9,6 +9,10 @@ const ExpandableDescription: React.FC<ExpandableDescriptionProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  if (!description) {
+    return null;
+  }
+
   const shouldTruncate = description.length > maxLength;
   const displayText = isExpanded || !shouldTruncate ? description : `${description.slice(0, maxLength)}...`;
 

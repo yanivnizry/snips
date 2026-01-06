@@ -1,5 +1,5 @@
 import {axiosClient} from './AxiosClient';
-import {API_ENDPOINTS} from '../constants/Constants';
+import {API_ENDPOINTS} from '../constants/common';
 import type {
   HomePageResponse,
   FeedPageResponse,

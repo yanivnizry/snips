@@ -16,9 +16,9 @@ const Card: React.FC<CardProps> = ({ title, componentType }) => {
       <Image source={{ uri: title.posterUrl }} style={imageStyle} resizeMode="cover" />
       {!isGrid && (
         <View style={contentStyle}>
-          {title.genres.length > 0 && (
+          {title?.genres?.length > 0 && (
             <Text style={styles.subtitle} numberOfLines={1}>
-              {title.genres.join(' ')}
+              {title?.genres?.join(' ')}
             </Text>
           )}
           <Text style={styles.title} numberOfLines={2}>
@@ -26,14 +26,16 @@ const Card: React.FC<CardProps> = ({ title, componentType }) => {
           </Text>
         </View>
       )}
-      <View style={watchContainerStyle}>
-        <Image
-          source={require('@/assets/images/eye.png')}
-          style={styles.eyeIcon}
-          resizeMode="contain"
-        />
-        <Text style={styles.watchText}>{formatWatchCount(title.snipsCount)}</Text>
-      </View>
+      {title?.snipsCount > 0 && (
+        <View style={watchContainerStyle}>
+          <Image
+            source={require('@/assets/images/eye.png')}
+            style={styles.eyeIcon}
+            resizeMode="contain"
+          />
+          <Text style={styles.watchText}>{formatWatchCount(title.snipsCount)}</Text>
+        </View>
+      )}
     </View>
   );
 };
