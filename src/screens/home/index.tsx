@@ -95,7 +95,7 @@ const Home: React.FC = () => {
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <LinearGradient
-        colors={['rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0)']}
+        colors={[COLORS.GRADIENT_START, COLORS.GRADIENT_END]}
         locations={[0, 1]}
         style={styles.gradient}>
         <FlatList

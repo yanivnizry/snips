@@ -28,8 +28,9 @@ export const getHomePage = (): Promise<HomePageResponse> =>
  * @param page - The page number to fetch (default: 1)
  * @returns Promise resolving to FeedPageResponse
  */
-export const getFeedPage = (page: number = 1): Promise<FeedPageResponse> =>
-  fetchApi<FeedPageResponse>(`${API_ENDPOINTS.FEED_PAGE}?page=${page}`);
+export const getFeedPage = (page: number = 1): Promise<FeedPageResponse> => {
+  return fetchApi<FeedPageResponse>(`${API_ENDPOINTS.FEED_PAGE}?page=${page}`);
+};
 
 export const apis = {
   getHomePage,
