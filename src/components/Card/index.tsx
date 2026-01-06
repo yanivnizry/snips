@@ -46,5 +46,10 @@ const Card: React.FC<CardProps> = ({title, componentType}) => {
   );
 };
 
-export default React.memo(Card);
+export default React.memo(
+  Card,
+  (prevProps, nextProps) =>
+    prevProps.title.id === nextProps.title.id &&
+    prevProps.componentType === nextProps.componentType,
+);
 

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text } from 'react-native';
 import HorizontalList from '@/components/HorizontalList';
 import CategorySection from '@/screens/Home/components/CategorySection';
 import Card from '@/components/Card';
 import ExploreMoreCard from '@/components/ExploreMoreCard';
 import { styles } from '../../styles';
-import { FEATURED_COUNT } from '@/services/constants/common';
+import { FEATURED_COUNT, DIMENSIONS } from '@/services/constants/common';
 import type { Component, Title } from '@/services/types/ApiTypes';
 import type { HomeListItemProps } from './types';
 
@@ -16,6 +16,10 @@ const HomeListItem: React.FC<HomeListItemProps> = ({
   featuredKeyExtractor,
   setCategoryListRef,
 }) => {
+  const featuredItemWidth = useMemo(() => {
+    return DIMENSIONS.CARD.FEATURED.WIDTH + DIMENSIONS.CARD.REGULAR.GAP;
+  }, []);
+
   switch (item.type) {
     case 'featured':
       return (
@@ -25,6 +29,7 @@ const HomeListItem: React.FC<HomeListItemProps> = ({
             data={item.component.titles.slice(0, FEATURED_COUNT)}
             renderItem={renderFeaturedItem}
             keyExtractor={featuredKeyExtractor}
+            itemWidth={featuredItemWidth}
           />
         </View>
       );

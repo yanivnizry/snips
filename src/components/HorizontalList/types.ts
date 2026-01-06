@@ -11,4 +11,5 @@ export interface HorizontalListProps {
   readonly onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   readonly onContentSizeChange?: (width: number, height: number) => void;
   readonly onLayout?: (event: LayoutChangeEvent) => void;
+  readonly itemWidth?: number;
 }

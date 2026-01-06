@@ -47,7 +47,7 @@ const SnipsImage: React.FC<SnipsImageProps> = ({
       ) : (
         <Image
           source={source}
-          style={style}
+          style={StyleSheet.absoluteFill}
           resizeMode={resizeMode}
           onLoad={handleImageLoad}
           onError={handleImageError}
@@ -58,5 +58,23 @@ const SnipsImage: React.FC<SnipsImageProps> = ({
   );
 };
 
-export default React.memo(SnipsImage);
+export default React.memo(
+  SnipsImage,
+  (prevProps, nextProps) => {
+    const prevSource = typeof prevProps.source === 'object' && 'uri' in prevProps.source
+      ? prevProps.source.uri
+      : prevProps.source;
+    const nextSource = typeof nextProps.source === 'object' && 'uri' in nextProps.source
+      ? nextProps.source.uri
+      : nextProps.source;
+    
+    return (
+      prevSource === nextSource &&
+      prevProps.resizeMode === nextProps.resizeMode &&
+      prevProps.placeholderText === nextProps.placeholderText &&
+      prevProps.loadingIndicatorSize === nextProps.loadingIndicatorSize &&
+      prevProps.showLoadingIndicator === nextProps.showLoadingIndicator
+    );
+  },
+);
 

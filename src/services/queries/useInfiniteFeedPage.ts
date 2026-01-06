@@ -7,11 +7,6 @@ interface InfiniteFeedPageData {
   readonly pageParams: readonly (number | undefined)[];
 }
 
-/**
- * React Query hook for infinite scrolling feed page data
- * Handles pagination automatically and provides methods to load more pages
- * @returns Infinite query result with paginated feed data, loading states, and pagination controls
- */
 export const useInfiniteFeedPage = () => {
   return useInfiniteQuery<FeedPageResponse, Error, InfiniteFeedPageData, readonly ['feedPage', 'infinite'], number>({
     queryKey: ['feedPage', 'infinite'],

@@ -19,7 +19,7 @@ export const useHorizontalScroll = (options?: UseHorizontalScrollOptions) => {
 
   const combinedRef = useCallback((ref: FlatList | null) => {
     if (listRef && 'current' in listRef) {
-      (listRef as React.MutableRefObject<FlatList | null>).current = ref;
+      (listRef as { current: FlatList | null }).current = ref;
     }
     if (externalRefCallbackRef.current) {
       externalRefCallbackRef.current(ref);

@@ -1,4 +1,4 @@
-import React, {forwardRef, useCallback} from 'react';
+import React, {forwardRef, useCallback, useMemo} from 'react';
 import {FlatList, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent} from 'react-native';
 import {styles} from './styles';
 import type {HorizontalListProps} from './types';
@@ -15,6 +15,7 @@ const HorizontalList = forwardRef<FlatList, HorizontalListProps>(
       onScroll,
       onContentSizeChange,
       onLayout,
+      itemWidth,
     }: HorizontalListProps,
     ref,
   ) => {
@@ -47,12 +48,24 @@ const HorizontalList = forwardRef<FlatList, HorizontalListProps>(
       [renderItem],
     );
 
+    const getItemLayout = useMemo(() => {
+      if (!itemWidth) {
+        return undefined;
+      }
+      return (_: unknown, index: number) => ({
+        length: itemWidth,
+        offset: itemWidth * index,
+        index,
+      });
+    }, [itemWidth]);
+
     return (
       <FlatList
         ref={ref}
         data={data}
         renderItem={memoizedRenderItem}
         keyExtractor={keyExtractor}
+        getItemLayout={getItemLayout}
         horizontal={true}
         scrollEnabled={scrollEnabled}
         showsHorizontalScrollIndicator={false}

@@ -127,7 +127,7 @@ export const DIMENSIONS = {
     },
   },
   SCROLL: {
-    ITEMS_TO_SCROLL: 3,
+    ITEMS_TO_SCROLL: 2,
     CARD_WIDTH: 160,
     CARD_GAP: 8,
   },
