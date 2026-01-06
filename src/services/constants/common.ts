@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+import {API_BASE_URL} from '../config/env';
 
 const DESIGN_WIDTH = 393;
 const DESIGN_HEIGHT = 852;
@@ -17,8 +18,6 @@ export const scaleHeight = (size: number): number => {
 };
 
 export const BOTTOM_TAB_BAR_HEIGHT = 60;
-
-export const API_BASE_URL = process.env.API_BASE_URL;
 
 export const API_ENDPOINTS = {
   HOME_PAGE: `${API_BASE_URL}/homePage.json`,

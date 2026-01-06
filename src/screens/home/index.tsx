@@ -67,8 +67,11 @@ const Home: React.FC = () => {
           </View>
         )}
 
-        {categoryList.map(component => (
-          <CategorySection key={component.id} component={component} />
+        {categoryList.map((component, index) => (
+          <CategorySection 
+            key={component.id ? `${component.id}-${component.titles[0]?.id}` : `category-${index}`} 
+            component={component} 
+          />
         ))}
 
         {moreList && moreList.titles && moreList.titles.length > 0 && (

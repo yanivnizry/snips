@@ -11,14 +11,17 @@ interface RankNumberProps {
 const RankNumber: React.FC<RankNumberProps> = ({rank}) => {
   return (
     <View style={styles.rankOverlay}>
-    <MaskedView
-      maskElement={<Text style={styles.rankText}>{rank}</Text>}
-      style={styles.rankGradient}>
-      <LinearGradient
-        colors={['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.2)']}
-            style={styles.rankGradient}
-      />
-    </MaskedView>
+      <MaskedView
+        maskElement={<Text style={styles.rankText}>{rank}</Text>}
+        style={styles.rankGradient}>
+        <LinearGradient
+          colors={['rgba(255, 255, 255, 0.7)', 'rgba(255, 255, 255, 0.5)']}
+          locations={[0.042, 0.9897]}
+          start={{x: 0.5, y: 0}}
+          end={{x: 0.5, y: 1}}
+          style={styles.rankGradient}
+        />
+      </MaskedView>
     </View>
   );
 };
