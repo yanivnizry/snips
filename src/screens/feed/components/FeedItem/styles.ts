@@ -1,11 +1,8 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY, scaleWidth, scaleHeight, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
+import {COLORS, SPACING, scaleWidth, scaleHeight, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
 
 const SCREEN_WIDTH = DIMENSIONS.SCREEN.WIDTH;
-const SCREEN_HEIGHT = DIMENSIONS.SCREEN.HEIGHT;
 const CARD_WIDTH = SCREEN_WIDTH;
-const CARD_BORDER_RADIUS = DIMENSIONS.CARD.FEED.BORDER_RADIUS;
-
 const CARD_HEIGHT = DIMENSIONS.FEED.ITEM_HEIGHT;
 const CONTENT_BOTTOM_OFFSET = scaleHeight(DIMENSIONS.CARD.FEED.CONTENT_BOTTOM_OFFSET);
 
@@ -32,7 +29,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: `rgba(0, 0, 0, ${STYLE_CONSTANTS.OVERLAY_OPACITY})`,
+    backgroundColor: COLORS.OVERLAY_DARK,
     zIndex: 2,
     elevation: 2,
   },
@@ -85,7 +82,7 @@ export const styles = StyleSheet.create({
     height: scaleHeight(279),
     zIndex: 3,
     elevation: 3,
-    backgroundColor: 'transparent',
+    backgroundColor: COLORS.TRANSPARENT,
     overflow: 'visible',
   },
   contentRow: {

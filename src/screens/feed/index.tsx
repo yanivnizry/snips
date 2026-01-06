@@ -27,8 +27,8 @@ const Feed: React.FC<FeedScreenProps> = () => {
   }, [data]);
 
   const renderItem = useCallback(
-    ({ item }: { item: FeedItemType }) => <FeedItem item={item} />,
-    [],
+    ({ item }: { item: FeedItemType }) => <FeedItem item={item} scrollHeight={SCROLL_HEIGHT} />,
+    [SCROLL_HEIGHT],
   );
 
   const keyExtractor = useCallback((item: FeedItemType) => item.id, []);

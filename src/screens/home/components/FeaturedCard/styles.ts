@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: `rgba(0, 0, 0, ${STYLE_CONSTANTS.OVERLAY_OPACITY})`,
+    backgroundColor: COLORS.OVERLAY_DARK,
   },
   content: {
     position: 'absolute',
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     lineHeight: STYLE_CONSTANTS.RANK_TEXT_LINE_HEIGHT,
     letterSpacing: 0,
     textAlign: 'right',
-    color: 'white',
+    color: COLORS.WHITE,
     includeFontPadding: false,
     textAlignVertical: 'bottom',
     paddingTop: 0,

@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     width: CARD_WIDTH,
     height: CARD_HEIGHT,
     borderRadius: CARD_BORDER_RADIUS,
-    backgroundColor: '#FFFFFF1A',
+    backgroundColor: COLORS.WHITE_OPACITY_10,
     justifyContent: 'center',
     alignItems: 'center',
   },
