@@ -1,12 +1,30 @@
 import { SCROLL_CONSTANTS } from '@/services/constants/common';
-import { useRef, useCallback, useState } from 'react';
+import { useRef, useCallback, useState, useEffect } from 'react';
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from 'react-native';
 
-export const useHorizontalScroll = () => {
+interface UseHorizontalScrollOptions {
+  externalRefCallback?: (ref: FlatList | null) => void;
+}
+
+export const useHorizontalScroll = (options?: UseHorizontalScrollOptions) => {
   const listRef = useRef<FlatList>(null);
+  const externalRefCallbackRef = useRef(options?.externalRefCallback);
   const [scrollOffset, setScrollOffset] = useState(0);
   const [contentWidth, setContentWidth] = useState(0);
   const [layoutWidth, setLayoutWidth] = useState(0);
+
+  useEffect(() => {
+    externalRefCallbackRef.current = options?.externalRefCallback;
+  }, [options?.externalRefCallback]);
+
+  const combinedRef = useCallback((ref: FlatList | null) => {
+    if (listRef && 'current' in listRef) {
+      (listRef as React.MutableRefObject<FlatList | null>).current = ref;
+    }
+    if (externalRefCallbackRef.current) {
+      externalRefCallbackRef.current(ref);
+    }
+  }, []);
 
   const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     setScrollOffset(event.nativeEvent.contentOffset.x);
@@ -38,7 +56,7 @@ export const useHorizontalScroll = () => {
   }, [scrollOffset, contentWidth, layoutWidth]);
 
   return {
-    listRef,
+    listRef: combinedRef,
     handleScroll,
     handleContentSizeChange,
     handleLayout,

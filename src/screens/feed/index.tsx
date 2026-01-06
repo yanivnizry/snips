@@ -91,20 +91,12 @@ const Feed: React.FC<FeedScreenProps> = () => {
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}
         pagingEnabled={!isIPad}
-        snapToInterval={SCROLL_HEIGHT}
-        snapToAlignment="start"
-        decelerationRate={0.92}
-        disableIntervalMomentum={false}
-        scrollEventThrottle={16}
+        decelerationRate={0.88}
         removeClippedSubviews={true}
-        maxToRenderPerBatch={2}
-        windowSize={3}
-        initialNumToRender={2}
-        updateCellsBatchingPeriod={50}
+        maxToRenderPerBatch={1}
+        windowSize={2}
+        initialNumToRender={1}
         showsVerticalScrollIndicator={false}
-        maintainVisibleContentPosition={{
-          minIndexForVisible: 0,
-        }}
       />
     </SafeAreaView>
   );

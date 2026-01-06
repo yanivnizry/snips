@@ -46,5 +46,5 @@ const SideIcons: React.FC<SideIconsProps> = ({item}) => {
   );
 };
 
-export default SideIcons;
+export default React.memo(SideIcons);
 

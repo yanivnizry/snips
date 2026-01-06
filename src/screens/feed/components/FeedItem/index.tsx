@@ -11,10 +11,11 @@ import SnipsImage from '@/components/SnipsImage';
 const FeedItem: React.FC<FeedItemProps> = ({item}) => {
   const insets = useSafeAreaInsets();
   const availableHeight = DEVICE_HEIGHT - (BOTTOM_TAB_BAR_HEIGHT + insets.bottom);
-  const cardHeight = Math.min(DEVICE_WIDTH * DIMENSIONS.FEED.ASPECT_RATIO, availableHeight);
+  // Use exact availableHeight to match FlatList's SCROLL_HEIGHT for perfect snapping
+  const cardHeight = availableHeight;
 
   return (
-    <View style={[styles.card, {height: cardHeight}]}>
+    <View style={[styles.card, {height: cardHeight, overflow: 'hidden'}]}>
       <SnipsImage
         source={{uri: item.poster_url}}
         style={[styles.image, {height: cardHeight}]}

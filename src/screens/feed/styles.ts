@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.BACKGROUND,
+    overflow: 'hidden',
   },
   loadingContainer: {
     flex: 1,

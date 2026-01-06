@@ -22,7 +22,7 @@ export const BOTTOM_TAB_BAR_HEIGHT = 60;
 export const API_ENDPOINTS = {
   HOME_PAGE: `${API_BASE_URL}/homePage.json`,
   FEED_PAGE: `${API_BASE_URL}/FeedPage1.json`,
-} as const;
+};
 
 export const COLORS = {
   BACKGROUND: '#0E0E0E',
@@ -32,7 +32,7 @@ export const COLORS = {
   CARD_BACKGROUND: '#0E0E0ECC',
   OVERLAY_BACKGROUND: '#0E0E0E33',
   WHITE: '#FFFFFF',
-} as const;
+};
 
 export const SPACING = {
   BASE: 16,
@@ -42,34 +42,34 @@ export const SPACING = {
   LG: 24,
   XL: 32,
   XXL: 48,
-} as const;
+};
 
 export const TYPOGRAPHY = {
   CARD_TITLE: {
     fontFamily: 'Inter',
-    fontWeight: '600' as const,
+    fontWeight: '600',
     fontSize: 20,
     lineHeight: 28,
     letterSpacing: 0.01,
   },
   CARD_SUBTITLE: {
     fontFamily: 'Inter',
-    fontWeight: '400' as const,
+    fontWeight: '400',
     fontSize: 11,
     lineHeight: 11,
     letterSpacing: 0,
-    textTransform: 'uppercase' as const,
+    textTransform: 'uppercase',
   },
   LABEL: {
     fontFamily: 'Inter',
-    fontWeight: '700' as const,
+    fontWeight: '700',
     fontSize: 11,
     lineHeight: 11,
     letterSpacing: 0,
-    textAlign: 'center' as const,
-    textTransform: 'uppercase' as const,
+    textAlign: 'center',
+    textTransform: 'uppercase',
   },
-} as const;
+};
 
 export const DIMENSIONS = {
   FEED_ITEM: {
@@ -131,12 +131,12 @@ export const DIMENSIONS = {
     CARD_WIDTH: 160,
     CARD_GAP: 8,
   },
-} as const;
+};
 
 export const SCROLL_CONSTANTS = {
   ITEMS_TO_SCROLL: DIMENSIONS.SCROLL.ITEMS_TO_SCROLL,
   SCROLL_OFFSET: (DIMENSIONS.SCROLL.CARD_WIDTH + DIMENSIONS.SCROLL.CARD_GAP) * DIMENSIONS.SCROLL.ITEMS_TO_SCROLL,
-} as const;
+};
 
 export const STYLE_CONSTANTS = {
   GRID_PADDING_LEFT: 20,
@@ -144,7 +144,7 @@ export const STYLE_CONSTANTS = {
   SECTION_TITLE_FONT_SIZE: 20,
   SECTION_TITLE_LINE_HEIGHT: 28,
   SECTION_TITLE_LETTER_SPACING: 0.2,
-  SECTION_TITLE_FONT_WEIGHT: '600' as const,
+  SECTION_TITLE_FONT_WEIGHT: '600',
   ERROR_TEXT_FONT_SIZE: 16,
   OVERLAY_OPACITY: 0.4,
   FEATURED_CARD_CONTENT_BOTTOM: -10,
@@ -154,7 +154,7 @@ export const STYLE_CONSTANTS = {
   RANK_GRADIENT_HEIGHT: 180,
   RANK_TEXT_FONT_SIZE: 146.47,
   RANK_TEXT_LINE_HEIGHT: 220,
-  RANK_TEXT_FONT_WEIGHT: '800' as const,
+  RANK_TEXT_FONT_WEIGHT: '800',
   BADGE_PADDING_VERTICAL: 2,
   BADGE_BORDER_RADIUS: 4,
   BADGE_FONT_SIZE: 9,
@@ -190,7 +190,7 @@ export const STYLE_CONSTANTS = {
   FEED_TITLE_FONT_SIZE: 20,
   FEED_TITLE_LINE_HEIGHT: 28,
   FEED_TITLE_LETTER_SPACING: 0.2,
-  FEED_TITLE_FONT_WEIGHT: '600' as const,
+  FEED_TITLE_FONT_WEIGHT: '600',
   FEED_WATCH_BUTTON_WIDTH: 301,
   FEED_WATCH_BUTTON_HEIGHT: 44,
   FEED_WATCH_BUTTON_BORDER_RADIUS: 16,
@@ -201,7 +201,7 @@ export const STYLE_CONSTANTS = {
   FEED_WATCH_BUTTON_GAP: 4,
   FEED_PLAY_ICON_SIZE: 16,
   FEED_WATCH_TEXT_FONT_SIZE: 14,
-  FEED_WATCH_TEXT_FONT_WEIGHT: '600' as const,
+  FEED_WATCH_TEXT_FONT_WEIGHT: '600',
   FEED_SHARE_BUTTON_SIZE: 40,
   FEED_SHARE_ICON_FONT_SIZE: 24,
   FEED_MORE_ICON_SIZE: 24,
@@ -209,8 +209,8 @@ export const STYLE_CONSTANTS = {
   FEED_MORE_DOT_SIZE: 4,
   FEED_MORE_DOT_BORDER_RADIUS: 2,
   TAB_BAR_FONT_SIZE: 10,
-  TAB_BAR_FONT_WEIGHT: '500' as const,
+  TAB_BAR_FONT_WEIGHT: '500',
   TAB_BAR_HEIGHT: 60,
   TAB_BAR_BORDER_WIDTH: 1,
-} as const;
+};
 

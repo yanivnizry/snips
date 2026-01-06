@@ -6,9 +6,10 @@ import type {CategorySectionProps} from './types';
 import {styles} from './styles';
 import {useHorizontalScroll} from '../../hooks/useHorizontalScroll';
 import { Title } from '@/services/types/ApiTypes';
-const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToEnd}) => {
+
+const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToEnd, listRef: externalListRef}) => {
   const {listRef, handleScroll, handleContentSizeChange, handleLayout, handleArrowPress} =
-    useHorizontalScroll();
+    useHorizontalScroll({ externalRefCallback: externalListRef });
 
   const renderItem = useCallback(
     (title: Title, index: number) => <Card title={title} componentType={component.componentType} />,
