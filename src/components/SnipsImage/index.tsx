@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {View, Text, Image, ActivityIndicator, StyleSheet} from 'react-native';
-import type {SnipsImageProps} from './types';
-import {styles} from './styles';
-import {COLORS} from '@/services/constants/common';
+import React, { useState } from 'react';
+import { View, Text, Image, ActivityIndicator, StyleSheet } from 'react-native';
+import type { SnipsImageProps } from './types';
+import { styles } from './styles';
+import { COLORS } from '@/services/constants/common';
 
 const SnipsImage: React.FC<SnipsImageProps> = ({
   source,
@@ -67,14 +67,8 @@ export default React.memo(
     const nextSource = typeof nextProps.source === 'object' && 'uri' in nextProps.source
       ? nextProps.source.uri
       : nextProps.source;
-    
-    return (
-      prevSource === nextSource &&
-      prevProps.resizeMode === nextProps.resizeMode &&
-      prevProps.placeholderText === nextProps.placeholderText &&
-      prevProps.loadingIndicatorSize === nextProps.loadingIndicatorSize &&
-      prevProps.showLoadingIndicator === nextProps.showLoadingIndicator
-    );
+
+    return prevSource === nextSource;
   },
 );
 

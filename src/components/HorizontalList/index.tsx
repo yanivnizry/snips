@@ -78,9 +78,9 @@ const HorizontalList = forwardRef<FlatList, HorizontalListProps>(
         scrollEventThrottle={16}
         contentContainerStyle={styles.horizontalList}
         removeClippedSubviews={true}
-        maxToRenderPerBatch={9}
-        windowSize={9}
-        initialNumToRender={3}
+        maxToRenderPerBatch={4}
+        windowSize={8}
+        initialNumToRender={4}
         updateCellsBatchingPeriod={50}
       />
     );

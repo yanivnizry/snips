@@ -1,6 +1,6 @@
-import {useInfiniteQuery} from '@tanstack/react-query';
-import {getFeedPage} from '../apis/Apis';
-import type {FeedPageResponse} from '../types/ApiTypes';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { getFeedPage } from '../apis/Apis';
+import type { FeedPageResponse } from '../types/ApiTypes';
 
 interface InfiniteFeedPageData {
   readonly pages: readonly FeedPageResponse[];
@@ -10,9 +10,10 @@ interface InfiniteFeedPageData {
 export const useInfiniteFeedPage = () => {
   return useInfiniteQuery<FeedPageResponse, Error, InfiniteFeedPageData, readonly ['feedPage', 'infinite'], number>({
     queryKey: ['feedPage', 'infinite'],
-    queryFn: ({pageParam}) => getFeedPage(pageParam),
+    queryFn: ({ pageParam }) => getFeedPage(pageParam),
     getNextPageParam: (lastPage: FeedPageResponse) => {
-      if (lastPage.nextPage && lastPage.nextPage <= lastPage.totalPages) {
+      console.log('lastPage', lastPage);
+      if (lastPage.nextPage > lastPage.currentPage) {
         return lastPage.nextPage;
       }
       return undefined;

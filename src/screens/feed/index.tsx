@@ -95,8 +95,10 @@ const Feed: React.FC<FeedScreenProps> = () => {
         removeClippedSubviews={true}
         maxToRenderPerBatch={1}
         windowSize={2}
+        snapToInterval={SCROLL_HEIGHT}
         initialNumToRender={1}
         showsVerticalScrollIndicator={false}
+        snapToAlignment="start"
       />
     </SafeAreaView>
   );
