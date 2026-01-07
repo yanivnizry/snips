@@ -1,0 +1,1 @@
+export type FeedScreenProps = Record<string, never>;   
