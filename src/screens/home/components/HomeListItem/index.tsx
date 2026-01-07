@@ -6,7 +6,6 @@ import Card from '@/components/Card';
 import ExploreMoreCard from '@/components/ExploreMoreCard';
 import { styles } from '../../styles';
 import { FEATURED_COUNT, DIMENSIONS } from '@/services/constants/common';
-import type { Component, Title } from '@/services/types/ApiTypes';
 import type { HomeListItemProps } from './types';
 
 const HomeListItem: React.FC<HomeListItemProps> = ({
@@ -16,10 +15,6 @@ const HomeListItem: React.FC<HomeListItemProps> = ({
   featuredKeyExtractor,
   setCategoryListRef,
 }) => {
-  const featuredItemWidth = useMemo(() => {
-    return DIMENSIONS.CARD.FEATURED.WIDTH + DIMENSIONS.CARD.REGULAR.GAP;
-  }, []);
-
   switch (item.type) {
     case 'featured':
       return (
@@ -29,7 +24,7 @@ const HomeListItem: React.FC<HomeListItemProps> = ({
             data={item.component.titles.slice(0, FEATURED_COUNT)}
             renderItem={renderFeaturedItem}
             keyExtractor={featuredKeyExtractor}
-            itemWidth={featuredItemWidth}
+            itemWidth={DIMENSIONS.CARD.FEATURED.WIDTH + DIMENSIONS.CARD.REGULAR.GAP}
           />
         </View>
       );
@@ -63,5 +58,5 @@ const HomeListItem: React.FC<HomeListItemProps> = ({
   }
 };
 
-export default HomeListItem;
+export default React.memo(HomeListItem, (prevProps, nextProps) => prevProps.item.type === nextProps.item.type && prevProps.item.component.id === nextProps.item.component.id);
 

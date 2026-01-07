@@ -18,14 +18,28 @@ export const useHomeComponents = (data: HomePageResponse | undefined): UseHomeCo
     }
 
     const components = data.data.components;
-    const featuredList = components.find(c => c.componentType === 'LARGE_COVERS');
-    const categoryList = components.filter(c => c.componentType === 'REGULAR_COVERS');
-    const moreList = components.find(c => c.componentType === 'MORE_TITLES');
+    let featuredList: Component | null = null;
+    const categoryList: Component[] = [];
+    let moreList: Component | null = null;
+
+    for (const component of components) {
+      switch (component.componentType) {
+        case 'LARGE_COVERS':
+          featuredList = component;
+          break;
+        case 'REGULAR_COVERS':
+          categoryList.push(component);
+          break;
+        case 'MORE_TITLES':
+          moreList = component;
+          break;
+      }
+    }
 
     return {
-      featuredList: featuredList || null,
-      categoryList: categoryList || [],
-      moreList: moreList || null,
+      featuredList,
+      categoryList,
+      moreList
     };
   }, [data]);
 };

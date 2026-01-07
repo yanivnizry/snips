@@ -91,14 +91,15 @@ const Feed: React.FC<FeedScreenProps> = () => {
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}
         pagingEnabled={!isIPad}
-        decelerationRate={0.88}
+        decelerationRate="fast"
         removeClippedSubviews={true}
         maxToRenderPerBatch={1}
         windowSize={2}
         snapToInterval={SCROLL_HEIGHT}
+        disableIntervalMomentum={true}
         initialNumToRender={1}
         showsVerticalScrollIndicator={false}
-        snapToAlignment="start"
+        scrollEventThrottle={16}
       />
     </SafeAreaView>
   );
