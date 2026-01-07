@@ -226,7 +226,10 @@ The Feed screen implements several performance optimizations for smooth scrollin
 - windowSize: 2 viewport heights (minimal window for memory efficiency)
 - initialNumToRender: 1 item initially (fast initial render)
 - pagingEnabled: Enabled for snap-to-item scrolling (disabled on iPad)
-- decelerationRate: 0.88 for smooth deceleration
+- decelerationRate: "fast" for quicker scroll response
+- snapToInterval: Snaps to each item height for precise item alignment
+- disableIntervalMomentum: Prevents scrolling past snap points
+- scrollEventThrottle: 16ms for smooth 60fps scroll events
 ```
 
 ### HorizontalList Optimizations
@@ -245,9 +248,14 @@ Horizontal lists (featured content, categories) are optimized with:
 ### Component Memoization
 - **FeedItem**: Memoized with custom comparison function (compares by `item.id` and `scrollHeight`)
 - **Card**: Memoized with comparison function (compares by `title.id` and `componentType`)
-- **SnipsImage**: Memoized with prop comparison (compares by `source`, `resizeMode`, etc.)
+- **SnipsImage**: Memoized with prop comparison (compares by `source` URI)
 - **ExpandableDescription**: Memoized to prevent re-renders during text expansion
 - **SideIcons**: Memoized to prevent unnecessary re-renders
+
+### Animation Optimizations
+- **ExpandableDescription**: Fast 150ms animation duration for responsive text expansion
+- Uses `LayoutAnimation` for smooth height transitions
+- Optimized animation timing for better user experience
 
 ### Callback Optimization
 - All event handlers wrapped in `useCallback` to maintain referential equality
@@ -266,6 +274,7 @@ Horizontal lists (featured content, categories) are optimized with:
   - Error state handling with fallback UI
   - Proper image caching through React Native's Image component
   - Absolute fill positioning for proper container filling
+  - ResizeMode prop support for image scaling behavior
 
 ## API Endpoints
 
@@ -288,7 +297,7 @@ The API base URL is configured via environment variables (`.env` file or system 
    - Returns: Paginated feed items with metadata
    - Hooks: 
      - `useFeedPage()`: Single page query
-     - `useInfiniteFeedPage()`: Infinite scroll with pagination (loops back to page 1 when reaching the end)
+     - `useInfiniteFeedPage()`: Infinite scroll with pagination (stops when no more pages available)
 
 ### API Response Structure
 All API responses are typed in `src/services/types/ApiTypes.ts` for type safety.
@@ -362,7 +371,7 @@ All API responses are typed in `src/services/types/ApiTypes.ts` for type safety.
 4. **Data Structure**: 
    - API responses follow the expected structure defined in `ApiTypes.ts`
    - Feed pagination uses page-based pagination (not cursor-based)
-   - Infinite scroll loops back to first page when reaching the end
+   - Infinite scroll stops when `nextPage` exceeds `totalPages` (no looping)
 
 5. **User Permissions**: 
    - No special device permissions required for core functionality
