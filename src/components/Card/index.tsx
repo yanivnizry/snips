@@ -4,6 +4,7 @@ import type {CardProps} from './types';
 import {styles} from './styles';
 import {formatWatchCount} from '@/utils/formatUtils';
 import SnipsImage from '@/components/SnipsImage';
+import { ImageStyle } from 'react-native';
 
 const Card: React.FC<CardProps> = ({title, componentType}) => {
   const isGrid = componentType === 'MORE_TITLES';
@@ -36,7 +37,7 @@ const Card: React.FC<CardProps> = ({title, componentType}) => {
         <View style={watchContainerStyle}>
           <Image
             source={require('@/assets/images/eye.png')}
-            style={styles.eyeIcon}
+            style={styles.eyeIcon as ImageStyle}
             resizeMode="contain"
           />
           <Text style={styles.watchText}>{formatWatchCount(title.snipsCount)}</Text>

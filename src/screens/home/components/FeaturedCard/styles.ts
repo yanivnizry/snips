@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY, scaleWidth, scaleHeight, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
+import {COLORS, SPACING, TYPOGRAPHY, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
 
 const CARD_WIDTH = DIMENSIONS.CARD.FEATURED.WIDTH;
 const CARD_HEIGHT = DIMENSIONS.CARD.FEATURED.HEIGHT;
@@ -17,7 +17,6 @@ export const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
   },
   overlay: {
     position: 'absolute',
@@ -35,12 +34,21 @@ export const styles = StyleSheet.create({
     padding: SPACING.MD,
   },
   title: {
-    ...TYPOGRAPHY.CARD_TITLE,
+    fontFamily: 'Inter',
+    fontWeight: '600',
+    fontSize: 20,
+    lineHeight: 28,
+    letterSpacing: 0.01,
     color: COLORS.PRIMARY_TEXT,
     marginBottom: SPACING.XS,
   },
   subtitle: {
-    ...TYPOGRAPHY.CARD_SUBTITLE,
+    fontFamily: 'Inter',
+    fontWeight: '400',
+    fontSize: 11,
+    lineHeight: 11,
+    letterSpacing: 0,
+    textTransform: 'uppercase',
     color: COLORS.SECONDARY_TEXT,
   },
   rankOverlay: {
@@ -83,9 +91,13 @@ export const styles = StyleSheet.create({
     borderRadius: STYLE_CONSTANTS.BADGE_BORDER_RADIUS,
     marginRight: SPACING.XS,
     marginBottom: SPACING.XS,
-  },
+  },  
   badgeText: {
-    ...TYPOGRAPHY.CARD_SUBTITLE,
+    fontFamily: 'Inter',
+    fontWeight: '400',
+    lineHeight: 11,
+    letterSpacing: 0,
+    textTransform: 'uppercase',
     color: COLORS.PRIMARY_TEXT,
     fontSize: STYLE_CONSTANTS.BADGE_FONT_SIZE,
   },

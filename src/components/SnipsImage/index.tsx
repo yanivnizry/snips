@@ -3,6 +3,7 @@ import { View, Text, Image, ActivityIndicator, StyleSheet } from 'react-native';
 import type { SnipsImageProps } from './types';
 import { styles } from './styles';
 import { COLORS } from '@/services/constants/common';
+import { ImageStyle } from 'react-native';
 
 const SnipsImage: React.FC<SnipsImageProps> = ({
   source,
@@ -29,8 +30,9 @@ const SnipsImage: React.FC<SnipsImageProps> = ({
     }
   };
 
+  // Handle local images (require() or ImageSourcePropType)
   if (!isUriSource) {
-    return <Image source={source} style={style} resizeMode={resizeMode} {...restProps} />;
+    return null;
   }
 
   return (

@@ -7,11 +7,11 @@ import ExpandableDescription from '../ExpandableDescription';
 import SideIcons from './SideIcons';
 import {DEVICE_WIDTH, DEVICE_HEIGHT, BOTTOM_TAB_BAR_HEIGHT, DIMENSIONS} from '@/services/constants/common';
 import SnipsImage from '@/components/SnipsImage';
+import { MAX_DESCRIPTION_LENGTH } from '@/services/constants/common';
 
 const FeedItem: React.FC<FeedItemProps> = ({item}) => {
   const insets = useSafeAreaInsets();
   const availableHeight = DEVICE_HEIGHT - (BOTTOM_TAB_BAR_HEIGHT + insets.bottom);
-  // Use exact availableHeight to match FlatList's SCROLL_HEIGHT for perfect snapping
   const cardHeight = availableHeight;
 
   return (
@@ -19,8 +19,8 @@ const FeedItem: React.FC<FeedItemProps> = ({item}) => {
       <SnipsImage
         source={{uri: item.poster_url}}
         style={[styles.image, {height: cardHeight}]}
-        resizeMode="cover"
         loadingIndicatorSize="large"
+        resizeMode="cover"
       />
       <View style={[styles.overlay, {height: cardHeight}]} />
       <TouchableOpacity style={styles.backButton}>
@@ -38,7 +38,7 @@ const FeedItem: React.FC<FeedItemProps> = ({item}) => {
             <Text style={styles.title} numberOfLines={2}>
               {item.name_en}
             </Text>
-              <ExpandableDescription description={item.captions_en} maxLength={175} />
+              <ExpandableDescription description={item.captions_en} maxLength={MAX_DESCRIPTION_LENGTH} />
             </View>
           </View>
         </View>

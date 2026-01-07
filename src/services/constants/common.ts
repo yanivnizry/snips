@@ -7,6 +7,7 @@ const DESIGN_HEIGHT = 852;
 export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 export const isIPad = DEVICE_WIDTH >= 768;
 export const FEATURED_COUNT = 5;
+export const MAX_DESCRIPTION_LENGTH = 175;
 
 
 export const scaleWidth = (size: number): number => {
@@ -162,7 +163,7 @@ export const STYLE_CONSTANTS = {
   RANK_GRADIENT_HEIGHT: 180,
   RANK_TEXT_FONT_SIZE: 146.47,
   RANK_TEXT_LINE_HEIGHT: 220,
-  RANK_TEXT_FONT_WEIGHT: '800',
+  RANK_TEXT_FONT_WEIGHT: '800' as const,
   BADGE_PADDING_VERTICAL: 2,
   BADGE_BORDER_RADIUS: 4,
   BADGE_FONT_SIZE: 9,

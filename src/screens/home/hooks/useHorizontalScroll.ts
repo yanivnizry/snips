@@ -45,12 +45,12 @@ export const useHorizontalScroll = (options?: UseHorizontalScrollOptions) => {
         const newOffset = Math.min(scrollOffset + SCROLL_CONSTANTS.SCROLL_OFFSET, maxScrollOffset);
 
         if (newOffset >= maxScrollOffset - 1) {
-          listRef.current.scrollToEnd({ animated: true });
+          listRef.current?.scrollToEnd({ animated: true });
         } else {
-          listRef.current.scrollToOffset({ offset: newOffset, animated: true });
+          listRef.current?.scrollToOffset({ offset: newOffset, animated: true });
         }
       } else {
-        listRef.current.scrollToOffset({ offset: scrollOffset + SCROLL_CONSTANTS.SCROLL_OFFSET, animated: true });
+        listRef.current?.scrollToOffset({ offset: scrollOffset + SCROLL_CONSTANTS.SCROLL_OFFSET, animated: true });
       }
     }
   }, [scrollOffset, contentWidth, layoutWidth]);

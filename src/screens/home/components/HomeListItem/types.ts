@@ -8,7 +8,7 @@ export type HomeListItem =
 
 export interface HomeListItemProps {
   readonly item: HomeListItem;
-  readonly featuredListRef: React.RefObject<FlatList>;
+  readonly featuredListRef: React.RefObject<FlatList | null>;
   readonly renderFeaturedItem: (title: Title, index: number) => React.ReactElement;
   readonly featuredKeyExtractor: (title: Title) => string;
   readonly setCategoryListRef: (id: string, ref: FlatList | null) => void;

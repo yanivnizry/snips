@@ -3,15 +3,15 @@ import { useFocusEffect } from '@react-navigation/native';
 import { FlatList } from 'react-native';
 
 interface UseHomeScrollResetResult {
-  readonly flatListRef: React.RefObject<FlatList>;
-  readonly featuredListRef: React.RefObject<FlatList>;
+  readonly flatListRef: React.RefObject<FlatList | null>;
+  readonly featuredListRef: React.RefObject<FlatList | null>;
   readonly setCategoryListRef: (id: string, ref: FlatList | null) => void;
 }
 
 export const useHomeScrollReset = (): UseHomeScrollResetResult => {
   const flatListRef = useRef<FlatList>(null);
   const featuredListRef = useRef<FlatList>(null);
-  const categoryListRefs = useRef<Map<string, FlatList>>(new Map());
+  const categoryListRefs = useRef<Map<string, FlatList | null>>(new Map());
 
   const setCategoryListRef = useCallback((id: string, ref: FlatList | null) => {
     if (ref) {
@@ -24,7 +24,7 @@ export const useHomeScrollReset = (): UseHomeScrollResetResult => {
   const resetAllScrolls = useCallback(() => {
     flatListRef.current?.scrollToOffset({ offset: 0, animated: false });
     featuredListRef.current?.scrollToOffset({ offset: 0, animated: false });
-    categoryListRefs.current.forEach((ref: FlatList) => {
+    categoryListRefs.current.forEach((ref: FlatList | null) => {
       ref?.scrollToOffset({ offset: 0, animated: false });
     });
   }, []);

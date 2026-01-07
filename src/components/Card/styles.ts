@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
+import { StyleSheet } from 'react-native';
+import { COLORS, SPACING, TYPOGRAPHY, DIMENSIONS, STYLE_CONSTANTS } from '@/services/constants/common';
 
 const CARD_BORDER_RADIUS = DIMENSIONS.CARD.REGULAR.BORDER_RADIUS;
 const CARD_WIDTH = DIMENSIONS.CARD.REGULAR.WIDTH;
@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
     width: IMAGE_WIDTH,
     height: IMAGE_HEIGHT,
     borderRadius: IMAGE_BORDER_RADIUS,
-    resizeMode: 'cover',
   },
   content: {
     padding: SPACING.SM,
@@ -35,14 +34,20 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    ...TYPOGRAPHY.CARD_TITLE,
+    fontFamily: 'Inter',
+    fontWeight: '600',
+    letterSpacing: 0.01,
     color: COLORS.PRIMARY_TEXT,
     fontSize: STYLE_CONSTANTS.CARD_TITLE_FONT_SIZE,
     lineHeight: STYLE_CONSTANTS.CARD_TITLE_LINE_HEIGHT,
     marginBottom: SPACING.XS,
   },
   subtitle: {
-    ...TYPOGRAPHY.CARD_SUBTITLE,
+    fontFamily: 'Inter',
+    fontWeight: '400',
+    lineHeight: 11,
+    letterSpacing: 0,
+    textTransform: 'uppercase',
     color: COLORS.SECONDARY_TEXT,
     fontSize: STYLE_CONSTANTS.CARD_SUBTITLE_FONT_SIZE,
   },
@@ -82,7 +87,6 @@ export const styles = StyleSheet.create({
   gridImage: {
     width: '100%',
     height: GRID_IMAGE_HEIGHT,
-    resizeMode: 'cover',
   },
   gridContent: {
     padding: SPACING.MD,

@@ -4,6 +4,7 @@ import type {FeaturedCardProps} from './types';
 import {styles} from './styles';
 import RankNumber from './RankNumber';
 import SnipsImage from '@/components/SnipsImage';
+import { ImageStyle } from 'react-native';
 
 const FeaturedCard: React.FC<FeaturedCardProps> = ({title, rank, showBadges = false}) => {
   return (
@@ -19,7 +20,7 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({title, rank, showBadges = fa
       <View style={styles.speakerIconContainer}>
         <Image
           source={require('@/assets/images/volume-off.png')}
-          style={styles.speakerIcon}
+          style={styles.speakerIcon as ImageStyle}
           resizeMode="contain"
         />
       </View>
