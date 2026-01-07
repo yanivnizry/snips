@@ -18,6 +18,8 @@ const PlaceholderScreen: React.FC<{ title: string }> = ({ title }) => {
   );
 };
 
+const getIconStyle = (color: string) => [styles.icon, { tintColor: color }];
+
 const TabNavigator: React.FC = () => {
   const insets = useSafeAreaInsets();
 
@@ -52,7 +54,7 @@ const TabNavigator: React.FC = () => {
                   ? require('@/assets/images/home-fill.png')
                   : require('@/assets/images/home.png')
               }
-              style={[styles.icon, { tintColor: color }]}
+              style={getIconStyle(color)}
               resizeMode="contain"
             />
           ),
@@ -70,7 +72,7 @@ const TabNavigator: React.FC = () => {
                   ? require('@/assets/images/shorts-fill.png')
                   : require('@/assets/images/shorts.png')
               }
-              style={[styles.icon, { tintColor: color }]}
+              style={getIconStyle(color)}
               resizeMode="contain"
             />
           ),
@@ -83,7 +85,7 @@ const TabNavigator: React.FC = () => {
           tabBarIcon: ({ color }) => (
             <Image
               source={require('@/assets/images/gift.png')}
-              style={[styles.icon, { tintColor: color }]}
+              style={getIconStyle(color)}
               resizeMode="contain"
             />
           ),
@@ -97,7 +99,7 @@ const TabNavigator: React.FC = () => {
           tabBarIcon: ({ color }) => (
             <Image
               source={require('@/assets/images/user.png')}
-              style={[styles.icon, { tintColor: color }]}
+              style={getIconStyle(color)}
               resizeMode="contain"
             />
           ),

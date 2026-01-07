@@ -5613,6 +5613,11 @@ react-native-screens@^4.1.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-video@^6.18.0:
+  version "6.18.0"
+  resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-6.18.0.tgz#2f8fc0fff27e270f592e5a15a05972f88b20e8b0"
+  integrity sha512-9BjAtAh1uGq6h/GNCCh5yzb/iI9qJHuflwNGExyhoUxbhPD1s+15h+CdpJ2MKKJTXw6J7w+nQOp1Ywa54R8w7Q==
+
 react-native@0.83.0:
   version "0.83.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.83.0.tgz#30f815ca6355c9fe32daa8772338075d3e2d84f1"

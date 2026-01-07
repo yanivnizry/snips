@@ -104,8 +104,8 @@ const Home: React.FC = () => {
           renderItem={renderItem}
           keyExtractor={keyExtractor}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 40 }}
-        />
+          contentContainerStyle={styles.flatListContent}
+          />
       </LinearGradient>
     </SafeAreaView>
   );

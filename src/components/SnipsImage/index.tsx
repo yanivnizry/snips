@@ -38,18 +38,18 @@ const SnipsImage: React.FC<SnipsImageProps> = ({
   return (
     <View style={style}>
       {imageLoading && !imageError && showLoadingIndicator && (
-        <View style={[styles.loadingContainer, StyleSheet.absoluteFill]}>
+        <View style={styles.loadingContainer}>
           <ActivityIndicator size={loadingIndicatorSize} color={COLORS.WATCH_NOW_BUTTON} />
         </View>
       )}
       {imageError ? (
-        <View style={[styles.placeholderContainer, StyleSheet.absoluteFill]}>
+        <View style={styles.placeholderContainer}>
           <Text style={styles.placeholderText}>{placeholderText}</Text>
         </View>
       ) : (
         <Image
           source={source}
-          style={StyleSheet.absoluteFill}
+          style={styles.imageFill}
           resizeMode={resizeMode}
           onLoad={handleImageLoad}
           onError={handleImageError}

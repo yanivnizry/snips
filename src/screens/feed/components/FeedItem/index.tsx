@@ -1,28 +1,147 @@
-import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import type {FeedItemProps} from './types';
-import {styles} from './styles';
+import React, { useState, useRef, useEffect, useImperativeHandle, forwardRef, useMemo } from 'react';
+import { View, Text, Image, TouchableOpacity, Pressable } from 'react-native';
+import Video, { type VideoRef } from 'react-native-video';
+import type { FeedItemProps, FeedItemRef } from './types';
+import { styles } from './styles';
 import ExpandableDescription from '../ExpandableDescription';
 import SideIcons from './SideIcons';
-import {DEVICE_WIDTH, DEVICE_HEIGHT, BOTTOM_TAB_BAR_HEIGHT, DIMENSIONS} from '@/services/constants/common';
 import SnipsImage from '@/components/SnipsImage';
-import { MAX_DESCRIPTION_LENGTH } from '@/services/constants/common';
+import { MAX_DESCRIPTION_LENGTH, scaleHeight, DIMENSIONS } from '@/services/constants/common';
 
-const FeedItem: React.FC<FeedItemProps> = ({item}) => {
-  const insets = useSafeAreaInsets();
-  const availableHeight = DEVICE_HEIGHT - (BOTTOM_TAB_BAR_HEIGHT + insets.bottom);
-  const cardHeight = availableHeight;
+const CONTENT_BOTTOM_OFFSET = scaleHeight(DIMENSIONS.CARD.FEED.CONTENT_BOTTOM_OFFSET);
+const CONTENT_HEIGHT = scaleHeight(279);
+
+const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, isScrolling = false }, ref) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [wasPlaying, setWasPlaying] = useState(false);
+  const [titleHeight, setTitleHeight] = useState(0);
+  const videoRef = useRef<VideoRef>(null);
+  const titleRef = useRef<View>(null);
+
+  const hasVideo = Boolean(item.video_playback_url);
+  const shouldShowPlayButton = !isPlaying && !isScrolling && wasPlaying && hasStarted;
+
+  const dynamicStyles = useMemo(() => ({
+    card: [styles.card, { height: scrollHeight }],
+    video: [styles.video, { height: scrollHeight }],
+    image: [styles.image, { height: scrollHeight }],
+    videoPressAreaTop: [
+      styles.videoPressAreaTop,
+      {
+        height: scrollHeight - CONTENT_HEIGHT - CONTENT_BOTTOM_OFFSET,
+        bottom: CONTENT_HEIGHT + CONTENT_BOTTOM_OFFSET,
+      },
+    ],
+  }), [scrollHeight]);
+
+  useImperativeHandle(ref, () => ({
+    play: () => {
+      if (hasVideo && !hasError) {
+        setIsPlaying(true);
+        setHasStarted(true);
+        setWasPlaying(true);
+      }
+    },
+    pause: () => {
+      setIsPlaying(false);
+    },
+    isPlaying: () => isPlaying,
+  }));
+
+  const handlePlayPress = () => {
+    if (hasVideo) {
+      setIsPlaying(true);
+      setHasStarted(true);
+      setWasPlaying(true);
+      setHasError(false);
+    }
+  };
+
+  const handleVideoPress = () => {
+    if (hasVideo) {
+      if (isPlaying) {
+        setIsPlaying(false);
+        setWasPlaying(true);
+      } else {
+        setIsPlaying(true);
+        setHasStarted(true);
+        setWasPlaying(true);
+      }
+    }
+  };
+
+  const handleVideoEnd = () => {
+    setIsPlaying(false);
+  };
+
+  const handleVideoError = () => {
+    setIsPlaying(false);
+    setHasError(true);
+  };
+
+  const handleVideoLoad = () => {
+    setHasError(false);
+    setHasStarted(true);
+  };
+
+  useEffect(() => {
+    if (isPlaying && hasStarted) {
+      setWasPlaying(true);
+    }
+  }, [isPlaying, hasStarted]);
+
+  useEffect(() => {
+    return () => {
+      setIsPlaying(false);
+    };
+  }, []);
 
   return (
-    <View style={[styles.card, {height: cardHeight, overflow: 'hidden'}]}>
-      <SnipsImage
-        source={{uri: item.poster_url}}
-        style={[styles.image, {height: cardHeight}]}
-        loadingIndicatorSize="large"
-        resizeMode="cover"
-      />
-      <View style={[styles.overlay, {height: cardHeight}]} />
+    <View style={dynamicStyles.card}>
+      {hasVideo && !hasError && (
+        <>
+          <Video
+            ref={videoRef}
+            source={{ uri: item.video_playback_url }}
+            style={dynamicStyles.video}
+            resizeMode="cover"
+            paused={!isPlaying}
+            onEnd={handleVideoEnd}
+            onError={handleVideoError}
+            onLoad={handleVideoLoad}
+            repeat={true}
+            controls={false}
+            muted={false}
+            playInBackground={false}
+            playWhenInactive={false}
+            ignoreSilentSwitch="ignore"
+          />
+          {shouldShowPlayButton ? (
+            <Pressable onPress={handleVideoPress} style={styles.playButtonOverlay}>
+              <Image
+                source={require('@/assets/images/play.png')}
+                style={styles.playButtonIcon}
+                resizeMode="contain"
+              />
+            </Pressable>
+          ) : (
+            <Pressable 
+              onPress={handleVideoPress} 
+              style={dynamicStyles.videoPressAreaTop} 
+            />
+          )}
+        </>
+      )}
+      {!hasVideo && (
+        <SnipsImage
+          source={{ uri: item.poster_url }}
+          style={dynamicStyles.image}
+          loadingIndicatorSize="large"
+          resizeMode="cover"
+        />
+      )}
       <TouchableOpacity style={styles.backButton}>
         <Image
           source={require('@/assets/images/back.png')}
@@ -35,15 +154,27 @@ const FeedItem: React.FC<FeedItemProps> = ({item}) => {
         <View style={styles.contentRow}>
           <View style={styles.textContent}>
             <View style={styles.descriptionContainer}>
-            <Text style={styles.title} numberOfLines={2}>
-              {item.name_en}
-            </Text>
-              <ExpandableDescription description={item.captions_en} maxLength={MAX_DESCRIPTION_LENGTH} />
+              <View
+                ref={titleRef}
+                style={{ position: 'relative', zIndex: 1 }}
+                onLayout={(event) => {
+                  const { height } = event.nativeEvent.layout;
+                  setTitleHeight(height);
+                }}>
+                <Text style={styles.title} numberOfLines={2}>
+                  {item.name_en}
+                </Text>
+              </View>
+              <ExpandableDescription 
+                description={item.captions_en} 
+                maxLength={MAX_DESCRIPTION_LENGTH}
+                titleHeight={titleHeight}
+              />
             </View>
           </View>
         </View>
         <View style={styles.actionsContainer}>
-          <TouchableOpacity style={styles.watchNowButton}>
+          <TouchableOpacity style={styles.watchNowButton} onPress={hasVideo ? handlePlayPress : undefined}>
             <Image
               source={require('@/assets/images/play.png')}
               style={styles.playIcon}
@@ -55,10 +186,12 @@ const FeedItem: React.FC<FeedItemProps> = ({item}) => {
       </View>
     </View>
   );
-};
+});
+
+FeedItem.displayName = 'FeedItem';
 
 export default React.memo(
   FeedItem,
-  (prevProps, nextProps) => prevProps.item.id === nextProps.item.id,
+  (prevProps, nextProps) => prevProps.item.id === nextProps.item.id && prevProps.scrollHeight === nextProps.scrollHeight,
 );
 
