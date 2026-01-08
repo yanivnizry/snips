@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { AppState } from 'react-native';
 import type { FeedItem as FeedItemType } from '@/services/types/ApiTypes';
 import type { FeedItemRef } from '@/screens/Feed/components/FeedItem/types';

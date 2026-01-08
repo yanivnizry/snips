@@ -1,7 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {COLORS} from '@/services/constants/common';
 import {TYPOGRAPHY} from '@/services/constants/typography';
-import {SNIPS_IMAGE} from './constants';
 
 export const styles = StyleSheet.create({
   loadingContainer: {

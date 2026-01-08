@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 import HorizontalList from '@/components/HorizontalList';
 import CategorySection from '@/screens/Home/components/CategorySection';

@@ -18,6 +18,9 @@ export const styles = StyleSheet.create({
     elevation: 2.5,
     pointerEvents: 'none',
   },
+  overlayWithHeight: {
+    bottom: -100,
+  },
   description: {
     ...TYPOGRAPHY.BODY_SMALL,
     letterSpacing: 0,

@@ -1,5 +1,5 @@
 import React, {forwardRef, useCallback, useMemo} from 'react';
-import {FlatList, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent} from 'react-native';
+import {FlatList, NativeScrollEvent, NativeSyntheticEvent} from 'react-native';
 import {styles} from './styles';
 import type {HorizontalListProps} from './types';
 import { Title } from '@/services/types/ApiTypes';

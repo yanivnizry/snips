@@ -13,7 +13,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToE
     useHorizontalScroll({ externalRefCallback: externalListRef });
 
   const renderItem = useCallback(
-    (title: Title, index: number) => <Card title={title} componentType={component.componentType} />,
+    (title: Title) => <Card title={title} componentType={component.componentType} />,
     [component.componentType],
   );
 

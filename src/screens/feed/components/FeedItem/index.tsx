@@ -54,8 +54,8 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
       setIsPlaying(false);
     },
     isPlaying: () => isPlaying,
-    setMuted: (muted: boolean) => {
-      setIsMuted(muted);
+    setMuted: (mutedValue: boolean) => {
+      setIsMuted(mutedValue);
     },
     isMuted: () => isMuted,
   }));
@@ -177,7 +177,7 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
             <View style={styles.descriptionContainer}>
               <View
                 ref={titleRef}
-                style={{ position: 'relative', zIndex: 1 }}
+                style={styles.titleContainer}
                 onLayout={(event) => {
                   const { height } = event.nativeEvent.layout;
                   setTitleHeight(height);

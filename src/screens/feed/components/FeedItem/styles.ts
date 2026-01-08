@@ -5,7 +5,6 @@ import {FEED} from '../../constants';
 
 const SCREEN_WIDTH = DIMENSIONS.SCREEN.WIDTH;
 const CARD_WIDTH = SCREEN_WIDTH;
-const CARD_HEIGHT = FEED.DIMENSIONS.ITEM_HEIGHT;
 const CONTENT_BOTTOM_OFFSET = scaleHeight(FEED.FEED_ITEM.CONTENT_BOTTOM_OFFSET);
 
 export const styles = StyleSheet.create({
@@ -101,6 +100,10 @@ export const styles = StyleSheet.create({
   },
   descriptionContainer: {
     marginTop: SPACING.SM,
+    position: 'relative',
+    zIndex: 1,
+  },
+  titleContainer: {
     position: 'relative',
     zIndex: 1,
   },

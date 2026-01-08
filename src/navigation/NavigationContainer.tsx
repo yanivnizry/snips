@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import {NavigationContainer as RNNavigationContainer, DarkTheme} from '@react-navigation/native';
+import {NavigationContainer as RNNavigationContainer} from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 import TabNavigator from './TabNavigator';
 import { feedPageInfiniteQueryOptions } from '@/services/queries/useInfiniteFeedPage';

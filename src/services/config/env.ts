@@ -1,7 +1,6 @@
 let Config: {API_BASE_URL?: string} = {};
 
 try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   Config = require('react-native-config').default || require('react-native-config');
 } catch {
   // Ignore - will use fallback

@@ -20,10 +20,8 @@ const ExpandableDescription: React.FC<ExpandableDescriptionProps> = ({
     }
     return [
       styles.overlay,
-      {
-        height: titleHeight,
-        bottom: -titleHeight,
-      },
+      styles.overlayWithHeight,
+      { height: titleHeight, bottom: -titleHeight },
     ];
   }, [titleHeight]);
 
@@ -49,7 +47,7 @@ const ExpandableDescription: React.FC<ExpandableDescriptionProps> = ({
         <LinearGradient
           colors={['#010101B2', '#01010100']}
           locations={[0.6, 1]}
-          style={[overlayStyle, { bottom: -100,height: titleHeight + 300 }]}
+          style={[overlayStyle, { height: titleHeight + 300 }]}
           start={{ x: 0, y: 1 }}
           end={{ x: 0, y: 0 }}
         />
