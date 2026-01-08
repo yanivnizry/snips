@@ -93,13 +93,14 @@ export const useFeedItem = (
   }, [autoPlay, hasVideo, hasError, hasStarted]);
 
   useEffect(() => {
+    const videoRefValue = videoRef.current;
     return () => {
       setIsPlaying(false);
-      if (videoRef.current) {
+      if (videoRefValue) {
         try {
-          videoRef.current.seek(0);
+          videoRefValue.seek(0);
         } catch (error) {
-            console.warn('Error seeking video on cleanup:', error);
+          console.warn('Error seeking video on cleanup:', error);
         }
       }
     };

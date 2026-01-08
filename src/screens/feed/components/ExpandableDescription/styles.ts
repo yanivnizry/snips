@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {COLORS, DIMENSIONS, SPACING} from '@/services/constants/common';
 import {TYPOGRAPHY} from '@/services/constants/typography';
-import { scaleWidth, scaleHeight } from '@/services/constants/common';
+import { scaleWidth } from '@/services/constants/common';
 import { isAndroid } from '@/utils/platform';
 export const styles = StyleSheet.create({
   container: {

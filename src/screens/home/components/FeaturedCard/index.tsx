@@ -6,7 +6,6 @@ import { styles } from './styles';
 import RankNumber from './RankNumber';
 import SnipsImage from '@/components/SnipsImage';
 import { ImageStyle } from 'react-native';
-import { COLORS } from '@/services/constants/common';
 
 const FeaturedCard: React.FC<FeaturedCardProps> = ({ title, rank, showBadges = false }) => {
   return (

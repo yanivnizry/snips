@@ -165,13 +165,14 @@ export const useFeedVideoControl = ({
   }, []);
 
   useEffect(() => {
+    const itemRefsValue = itemRefs.current;
     return () => {
       if (playTimeoutRef.current) {
         clearTimeout(playTimeoutRef.current);
         playTimeoutRef.current = null;
       }
       pauseAllVideos();
-      itemRefs.current.clear();
+      itemRefsValue.clear();
       currentPlayingRef.current = null;
       currentVisibleItemRef.current = null;
       lastPlayingBeforeBackgroundRef.current = null;
