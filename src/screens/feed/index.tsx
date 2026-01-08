@@ -22,6 +22,7 @@ const Feed: React.FC<FeedScreenProps> = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteFeedPage();
+
   const insets = useSafeAreaInsets();
   const navigationState = useNavigationState(state => state);
   const isFocused = useMemo(() => {
@@ -55,7 +56,7 @@ const Feed: React.FC<FeedScreenProps> = () => {
   const renderItem = useCallback(
     ({ item, index }: { item: FeedItemType; index: number }) => {
       const itemRef = getItemRef(item.id);
-      const isFirstItem = index === FEED.ARRAY.FIRST_ITEM_INDEX;
+      const isFirstItem = index === 0;
       const shouldBeMuted = !isFocused && isFirstItem;
       return (
         <FeedItem
@@ -120,28 +121,28 @@ const Feed: React.FC<FeedScreenProps> = () => {
   }, [isLoading, isError, error]);
 
   return (
-      <FlatList
-        data={feedItems}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        getItemLayout={getItemLayout}
-        ListEmptyComponent={renderEmpty}
-        ListFooterComponent={renderFooter}
-        onEndReached={handleLoadMore}
-        onEndReachedThreshold={FEED.FLATLIST.END_REACHED_THRESHOLD}
-        onViewableItemsChanged={handleViewableItemsChanged}
-        viewabilityConfig={viewabilityConfig}
-        onScrollBeginDrag={handleScrollBeginDrag}
-        onScrollEndDrag={handleScrollEndDrag}
-        onMomentumScrollEnd={handleMomentumScrollEnd}
-        scrollEnabled={!isIPad}
-        pagingEnabled={true}
-        removeClippedSubviews={true}
-        maxToRenderPerBatch={FEED.FLATLIST.MAX_TO_RENDER_PER_BATCH}
-        initialNumToRender={FEED.FLATLIST.INITIAL_NUM_TO_RENDER}
-        windowSize={FEED.FLATLIST.WINDOW_SIZE}
-        scrollEventThrottle={FEED.FLATLIST.SCROLL_EVENT_THROTTLE}
-      />
+    <FlatList
+      data={feedItems}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      getItemLayout={getItemLayout}
+      ListEmptyComponent={renderEmpty}
+      ListFooterComponent={renderFooter}
+      onEndReached={handleLoadMore}
+      onEndReachedThreshold={FEED.FLATLIST.END_REACHED_THRESHOLD}
+      onViewableItemsChanged={handleViewableItemsChanged}
+      viewabilityConfig={viewabilityConfig}
+      onScrollBeginDrag={handleScrollBeginDrag}
+      onScrollEndDrag={handleScrollEndDrag}
+      onMomentumScrollEnd={handleMomentumScrollEnd}
+      scrollEnabled={!isIPad}
+      pagingEnabled={true}
+      removeClippedSubviews={true}
+      maxToRenderPerBatch={FEED.FLATLIST.MAX_TO_RENDER_PER_BATCH}
+      initialNumToRender={FEED.FLATLIST.INITIAL_NUM_TO_RENDER}
+      windowSize={FEED.FLATLIST.WINDOW_SIZE}
+      scrollEventThrottle={FEED.FLATLIST.SCROLL_EVENT_THROTTLE}
+    />
   );
 };
 

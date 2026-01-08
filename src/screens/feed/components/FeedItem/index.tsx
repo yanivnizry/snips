@@ -1,123 +1,34 @@
-import React, { useState, useRef, useEffect, useImperativeHandle, forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import { View, Text, Image, TouchableOpacity, Pressable } from 'react-native';
-import Video, { type VideoRef } from 'react-native-video';
+import Video from 'react-native-video';
 import type { FeedItemProps, FeedItemRef } from './types';
 import { styles } from './styles';
 import ExpandableDescription from '../ExpandableDescription';
 import SideIcons from './SideIcons';
 import SnipsImage from '@/components/SnipsImage';
-import { MAX_DESCRIPTION_LENGTH, scaleHeight } from '@/services/constants/common';
+import { MAX_DESCRIPTION_LENGTH } from '@/services/constants/common';
 import { FEED } from '../../constants';
+import { useFeedItem } from './hooks/useFeedItem';
 
-const CONTENT_BOTTOM_OFFSET = scaleHeight(FEED.FEED_ITEM.CONTENT_BOTTOM_OFFSET);
-const CONTENT_HEIGHT = scaleHeight(FEED.FEED_ITEM.CONTENT_HEIGHT);
-
-const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, isScrolling = false, autoPlay = false, muted = false }, ref) => {
-  const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const [hasError, setHasError] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
-  const [wasPlaying, setWasPlaying] = useState(false);
-  const [titleHeight, setTitleHeight] = useState(0);
-  const [isMuted, setIsMuted] = useState(muted);
-  const videoRef = useRef<VideoRef>(null);
-  const titleRef = useRef<View>(null);
-
-  useEffect(() => {
-    setIsMuted(muted);
-  }, [muted]);
-
-  const hasVideo = Boolean(item.video_playback_url);
-  const shouldShowPlayButton = !isPlaying && !isScrolling && wasPlaying && hasStarted;
-
-  const dynamicStyles = useMemo(() => ({
-    card: [styles.card, { height: scrollHeight }],
-    video: [styles.video, { height: scrollHeight }],
-    image: [styles.image, { height: scrollHeight }],
-    videoPressAreaTop: [
-      styles.videoPressAreaTop,
-      {
-        height: scrollHeight - CONTENT_HEIGHT - CONTENT_BOTTOM_OFFSET,
-        bottom: CONTENT_HEIGHT + CONTENT_BOTTOM_OFFSET,
-      },
-    ],
-  }), [scrollHeight]);
-
-  useImperativeHandle(ref, () => ({
-    play: () => {
-      if (hasVideo && !hasError) {
-        setIsPlaying(true);
-        setHasStarted(true);
-        setWasPlaying(true);
-      }
-    },
-    pause: () => {
-      setIsPlaying(false);
-    },
-    isPlaying: () => isPlaying,
-    setMuted: (mutedValue: boolean) => {
-      setIsMuted(mutedValue);
-    },
-    isMuted: () => isMuted,
-  }));
-
-  const handlePlayPress = () => {
-    if (hasVideo) {
-      setIsPlaying(true);
-      setHasStarted(true);
-      setWasPlaying(true);
-      setHasError(false);
-    }
-  };
-
-  const handleVideoPress = () => {
-    if (hasVideo) {
-      if (isPlaying) {
-        setIsPlaying(false);
-        setWasPlaying(true);
-      } else {
-        setIsPlaying(true);
-        setHasStarted(true);
-        setWasPlaying(true);
-      }
-    }
-  };
-
-  const handleVideoEnd = () => {
-    setIsPlaying(false);
-  };
-
-  const handleVideoError = () => {
-    setIsPlaying(false);
-    setHasError(true);
-  };
-
-  const handleVideoLoad = () => {
-    setHasError(false);
-    setHasStarted(true);
-  };
-
-  useEffect(() => {
-    if (isPlaying && hasStarted) {
-      setWasPlaying(true);
-    }
-  }, [isPlaying, hasStarted]);
-
-  useEffect(() => {
-    if (autoPlay && hasVideo && !hasError && !hasStarted) {
-      const timer = setTimeout(() => {
-        setIsPlaying(true);
-        setHasStarted(true);
-        setWasPlaying(true);
-      }, FEED.FEED_ITEM.AUTO_PLAY_DELAY);
-      return () => clearTimeout(timer);
-    }
-  }, [autoPlay, hasVideo, hasError, hasStarted]);
-
-  useEffect(() => {
-    return () => {
-      setIsPlaying(false);
-    };
-  }, []);
+const FeedItem = forwardRef<FeedItemRef, FeedItemProps>((props, ref) => {
+  const { item } = props;
+  const {
+    isPlaying,
+    hasError,
+    hasVideo,
+    shouldShowPlayButton,
+    dynamicStyles,
+    videoRef,
+    titleRef,
+    titleHeight,
+    isMuted,
+    handlePlayPress,
+    handleVideoPress,
+    handleVideoEnd,
+    handleVideoError,
+    handleVideoLoad,
+    handleTitleLayout,
+  } = useFeedItem(props, ref);
 
   return (
     <View style={dynamicStyles.card}>
@@ -139,20 +50,18 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
             playWhenInactive={false}
             ignoreSilentSwitch="ignore"
           />
-          {shouldShowPlayButton ? (
-            <Pressable onPress={handleVideoPress} style={styles.playButtonOverlay}>
+          <Pressable 
+            onPress={handleVideoPress} 
+            style={shouldShowPlayButton ? styles.playButtonOverlay : dynamicStyles.videoPressAreaTop}
+          >
+            {shouldShowPlayButton && (
               <Image
                 source={require('@/assets/images/play.png')}
                 style={styles.playButtonIcon}
                 resizeMode="contain"
               />
-            </Pressable>
-          ) : (
-            <Pressable 
-              onPress={handleVideoPress} 
-              style={dynamicStyles.videoPressAreaTop} 
-            />
-          )}
+            )}
+          </Pressable>
         </>
       )}
       {!hasVideo && (
@@ -178,10 +87,7 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
               <View
                 ref={titleRef}
                 style={styles.titleContainer}
-                onLayout={(event) => {
-                  const { height } = event.nativeEvent.layout;
-                  setTitleHeight(height);
-                }}>
+                onLayout={handleTitleLayout}>
             <Text style={styles.title} numberOfLines={FEED.FEED_ITEM.TITLE_NUMBER_OF_LINES}>
               {item.name_en}
             </Text>

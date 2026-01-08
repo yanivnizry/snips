@@ -70,10 +70,6 @@ export const FEED = {
     INITIAL_NUM_TO_RENDER: 3,
     WINDOW_SIZE: 3,
     SCROLL_EVENT_THROTTLE: 16,
-  },
-  ARRAY: {
-    FIRST_ITEM_INDEX: 0,
-    EMPTY_LENGTH: 0,
-  },
+  }
 } as const;
 

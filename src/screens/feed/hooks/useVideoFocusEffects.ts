@@ -30,10 +30,10 @@ export const useVideoFocusEffects = ({
       const timeoutId = setTimeout(() => {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            if (!isScrolling && feedItems.length > FEED.ARRAY.EMPTY_LENGTH) {
+            if (!isScrolling && feedItems.length > 0) {
               const itemToPlay = currentVisibleItemRef.current
                 ? feedItems.find((item) => item.id === currentVisibleItemRef.current)
-                : feedItems[FEED.ARRAY.FIRST_ITEM_INDEX];
+                : feedItems[0];
 
               if (itemToPlay && itemToPlay.video_playback_url) {
                 const ref = getItemRef(itemToPlay.id);

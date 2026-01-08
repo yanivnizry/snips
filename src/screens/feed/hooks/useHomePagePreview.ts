@@ -21,8 +21,8 @@ export const useHomePagePreview = ({
   const hasPlayedHomePreviewRef = useRef(false);
 
   useEffect(() => {
-    if (feedItems.length > FEED.ARRAY.EMPTY_LENGTH && !currentPlayingRef.current && !isFocused && !hasPlayedHomePreviewRef.current) {
-      const firstItem = feedItems[FEED.ARRAY.FIRST_ITEM_INDEX];
+    if (feedItems.length > 0 && !currentPlayingRef.current && !isFocused && !hasPlayedHomePreviewRef.current) {
+      const firstItem = feedItems[0];
       if (firstItem && firstItem.video_playback_url) {
         hasPlayedHomePreviewRef.current = true;
         console.log('[HOME PLAY] Setting up auto-play for first video from home page (startup only):', firstItem.id);

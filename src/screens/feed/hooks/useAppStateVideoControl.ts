@@ -23,6 +23,7 @@ export const useAppStateVideoControl = ({
   currentVisibleItemRef,
   lastPlayingBeforeBackgroundRef,
 }: UseAppStateVideoControlProps) => {
+
   useEffect(() => {
     let activeTimeoutId: NodeJS.Timeout | null = null;
 
@@ -36,7 +37,7 @@ export const useAppStateVideoControl = ({
         }
       } else if (nextAppState === 'active') {
         console.log('[VIDEO] App state changed to active - restoring video playback');
-        if (isFocusedRef.current && feedItems.length > FEED.ARRAY.EMPTY_LENGTH) {
+        if (isFocusedRef.current && feedItems.length > 0) {
           activeTimeoutId = setTimeout(() => {
             requestAnimationFrame(() => {
               requestAnimationFrame(() => {
@@ -53,7 +54,7 @@ export const useAppStateVideoControl = ({
                 }
 
                 if (!itemToPlay) {
-                  itemToPlay = feedItems[FEED.ARRAY.FIRST_ITEM_INDEX];
+                  itemToPlay = feedItems[0];
                 }
 
                 if (itemToPlay && itemToPlay.video_playback_url && isFocusedRef.current) {

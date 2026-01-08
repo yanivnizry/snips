@@ -1,7 +1,8 @@
 import {useCallback} from 'react';
-import {LayoutAnimation, Platform, UIManager} from 'react-native';
+import {LayoutAnimation, UIManager} from 'react-native';
+import {isAndroid} from '@/utils/platform';
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+if (isAndroid && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 

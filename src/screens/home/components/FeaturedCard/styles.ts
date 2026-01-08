@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {COLORS, SPACING} from '@/services/constants/common';
 import {TYPOGRAPHY} from '@/services/constants/typography';
+import {isAndroid} from '@/utils/platform';
 import {HOME} from '../../constants';
 
 const CARD_WIDTH = HOME.FEATURED_CARD.WIDTH;
@@ -20,13 +21,13 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  overlay: {
+  bottomGradient: {
     position: 'absolute',
-    top: 0,
+    bottom: 0,
     left: 0,
     right: 0,
-    bottom: 0,
-    backgroundColor: COLORS.OVERLAY_DARK,
+    height: 150,
+    zIndex: 1,
   },
   content: {
     position: 'absolute',
@@ -34,6 +35,7 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: SPACING.MD,
+    zIndex: 2,
   },
   title: {
     ...TYPOGRAPHY.HEADING_INTER,
@@ -49,7 +51,7 @@ export const styles = StyleSheet.create({
   },
   rankOverlay: {
     position: 'absolute',
-    bottom: 0,
+    bottom: isAndroid ? -40 : 0,
     right: 0,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',

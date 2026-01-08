@@ -1,22 +1,30 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import type {FeaturedCardProps} from './types';
-import {styles} from './styles';
+import { View, Text, Image } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import type { FeaturedCardProps } from './types';
+import { styles } from './styles';
 import RankNumber from './RankNumber';
 import SnipsImage from '@/components/SnipsImage';
 import { ImageStyle } from 'react-native';
+import { COLORS } from '@/services/constants/common';
 
-const FeaturedCard: React.FC<FeaturedCardProps> = ({title, rank, showBadges = false}) => {
+const FeaturedCard: React.FC<FeaturedCardProps> = ({ title, rank, showBadges = false }) => {
   return (
     <View style={styles.card}>
       <SnipsImage
-        source={{uri: title.posterUrl}}
+        source={{ uri: title.posterUrl }}
         style={styles.image}
         resizeMode="cover"
         loadingIndicatorSize="small"
       />
       <RankNumber rank={rank} />
-      <View style={styles.overlay} />
+      <LinearGradient
+        colors={['#00000000', '#0E0E0E']}
+        style={styles.bottomGradient}
+        locations={[0.042, 1]}
+        start={{ x: 0.2, y: 0 }}
+        end={{ x: 0.2, y: 1 }}
+      />
       <View style={styles.speakerIconContainer}>
         <Image
           source={require('@/assets/images/volume-off.png')}

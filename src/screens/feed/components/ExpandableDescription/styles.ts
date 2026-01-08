@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 import {COLORS, DIMENSIONS, SPACING} from '@/services/constants/common';
 import {TYPOGRAPHY} from '@/services/constants/typography';
 import { scaleWidth, scaleHeight } from '@/services/constants/common';
+import { isAndroid } from '@/utils/platform';
 export const styles = StyleSheet.create({
   container: {
     marginTop: SPACING.SM,
@@ -10,8 +11,9 @@ export const styles = StyleSheet.create({
   },
   overlay: {
     position: 'absolute',
-    bottom: scaleHeight(0),
-    left: scaleWidth(-12.5),
+    bottom: 0,
+    top: 0,
+    left: isAndroid ? scaleWidth(-15) : scaleWidth(-12.5),
     right: 0,
     width: DIMENSIONS.DEVICE.WIDTH,
     zIndex: 0,

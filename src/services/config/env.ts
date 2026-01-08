@@ -6,21 +6,12 @@ try {
   // Ignore - will use fallback
 }
 
-const DEFAULT_API_BASE_URL = 'https://snips-testing-data.s3.us-east-2.amazonaws.com';
-
 const getApiBaseUrl = (): string => {
   const url = Config.API_BASE_URL || process.env.API_BASE_URL;
   
   if (!url || typeof url !== 'string' || url.trim() === '') {
-    if (__DEV__) {
-      console.warn(
-        'API_BASE_URL is not configured. Using default development URL:',
-        DEFAULT_API_BASE_URL,
-      );
-      return DEFAULT_API_BASE_URL;
-    }
     throw new Error(
-      'API_BASE_URL is not configured. Please set API_BASE_URL in your .env file or environment variables.',
+      'API_BASE_URL is not configured. Please set API_BASE_URL in your .env file or environment variables. See example.env for reference.',
     );
   }
 
