@@ -1,6 +1,6 @@
 # Snips Mobile App
 
-A React Native mobile application built with TypeScript, featuring Home and Feed pages with content from Snips API. The app provides a modern, performant mobile experience with optimized list rendering, infinite scrolling, and responsive design.
+A React Native mobile application built with TypeScript, featuring Home and Feed pages with content from Snips API. The app provides a modern, performant mobile experience with optimized list rendering, infinite scrolling, video playback controls, and responsive design.
 
 ## Table of Contents
 
@@ -10,6 +10,7 @@ A React Native mobile application built with TypeScript, featuring Home and Feed
 - [Technical Stack](#technical-stack)
 - [Architecture Decisions](#architecture-decisions)
 - [Performance Optimizations](#performance-optimizations)
+- [Video Playback Features](#video-playback-features)
 - [API Endpoints](#api-endpoints)
 - [Development Guidelines](#development-guidelines)
 - [Assumptions](#assumptions)
@@ -42,10 +43,10 @@ yarn install
 Create a `.env` file in the root directory:
 
 ```env
-API_BASE_URL=https://snips-testing-data.s3.us-east-2.amazonaws.com
+API_BASE_URL=https://your-api-url.com
 ```
 
-Alternatively, you can set the `API_BASE_URL` environment variable directly.
+**Important**: The `API_BASE_URL` environment variable is **required**. The app will throw an error if it's not configured. See `example.env` for reference.
 
 ### 4. iOS Setup (if developing for iOS)
 
@@ -77,47 +78,65 @@ yarn android
 snips/
 ├── src/
 │   ├── assets/              # Images, fonts, and static assets
-│   │   ├── fonts/          # Custom font files
-│   │   └── images/         # Image assets
+│   │   ├── fonts/          # Custom font files (Inter, Poppins)
+│   │   └── images/         # Image assets (@2x variants included)
 │   ├── components/         # Reusable UI components
 │   │   ├── Card/          # Card component for displaying titles
 │   │   ├── HorizontalList/ # Horizontal scrolling list component
 │   │   ├── SnipsImage/    # Custom image component with loading states
 │   │   └── ExploreMoreCard/ # Special card for "explore more" section
+│   ├── constants/         # App-wide constants
+│   │   ├── common.ts      # Colors, spacing, dimensions, API endpoints
+│   │   └── typography.ts  # Font families, sizes, typography styles
 │   ├── navigation/        # Navigation configuration
-│   │   ├── NavigationContainer.tsx
-│   │   ├── TabNavigator.tsx
-│   │   └── NavigationTypes.ts
+│   │   ├── NavigationContainer.tsx # Main navigation with prefetching
+│   │   ├── TabNavigator.tsx # Bottom tab navigation
+│   │   └── NavigationTypes.ts # Type-safe navigation types
 │   ├── screens/           # Screen components
 │   │   ├── Home/          # Home screen with featured content
 │   │   │   ├── components/ # Screen-specific components
-│   │   │   │   ├── FeaturedCard/ # Featured content card
+│   │   │   │   ├── FeaturedCard/ # Featured content card with gradient
 │   │   │   │   ├── CategorySection/ # Category list section
 │   │   │   │   └── HomeListItem/ # List item renderer
 │   │   │   └── hooks/     # Custom hooks for Home screen
 │   │   │       ├── useHomeComponents.ts # Component data extraction
 │   │   │       ├── useHomeScrollReset.ts # Scroll reset logic
 │   │   │       └── useHorizontalScroll.ts # Horizontal scroll management
-│   │   └── Feed/          # Feed screen with infinite scroll
-│   │       └── components/ # Screen-specific components
-│   │           ├── FeedItem/ # Individual feed item
-│   │           └── ExpandableDescription/ # Expandable text component
+│   │   └── Feed/          # Feed screen with infinite scroll and video playback
+│   │       ├── components/ # Screen-specific components
+│   │       │   ├── FeedItem/ # Individual feed item with video
+│   │       │   │   └── hooks/ # FeedItem business logic
+│   │       │   │       └── useFeedItem.ts # Video playback state management
+│   │       │   └── ExpandableDescription/ # Expandable text component
+│   │       └── hooks/     # Feed screen hooks
+│   │           ├── useFeedVideoControl.ts # Video playback orchestration
+│   │           ├── useAppStateVideoControl.ts # App state video management
+│   │           ├── useVideoFocusEffects.ts # Navigation focus effects
+│   │           └── useHomePagePreview.ts # Home page video preview
 │   ├── services/          # Business logic and API services
 │   │   ├── apis/         # API client and endpoints
-│   │   ├── config/       # Configuration (environment variables)
-│   │   ├── constants/    # App-wide constants (colors, spacing, etc.)
+│   │   │   ├── AxiosClient.ts # Axios configuration with interceptors
+│   │   │   └── Apis.ts # API endpoint functions
+│   │   ├── config/       # Configuration
+│   │   │   └── env.ts # Environment variable management
 │   │   ├── queries/      # React Query hooks and configuration
 │   │   │   ├── useHomePage.ts # Home page data fetching
 │   │   │   ├── useFeedPage.ts # Feed page data fetching
 │   │   │   ├── useInfiniteFeedPage.ts # Infinite feed pagination
-│   │   │   └── queryClient.ts # React Query configuration
+│   │   │   ├── queryClient.ts # React Query configuration
+│   │   │   └── queryOptions.ts # Centralized query options
 │   │   └── types/        # TypeScript type definitions
+│   │       └── ApiTypes.ts # API response types
 │   ├── types/            # Global type definitions
+│   │   └── env.d.ts # Environment variable types
 │   └── utils/            # Utility functions
+│       ├── formatUtils.ts # Formatting utilities
+│       └── platform.ts # Platform detection utilities
 ├── App.tsx               # Root app component
 ├── index.js              # Entry point
 ├── package.json          # Dependencies and scripts
-└── tsconfig.json         # TypeScript configuration
+├── tsconfig.json         # TypeScript configuration
+└── example.env           # Example environment configuration
 ```
 
 ## Technical Stack
@@ -133,12 +152,22 @@ snips/
   - Provides built-in loading states, error handling, and caching strategies
   - Enables infinite scrolling with `useInfiniteQuery` hook
   - Configured with optimized cache settings (staleTime, gcTime)
+  - Centralized query options for consistency
 
 ### Navigation
 - **React Navigation**: v6.1.9
   - Bottom tab navigator for main app navigation
   - Type-safe navigation with TypeScript
   - Safe area handling for notched devices
+  - Prefetching on navigation ready
+
+### Video Playback
+- **React Native Video**: v6.18.0
+  - Full-screen video playback in Feed screen
+  - Automatic play/pause based on viewability
+  - Mute/unmute controls
+  - Background/foreground state management
+  - Memory-efficient cleanup and ref management
 
 ### API & Networking
 - **Axios**: v1.6.5
@@ -151,14 +180,15 @@ snips/
 - **StyleSheet API**: Native React Native styling
 - **React Native Linear Gradient**: For gradient overlays
 - **All colors centralized**: Hex format in `COLORS` constant
-- All styles separated into dedicated `styles.ts` files
+- **All styles separated**: Dedicated `styles.ts` files (no inline styles)
+- **Typography system**: Centralized font families, sizes, and styles with platform-specific handling
 
 ### Additional Libraries
 - **React Native Safe Area Context**: For handling device safe areas
 - **React Native Gesture Handler**: For smooth gesture interactions
 - **React Native Screens**: For native screen management
-- **React Native Masked View**: For masked gradient effects
 - **React Native Config**: For environment variable management
+- **React Native Masked View**: For masked gradient effects
 
 ## Architecture Decisions
 
@@ -170,7 +200,7 @@ snips/
 - **Separation of Concerns**: Clear distinction between:
   - **Presentational Components**: Pure UI components (Card, SnipsImage)
   - **Container Components**: Components that manage state and data fetching (screens)
-  - **Custom Hooks**: Business logic extraction (useHomeComponents, useInfiniteFeedPage, useHorizontalScroll)
+  - **Custom Hooks**: Business logic extraction (useHomeComponents, useInfiniteFeedPage, useFeedItem)
 
 ### 2. State Management Strategy
 - **Server State**: Managed by React Query
@@ -179,6 +209,7 @@ snips/
   - Request deduplication
   - Infinite query support for pagination
 - **Local State**: Managed by React hooks (useState, useReducer)
+- **Video State**: Managed through custom hooks with refs for imperative control
 - **No Global State Library**: Avoided Redux/MobX as React Query handles server state effectively
 
 ### 3. Type Safety
@@ -192,26 +223,36 @@ snips/
 - **Memoization**: Strategic use of `React.memo`, `useMemo`, and `useCallback`
 - **List Optimization**: FlatList with performance props (see Performance section)
 - **Image Optimization**: Custom `SnipsImage` component with loading states and error handling
+- **Video Optimization**: Proper cleanup, ref management, and memory leak prevention
 - **Code Splitting**: Component-level code organization for better bundle management
-- **Ref Management**: Centralized ref handling for scroll management
+- **Ref Management**: Centralized ref handling for scroll and video management
 
 ### 5. Error Handling
 - **API Level**: Axios interceptors for network errors with specific error messages
 - **Component Level**: Error boundaries and fallback UI
 - **Query Level**: React Query error states with user-friendly messages
-- **Environment Configuration**: Fallback API URL for development
+- **Environment Configuration**: Required API URL configuration (no hardcoded fallbacks)
 
 ### 6. Responsive Design
 - **Device Dimensions**: Dynamic calculation based on device screen size
 - **Safe Area Handling**: Proper insets for notched devices
 - **iPad Support**: Conditional rendering and layout adjustments for tablets
 - **Scaling Functions**: `scaleWidth` and `scaleHeight` for responsive sizing
+- **Platform-specific Styling**: Platform.select for iOS/Android differences
 
-### 7. Color Management
-- **Centralized Colors**: All colors defined in `COLORS` constant
+### 7. Color & Typography Management
+- **Centralized Colors**: All colors defined in `constants/common.ts`
 - **Hex Format**: All colors use hex format (including alpha channel)
 - **No Hardcoded Colors**: All color values reference constants
 - **Consistent Theming**: Dark theme with centralized color palette
+- **Typography System**: Centralized font families, sizes, and styles in `constants/typography.ts`
+- **Platform-specific Fonts**: Android-specific font file names with conditional fontWeight
+
+### 8. Memory Management
+- **Video Cleanup**: Proper cleanup of video refs, timeouts, and components on unmount
+- **Ref Cleanup**: Automatic cleanup of refs for removed items
+- **Timeout Management**: All timeouts cleared on component unmount
+- **Memory Leak Prevention**: Comprehensive cleanup in useEffect hooks
 
 ## Performance Optimizations
 
@@ -222,13 +263,10 @@ The Feed screen implements several performance optimizations for smooth scrollin
 // Key optimizations applied:
 - getItemLayout: Pre-calculated item dimensions for faster rendering
 - removeClippedSubviews: Removes off-screen views from native view hierarchy
-- maxToRenderPerBatch: 1 item per batch (optimized for full-screen items)
-- windowSize: 2 viewport heights (minimal window for memory efficiency)
-- initialNumToRender: 1 item initially (fast initial render)
+- maxToRenderPerBatch: 3 items per batch
+- windowSize: 3 viewport heights (optimized for memory)
+- initialNumToRender: 3 items initially
 - pagingEnabled: Enabled for snap-to-item scrolling (disabled on iPad)
-- decelerationRate: "fast" for quicker scroll response
-- snapToInterval: Snaps to each item height for precise item alignment
-- disableIntervalMomentum: Prevents scrolling past snap points
 - scrollEventThrottle: 16ms for smooth 60fps scroll events
 ```
 
@@ -267,6 +305,7 @@ Horizontal lists (featured content, categories) are optimized with:
 - **useHomeComponents**: Single-pass component extraction for efficiency
 - **useHorizontalScroll**: Centralized scroll management with ref forwarding
 - **useHomeScrollReset**: Optimized scroll reset with deferred execution
+- **useFeedItem**: Extracted video playback logic for better performance
 
 ### Image Loading
 - Custom `SnipsImage` component with:
@@ -276,10 +315,45 @@ Horizontal lists (featured content, categories) are optimized with:
   - Absolute fill positioning for proper container filling
   - ResizeMode prop support for image scaling behavior
 
+### Video Playback Optimizations
+- **Viewability-based Playback**: Videos only play when visible
+- **Automatic Pause on Scroll**: All videos pause during scrolling
+- **Memory-efficient Cleanup**: Proper cleanup of video refs and timeouts
+- **Ref Management**: Automatic cleanup of refs for removed items
+- **State Management**: Efficient state updates with minimal re-renders
+
+## Video Playback Features
+
+### Automatic Playback Control
+- **Viewability Detection**: Videos automatically play when they become visible (50% threshold)
+- **Scroll-based Pausing**: All videos pause when user starts scrolling
+- **Single Video Playback**: Only one video plays at a time
+- **Play Button**: Shows when video is paused and has started
+
+### App State Management
+- **Background Pausing**: Videos automatically pause when app goes to background
+- **Foreground Resume**: Videos resume when app returns to foreground (if screen is focused)
+- **State Preservation**: Remembers which video was playing before backgrounding
+
+### Navigation Focus Effects
+- **Screen Focus**: Videos unmute when Feed screen is focused
+- **Screen Blur**: Videos mute when Feed screen loses focus
+- **Auto-play on Focus**: First visible video plays when screen is focused
+
+### Home Page Preview
+- **Auto-preview**: First video from home page auto-plays (muted) on app startup
+- **Preview Duration**: Limited preview duration (150ms)
+- **One-time Only**: Preview only plays once per app session
+
+### Memory Management
+- **Proper Cleanup**: All video refs, timeouts, and components cleaned up on unmount
+- **Ref Cleanup**: Refs for removed items are automatically cleaned up
+- **Video Reset**: Videos seek to start position on unmount
+
 ## API Endpoints
 
 ### Base URL
-The API base URL is configured via environment variables (`.env` file or system environment). Falls back to default development URL if not configured.
+The API base URL is configured via environment variables (`.env` file or system environment). **Required** - the app will throw an error if not configured.
 
 ### Endpoints
 
@@ -288,6 +362,7 @@ The API base URL is configured via environment variables (`.env` file or system 
    - Method: GET
    - Returns: Featured content, category sections, and "More to watch" section
    - Hook: `useHomePage()`
+   - Cache: 5 minutes stale time
 
 2. **Feed Page**
    - Endpoint: `/FeedPage1.json?page={pageNumber}`
@@ -298,14 +373,16 @@ The API base URL is configured via environment variables (`.env` file or system 
    - Hooks: 
      - `useFeedPage()`: Single page query
      - `useInfiniteFeedPage()`: Infinite scroll with pagination (stops when no more pages available)
+   - Cache: 2 minutes stale time, 10 minutes garbage collection time
 
 ### API Response Structure
 All API responses are typed in `src/services/types/ApiTypes.ts` for type safety.
 
 ### Error Handling
 - Network errors: User-friendly messages
-- HTTP status codes: Specific error messages (400, 401, 403, 404, 500, 503)
+- HTTP status codes: Specific error messages
 - Timeout handling: 30-second timeout with appropriate error messages
+- Required configuration: App throws error if `API_BASE_URL` is not configured
 
 ## Development Guidelines
 
@@ -321,9 +398,11 @@ All API responses are typed in `src/services/types/ApiTypes.ts` for type safety.
 ### Styling Rules
 - **No Inline Styles**: All styles must be in `styles.ts` files
 - **Style Separation**: Each component has its own `styles.ts` file
-- **Constants**: Shared styling constants in `services/constants/common.ts`
+- **Constants**: Shared styling constants in `constants/common.ts` and `constants/typography.ts`
 - **Color Management**: All colors must use `COLORS` constant (hex format)
-- **No Hardcoded Values**: Colors, spacing, and dimensions should reference constants
+- **Typography**: All text styles must use `TYPOGRAPHY` constants
+- **No Hardcoded Values**: Colors, spacing, dimensions, and fonts should reference constants
+- **Platform-specific**: Use `Platform.select` for iOS/Android differences
 
 ### Component Development
 - **Component Structure**: Always follow the folder structure (`index.tsx`, `styles.ts`, `types.ts`)
@@ -331,12 +410,14 @@ All API responses are typed in `src/services/types/ApiTypes.ts` for type safety.
 - **Hooks**: Extract complex logic into custom hooks
 - **Props**: Always define TypeScript interfaces for component props
 - **Refs**: Use `forwardRef` and callback refs for ref forwarding
+- **Business Logic**: Extract business logic to custom hooks (e.g., `useFeedItem`)
 
 ### State Management
 - **Server State**: Use React Query hooks (`useQuery`, `useInfiniteQuery`)
 - **Local State**: Use `useState` or `useReducer` for component-specific state
 - **Derived State**: Use `useMemo` for computed values
 - **Refs**: Use `useRef` for DOM references and mutable values
+- **Video State**: Use custom hooks with imperative refs for video control
 
 ### Performance Best Practices
 - Always provide `keyExtractor` for lists
@@ -346,16 +427,23 @@ All API responses are typed in `src/services/types/ApiTypes.ts` for type safety.
 - Use `useCallback` for event handlers
 - Use `useMemo` for expensive computations
 - Implement proper memoization comparison functions
+- Clean up all timeouts and refs in useEffect cleanup functions
 
 ### Custom Hooks
 - Extract reusable logic into custom hooks
 - Keep hooks focused on a single responsibility
 - Use TypeScript interfaces for hook return types
 - Document hook behavior with JSDoc comments
+- Ensure proper cleanup in useEffect hooks
+
+### Console Logging
+- **Production**: No console.log statements in production code
+- **Development**: Use `__DEV__` guard for development-only logging
+- **Error Logging**: Use proper error logging service in production
 
 ## Assumptions
 
-1. **API Availability**: The application assumes the Snips API endpoints are available and accessible. Error handling is in place for network failures.
+1. **API Availability**: The application assumes the Snips API endpoints are available and accessible. Error handling is in place for network failures. **API_BASE_URL is required** - no fallback defaults.
 
 2. **Device Support**: 
    - Primary target: iOS and Android smartphones
@@ -381,29 +469,39 @@ All API responses are typed in `src/services/types/ApiTypes.ts` for type safety.
    - Target 60fps scrolling performance
    - Optimized for devices with at least 2GB RAM
    - Network timeout set to 30 seconds
+   - Memory-efficient video playback with proper cleanup
 
 7. **Styling**: 
    - Design system assumes dark theme (`#0E0E0E` background)
    - Fonts (Inter, Poppins) are bundled with the app
    - Responsive design based on design width of 393px
    - All colors use hex format with alpha channel support
+   - Platform-specific font handling (Android uses specific font files)
 
 8. **Navigation**: 
    - Bottom tab navigation is the primary navigation pattern
    - "Rewards" and "Profile" screens are placeholder screens (not implemented)
    - Scroll positions reset when returning to Home screen
+   - Feed page prefetches on navigation ready
 
-9. **Android Configuration**:
-   - Network security config enforces HTTPS by default
-   - Cleartext traffic allowed only for localhost in development
-   - ProGuard rules configured for React Native and networking libraries
+9. **Video Playback**:
+   - Videos play automatically when visible
+   - Only one video plays at a time
+   - Videos pause on scroll, background, and screen blur
+   - Proper memory cleanup on unmount
+
+10. **Android Configuration**:
+    - Network security config enforces HTTPS by default
+    - Cleartext traffic allowed only for localhost in development
+    - ProGuard rules configured for React Native and networking libraries
+    - Custom fonts require specific font file names (no fontWeight support)
 
 ## Scripts
 
 - `yarn start`: Start Metro bundler (kills existing process on port 8081)
 - `yarn ios`: Run on iOS simulator/device
 - `yarn android`: Run on Android emulator/device
-- `yarn lint`: Run ESLint
+- `yarn lint`: Run ESLint on `src`, `App.tsx`, and `index.js`
 - `yarn test`: Run Jest tests
 
 ## License
