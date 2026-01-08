@@ -1,0 +1,6 @@
+export const EXPLORE_MORE_CARD_CONSTANTS = {
+  WIDTH: 177,
+  HEIGHT: 236,
+  BORDER_RADIUS: 8,
+} as const;
+

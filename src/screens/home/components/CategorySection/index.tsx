@@ -6,7 +6,7 @@ import type {CategorySectionProps} from './types';
 import {styles} from './styles';
 import {useHorizontalScroll} from '../../hooks/useHorizontalScroll';
 import { Title } from '@/services/types/ApiTypes';
-import {DIMENSIONS} from '@/services/constants/common';
+import {CARD_CONSTANTS} from '@/components/Card/constants';
 
 const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToEnd, listRef: externalListRef}) => {
   const {listRef, handleScroll, handleContentSizeChange, handleLayout, handleArrowPress} =
@@ -20,7 +20,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({component, onScrollToE
   const keyExtractor = useCallback((title: Title) => title.id, []);
 
   const itemWidth = useMemo(() => {
-    return DIMENSIONS.CARD.REGULAR.WIDTH + DIMENSIONS.CARD.REGULAR.GAP;
+    return CARD_CONSTANTS.REGULAR.WIDTH + CARD_CONSTANTS.REGULAR.GAP;
   }, []);
 
   return (

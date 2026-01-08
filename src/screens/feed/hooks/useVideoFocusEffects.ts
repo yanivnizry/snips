@@ -2,15 +2,16 @@ import { useEffect, useCallback, useRef } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import type { FeedItem as FeedItemType } from '@/services/types/ApiTypes';
 import type { FeedItemRef } from '@/screens/Feed/components/FeedItem/types';
+import { FEED_CONSTANTS } from '../constants';
 
 interface UseVideoFocusEffectsProps {
   feedItems: FeedItemType[];
   isScrolling: boolean;
   isFocused: boolean;
   getItemRef: (itemId: string) => React.RefObject<FeedItemRef | null>;
-  currentVisibleItemRef: React.MutableRefObject<string | null>;
-  currentPlayingRef: React.MutableRefObject<string | null>;
-  itemRefs: React.MutableRefObject<Map<string, React.RefObject<FeedItemRef | null>>>;
+  currentVisibleItemRef: React.RefObject<string | null>;
+  currentPlayingRef: React.RefObject<string | null>;
+  itemRefs: React.RefObject<Map<string, React.RefObject<FeedItemRef | null>>>;
   pauseAllVideos: () => void;
 }
 
@@ -29,10 +30,10 @@ export const useVideoFocusEffects = ({
       const timeoutId = setTimeout(() => {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            if (!isScrolling && feedItems.length > 0) {
+            if (!isScrolling && feedItems.length > FEED_CONSTANTS.ARRAY.EMPTY_LENGTH) {
               const itemToPlay = currentVisibleItemRef.current
                 ? feedItems.find((item) => item.id === currentVisibleItemRef.current)
-                : feedItems[0];
+                : feedItems[FEED_CONSTANTS.ARRAY.FIRST_ITEM_INDEX];
 
               if (itemToPlay && itemToPlay.video_playback_url) {
                 const ref = getItemRef(itemToPlay.id);
@@ -50,7 +51,7 @@ export const useVideoFocusEffects = ({
             }
           });
         });
-      }, 100);
+      }, FEED_CONSTANTS.VIDEO_CONTROL.FOCUS_EFFECT.DELAY);
 
       return () => {
         clearTimeout(timeoutId);

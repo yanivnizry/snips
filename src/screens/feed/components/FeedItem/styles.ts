@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, scaleWidth, scaleHeight, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
+import {COLORS, SPACING, scaleWidth, scaleHeight, DIMENSIONS} from '@/services/constants/common';
+import {FEED_CONSTANTS} from '../../constants';
 
 const SCREEN_WIDTH = DIMENSIONS.SCREEN.WIDTH;
 const CARD_WIDTH = SCREEN_WIDTH;
-const CARD_HEIGHT = DIMENSIONS.FEED.ITEM_HEIGHT;
-const CONTENT_BOTTOM_OFFSET = scaleHeight(DIMENSIONS.CARD.FEED.CONTENT_BOTTOM_OFFSET);
+const CARD_HEIGHT = FEED_CONSTANTS.DIMENSIONS.ITEM_HEIGHT;
+const CONTENT_BOTTOM_OFFSET = scaleHeight(FEED_CONSTANTS.FEED_ITEM.CONTENT_BOTTOM_OFFSET);
 
 export const styles = StyleSheet.create({
   card: {
@@ -23,18 +24,18 @@ export const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: scaleHeight(STYLE_CONSTANTS.FEED_BACK_BUTTON_TOP),
+    top: scaleHeight(FEED_CONSTANTS.STYLES.BACK_BUTTON_TOP),
     left: SPACING.MD,
     zIndex: 10,
     elevation: 10,
-    width: STYLE_CONSTANTS.FEED_BACK_ICON_SIZE,
-    height: STYLE_CONSTANTS.FEED_BACK_ICON_SIZE,
+    width: FEED_CONSTANTS.STYLES.BACK_ICON_SIZE,
+    height: FEED_CONSTANTS.STYLES.BACK_ICON_SIZE,
     justifyContent: 'center',
     alignItems: 'center',
   },
   backIcon: {
-    width: STYLE_CONSTANTS.FEED_BACK_ICON_SIZE,
-    height: STYLE_CONSTANTS.FEED_BACK_ICON_SIZE,
+    width: FEED_CONSTANTS.STYLES.BACK_ICON_SIZE,
+    height: FEED_CONSTANTS.STYLES.BACK_ICON_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   sideIconButton: {
@@ -42,20 +43,20 @@ export const styles = StyleSheet.create({
     gap: SPACING.XS,
   },
   sideIcon: {
-    width: STYLE_CONSTANTS.FEED_SIDE_ICON_SIZE,
-    height: STYLE_CONSTANTS.FEED_SIDE_ICON_SIZE,
+    width: FEED_CONSTANTS.STYLES.SIDE_ICON_SIZE,
+    height: FEED_CONSTANTS.STYLES.SIDE_ICON_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   sideIconSmall: {
-    width: STYLE_CONSTANTS.FEED_SIDE_ICON_SMALL_SIZE,
-    height: STYLE_CONSTANTS.FEED_SIDE_ICON_SMALL_SIZE,
+    width: FEED_CONSTANTS.STYLES.SIDE_ICON_SMALL_SIZE,
+    height: FEED_CONSTANTS.STYLES.SIDE_ICON_SMALL_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   sideIconText: {
     fontFamily: 'Inter',
     fontWeight: '400',
-    fontSize: STYLE_CONSTANTS.FEED_SIDE_ICON_TEXT_FONT_SIZE,
-    lineHeight: STYLE_CONSTANTS.FEED_SIDE_ICON_TEXT_LINE_HEIGHT,
+    fontSize: FEED_CONSTANTS.STYLES.SIDE_ICON_TEXT_FONT_SIZE,
+    lineHeight: FEED_CONSTANTS.STYLES.SIDE_ICON_TEXT_LINE_HEIGHT,
     color: COLORS.PRIMARY_TEXT,
     textAlign: 'center',
   },

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, SPACING, scaleWidth, DIMENSIONS } from '@/services/constants/common';
+import { COLORS, SPACING, scaleWidth } from '@/services/constants/common';
+import { HOME_CONSTANTS } from './constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -20,8 +21,8 @@ export const styles = StyleSheet.create({
     marginBottom: SPACING.LG,
   },
   gridSection: {
-    paddingLeft: 20,
-    paddingRight: SPACING.MD,
+    paddingLeft: HOME_CONSTANTS.STYLES.GRID_PADDING_LEFT,
+    paddingRight: HOME_CONSTANTS.STYLES.GRID_PADDING_RIGHT,
     marginBottom: SPACING.LG,
     justifyContent: 'flex-start',
   },
@@ -29,8 +30,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
-    width: DIMENSIONS.CARD.GRID.WIDTH * 2 + DIMENSIONS.CARD.GRID.GAP,
-    gap: DIMENSIONS.CARD.GRID.GAP,
+    width: HOME_CONSTANTS.GRID_CARD.WIDTH * 2 + HOME_CONSTANTS.GRID_CARD.GAP,
+    gap: HOME_CONSTANTS.GRID_CARD.GAP,
   },
   sectionTitle: {
     fontFamily: 'Poppins-SemiBold',

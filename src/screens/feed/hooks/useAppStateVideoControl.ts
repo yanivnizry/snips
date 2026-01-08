@@ -2,15 +2,16 @@ import { useEffect, useRef } from 'react';
 import { AppState } from 'react-native';
 import type { FeedItem as FeedItemType } from '@/services/types/ApiTypes';
 import type { FeedItemRef } from '@/screens/Feed/components/FeedItem/types';
+import { FEED_CONSTANTS } from '../constants';
 
 interface UseAppStateVideoControlProps {
   feedItems: FeedItemType[];
-  isFocusedRef: React.MutableRefObject<boolean>;
+  isFocusedRef: React.RefObject<boolean>;
   pauseAllVideos: (saveState?: boolean) => void;
   getItemRef: (itemId: string) => React.RefObject<FeedItemRef | null>;
-  currentPlayingRef: React.MutableRefObject<string | null>;
-  currentVisibleItemRef: React.MutableRefObject<string | null>;
-  lastPlayingBeforeBackgroundRef: React.MutableRefObject<string | null>;
+  currentPlayingRef: React.RefObject<string | null>;
+  currentVisibleItemRef: React.RefObject<string | null>;
+  lastPlayingBeforeBackgroundRef: React.RefObject<string | null>;
 }
 
 export const useAppStateVideoControl = ({
@@ -35,7 +36,7 @@ export const useAppStateVideoControl = ({
         }
       } else if (nextAppState === 'active') {
         console.log('[VIDEO] App state changed to active - restoring video playback');
-        if (isFocusedRef.current && feedItems.length > 0) {
+        if (isFocusedRef.current && feedItems.length > FEED_CONSTANTS.ARRAY.EMPTY_LENGTH) {
           activeTimeoutId = setTimeout(() => {
             requestAnimationFrame(() => {
               requestAnimationFrame(() => {
@@ -52,7 +53,7 @@ export const useAppStateVideoControl = ({
                 }
 
                 if (!itemToPlay) {
-                  itemToPlay = feedItems[0];
+                  itemToPlay = feedItems[FEED_CONSTANTS.ARRAY.FIRST_ITEM_INDEX];
                 }
 
                 if (itemToPlay && itemToPlay.video_playback_url && isFocusedRef.current) {
@@ -70,7 +71,7 @@ export const useAppStateVideoControl = ({
                 activeTimeoutId = null;
               });
             });
-          }, 200);
+          }, FEED_CONSTANTS.VIDEO_CONTROL.APP_STATE.RESTORE_DELAY);
         }
       }
     };

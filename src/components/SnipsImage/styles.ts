@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, STYLE_CONSTANTS} from '@/services/constants/common';
+import {COLORS} from '@/services/constants/common';
+import {SNIPS_IMAGE_CONSTANTS} from './constants';
 
 export const styles = StyleSheet.create({
   loadingContainer: {
@@ -25,7 +26,7 @@ export const styles = StyleSheet.create({
   },
   placeholderText: {
     color: COLORS.SECONDARY_TEXT,
-    fontSize: STYLE_CONSTANTS.CARD_SUBTITLE_FONT_SIZE,
+    fontSize: SNIPS_IMAGE_CONSTANTS.SUBTITLE_FONT_SIZE,
     fontFamily: 'Inter',
   },
   imageFill: {

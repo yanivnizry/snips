@@ -10,6 +10,7 @@ import { COLORS } from '@/services/constants/common';
 import type { FeedItem as FeedItemType } from '@/services/types/ApiTypes';
 import { DEVICE_HEIGHT, isIPad, BOTTOM_TAB_BAR_HEIGHT } from '@/services/constants/common';
 import { useFeedVideoControl } from './hooks/useFeedVideoControl';
+import { FEED_CONSTANTS } from './constants';
 
 const Feed: React.FC<FeedScreenProps> = () => {
   const {
@@ -47,14 +48,14 @@ const Feed: React.FC<FeedScreenProps> = () => {
   });
 
   const viewabilityConfig = useRef({
-    itemVisiblePercentThreshold: 50,
-    minimumViewTime: 100,
+    itemVisiblePercentThreshold: FEED_CONSTANTS.VIEWABILITY.ITEM_VISIBLE_PERCENT_THRESHOLD,
+    minimumViewTime: FEED_CONSTANTS.VIEWABILITY.MINIMUM_VIEW_TIME,
   }).current;
 
   const renderItem = useCallback(
     ({ item, index }: { item: FeedItemType; index: number }) => {
       const itemRef = getItemRef(item.id);
-      const isFirstItem = index === 0;
+      const isFirstItem = index === FEED_CONSTANTS.ARRAY.FIRST_ITEM_INDEX;
       const shouldBeMuted = !isFocused && isFirstItem;
       return (
         <FeedItem
@@ -127,7 +128,7 @@ const Feed: React.FC<FeedScreenProps> = () => {
         ListEmptyComponent={renderEmpty}
         ListFooterComponent={renderFooter}
         onEndReached={handleLoadMore}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={FEED_CONSTANTS.FLATLIST.END_REACHED_THRESHOLD}
         onViewableItemsChanged={handleViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         onScrollBeginDrag={handleScrollBeginDrag}
@@ -136,10 +137,10 @@ const Feed: React.FC<FeedScreenProps> = () => {
         scrollEnabled={!isIPad}
         pagingEnabled={true}
         removeClippedSubviews={true}
-        maxToRenderPerBatch={3}
-        initialNumToRender={3}
-        windowSize={3}
-        scrollEventThrottle={16}
+        maxToRenderPerBatch={FEED_CONSTANTS.FLATLIST.MAX_TO_RENDER_PER_BATCH}
+        initialNumToRender={FEED_CONSTANTS.FLATLIST.INITIAL_NUM_TO_RENDER}
+        windowSize={FEED_CONSTANTS.FLATLIST.WINDOW_SIZE}
+        scrollEventThrottle={FEED_CONSTANTS.FLATLIST.SCROLL_EVENT_THROTTLE}
       />
   );
 };

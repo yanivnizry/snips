@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY, DIMENSIONS, STYLE_CONSTANTS} from '@/services/constants/common';
+import {COLORS, SPACING, TYPOGRAPHY} from '@/services/constants/common';
+import {HOME_CONSTANTS} from '../../constants';
 
-const CARD_WIDTH = DIMENSIONS.CARD.FEATURED.WIDTH;
-const CARD_HEIGHT = DIMENSIONS.CARD.FEATURED.HEIGHT;
-const CORNER_MEDIUM = DIMENSIONS.CARD.FEATURED.BORDER_RADIUS;
+const CARD_WIDTH = HOME_CONSTANTS.FEATURED_CARD.WIDTH;
+const CARD_HEIGHT = HOME_CONSTANTS.FEATURED_CARD.HEIGHT;
+const CORNER_MEDIUM = HOME_CONSTANTS.FEATURED_CARD.BORDER_RADIUS;
 
 export const styles = StyleSheet.create({
   card: {
@@ -11,7 +12,7 @@ export const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     borderRadius: CORNER_MEDIUM,
     backgroundColor: COLORS.CARD_BACKGROUND,
-    marginRight: DIMENSIONS.CARD.REGULAR.GAP,
+    marginRight: HOME_CONSTANTS.REGULAR_CARD.GAP,
     overflow: 'hidden',
   },
   image: {
@@ -28,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   content: {
     position: 'absolute',
-    bottom: STYLE_CONSTANTS.FEATURED_CARD_CONTENT_BOTTOM,
+    bottom: HOME_CONSTANTS.STYLES.FEATURED_CARD_CONTENT_BOTTOM,
     left: 0,
     right: 0,
     padding: SPACING.MD,
@@ -58,20 +59,20 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     overflow: 'visible',
-    paddingTop: STYLE_CONSTANTS.RANK_OVERLAY_PADDING_TOP,
-    height: STYLE_CONSTANTS.RANK_OVERLAY_HEIGHT,
+    paddingTop: HOME_CONSTANTS.STYLES.RANK_OVERLAY_PADDING_TOP,
+    height: HOME_CONSTANTS.STYLES.RANK_OVERLAY_HEIGHT,
   },
   rankGradient: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    width: STYLE_CONSTANTS.RANK_GRADIENT_WIDTH,
-    height: STYLE_CONSTANTS.RANK_GRADIENT_HEIGHT,
+    width: HOME_CONSTANTS.STYLES.RANK_GRADIENT_WIDTH,
+    height: HOME_CONSTANTS.STYLES.RANK_GRADIENT_HEIGHT,
   },
   rankText: {
     fontFamily: 'Poppins-ExtraBold',
-    fontWeight: STYLE_CONSTANTS.RANK_TEXT_FONT_WEIGHT,
-    fontSize: STYLE_CONSTANTS.RANK_TEXT_FONT_SIZE,
-    lineHeight: STYLE_CONSTANTS.RANK_TEXT_LINE_HEIGHT,
+    fontWeight: HOME_CONSTANTS.STYLES.RANK_TEXT_FONT_WEIGHT,
+    fontSize: HOME_CONSTANTS.STYLES.RANK_TEXT_FONT_SIZE,
+    lineHeight: HOME_CONSTANTS.STYLES.RANK_TEXT_LINE_HEIGHT,
     letterSpacing: 0,
     textAlign: 'right',
     color: COLORS.WHITE,
@@ -86,9 +87,9 @@ export const styles = StyleSheet.create({
   },
   badge: {
     paddingHorizontal: SPACING.XS,
-    paddingVertical: STYLE_CONSTANTS.BADGE_PADDING_VERTICAL,
+    paddingVertical: HOME_CONSTANTS.STYLES.BADGE_PADDING_VERTICAL,
     backgroundColor: COLORS.WATCH_NOW_BUTTON,
-    borderRadius: STYLE_CONSTANTS.BADGE_BORDER_RADIUS,
+    borderRadius: HOME_CONSTANTS.STYLES.BADGE_BORDER_RADIUS,
     marginRight: SPACING.XS,
     marginBottom: SPACING.XS,
   },  
@@ -99,23 +100,23 @@ export const styles = StyleSheet.create({
     letterSpacing: 0,
     textTransform: 'uppercase',
     color: COLORS.PRIMARY_TEXT,
-    fontSize: STYLE_CONSTANTS.BADGE_FONT_SIZE,
+    fontSize: HOME_CONSTANTS.STYLES.BADGE_FONT_SIZE,
   },
   speakerIconContainer: {
     position: 'absolute',
-    top: STYLE_CONSTANTS.SPEAKER_ICON_TOP,
-    right: STYLE_CONSTANTS.SPEAKER_ICON_RIGHT,
-    width: STYLE_CONSTANTS.SPEAKER_ICON_WIDTH,
-    height: STYLE_CONSTANTS.SPEAKER_ICON_HEIGHT,
-    borderRadius: STYLE_CONSTANTS.SPEAKER_ICON_BORDER_RADIUS,
+    top: HOME_CONSTANTS.STYLES.SPEAKER_ICON_TOP,
+    right: HOME_CONSTANTS.STYLES.SPEAKER_ICON_RIGHT,
+    width: HOME_CONSTANTS.STYLES.SPEAKER_ICON_WIDTH,
+    height: HOME_CONSTANTS.STYLES.SPEAKER_ICON_HEIGHT,
+    borderRadius: HOME_CONSTANTS.STYLES.SPEAKER_ICON_BORDER_RADIUS,
     backgroundColor: COLORS.OVERLAY_BACKGROUND,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: STYLE_CONSTANTS.SPEAKER_ICON_GAP,
+    gap: HOME_CONSTANTS.STYLES.SPEAKER_ICON_GAP,
   },
   speakerIcon: {
-    width: STYLE_CONSTANTS.SPEAKER_ICON_IMAGE_WIDTH,
-    height: STYLE_CONSTANTS.SPEAKER_ICON_IMAGE_HEIGHT,
+    width: HOME_CONSTANTS.STYLES.SPEAKER_ICON_IMAGE_WIDTH,
+    height: HOME_CONSTANTS.STYLES.SPEAKER_ICON_IMAGE_HEIGHT,
     tintColor: COLORS.SECONDARY_TEXT,
   },
 });

@@ -1,4 +1,4 @@
-import { SCROLL_CONSTANTS } from '@/services/constants/common';
+import { HOME_CONSTANTS } from '../constants';
 import { useRef, useCallback, useState, useEffect } from 'react';
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from 'react-native';
 
@@ -42,7 +42,7 @@ export const useHorizontalScroll = (options?: UseHorizontalScrollOptions) => {
     if (listRef.current) {
       if (contentWidth > 0 && layoutWidth > 0) {
         const maxScrollOffset = Math.max(0, contentWidth - layoutWidth);
-        const newOffset = Math.min(scrollOffset + SCROLL_CONSTANTS.SCROLL_OFFSET, maxScrollOffset);
+        const newOffset = Math.min(scrollOffset + HOME_CONSTANTS.SCROLL.SCROLL_OFFSET, maxScrollOffset);
 
         if (newOffset >= maxScrollOffset - 1) {
           listRef.current?.scrollToEnd({ animated: true });
@@ -50,7 +50,7 @@ export const useHorizontalScroll = (options?: UseHorizontalScrollOptions) => {
           listRef.current?.scrollToOffset({ offset: newOffset, animated: true });
         }
       } else {
-        listRef.current?.scrollToOffset({ offset: scrollOffset + SCROLL_CONSTANTS.SCROLL_OFFSET, animated: true });
+        listRef.current?.scrollToOffset({ offset: scrollOffset + HOME_CONSTANTS.SCROLL.SCROLL_OFFSET, animated: true });
       }
     }
   }, [scrollOffset, contentWidth, layoutWidth]);
