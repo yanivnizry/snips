@@ -21,7 +21,6 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
   const videoRef = useRef<VideoRef>(null);
   const titleRef = useRef<View>(null);
 
-  // Update muted state when prop changes
   useEffect(() => {
     setIsMuted(muted);
   }, [muted]);

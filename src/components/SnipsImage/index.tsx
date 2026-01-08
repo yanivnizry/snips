@@ -30,7 +30,6 @@ const SnipsImage: React.FC<SnipsImageProps> = ({
     }
   };
 
-  // Handle local images (require() or ImageSourcePropType)
   if (!isUriSource) {
     return null;
   }

@@ -12,7 +12,6 @@ export const useInfiniteFeedPage = () => {
     queryKey: ['feedPage', 'infinite'],
     queryFn: ({ pageParam }) => getFeedPage(pageParam),
     getNextPageParam: (lastPage: FeedPageResponse) => {
-      console.log('lastPage', lastPage);
       if (lastPage.nextPage > lastPage.currentPage) {
         return lastPage.nextPage;
       }
