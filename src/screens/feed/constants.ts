@@ -1,6 +1,6 @@
 import { DEVICE_WIDTH, DEVICE_HEIGHT } from '@/services/constants/common';
 
-export const FEED_CONSTANTS = {
+export const FEED = {
   VIDEO_CONTROL: {
     PLAY_DELAY: 30,
     HOME_PREVIEW: {

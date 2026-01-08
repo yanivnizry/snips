@@ -1,6 +1,6 @@
 import { SPACING } from '@/services/constants/common';
 
-export const HOME_CONSTANTS = {
+export const HOME = {
   FEATURED_COUNT: 5,
   FEATURED_CARD: {
     WIDTH: 235,

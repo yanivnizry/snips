@@ -7,10 +7,10 @@ import ExpandableDescription from '../ExpandableDescription';
 import SideIcons from './SideIcons';
 import SnipsImage from '@/components/SnipsImage';
 import { MAX_DESCRIPTION_LENGTH, scaleHeight } from '@/services/constants/common';
-import { FEED_CONSTANTS } from '../../constants';
+import { FEED } from '../../constants';
 
-const CONTENT_BOTTOM_OFFSET = scaleHeight(FEED_CONSTANTS.FEED_ITEM.CONTENT_BOTTOM_OFFSET);
-const CONTENT_HEIGHT = scaleHeight(FEED_CONSTANTS.FEED_ITEM.CONTENT_HEIGHT);
+const CONTENT_BOTTOM_OFFSET = scaleHeight(FEED.FEED_ITEM.CONTENT_BOTTOM_OFFSET);
+const CONTENT_HEIGHT = scaleHeight(FEED.FEED_ITEM.CONTENT_HEIGHT);
 
 const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, isScrolling = false, autoPlay = false, muted = false }, ref) => {
   const [isPlaying, setIsPlaying] = useState(autoPlay);
@@ -108,7 +108,7 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
         setIsPlaying(true);
         setHasStarted(true);
         setWasPlaying(true);
-      }, FEED_CONSTANTS.FEED_ITEM.AUTO_PLAY_DELAY);
+      }, FEED.FEED_ITEM.AUTO_PLAY_DELAY);
       return () => clearTimeout(timer);
     }
   }, [autoPlay, hasVideo, hasError, hasStarted]);
@@ -182,7 +182,7 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
                   const { height } = event.nativeEvent.layout;
                   setTitleHeight(height);
                 }}>
-            <Text style={styles.title} numberOfLines={FEED_CONSTANTS.FEED_ITEM.TITLE_NUMBER_OF_LINES}>
+            <Text style={styles.title} numberOfLines={FEED.FEED_ITEM.TITLE_NUMBER_OF_LINES}>
               {item.name_en}
             </Text>
               </View>

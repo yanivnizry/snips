@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { FeedItem as FeedItemType } from '@/services/types/ApiTypes';
 import type { FeedItemRef } from '@/screens/Feed/components/FeedItem/types';
-import { FEED_CONSTANTS } from '../constants';
+import { FEED } from '../constants';
 
 interface UseHomePagePreviewProps {
   feedItems: FeedItemType[];
@@ -21,8 +21,8 @@ export const useHomePagePreview = ({
   const hasPlayedHomePreviewRef = useRef(false);
 
   useEffect(() => {
-    if (feedItems.length > FEED_CONSTANTS.ARRAY.EMPTY_LENGTH && !currentPlayingRef.current && !isFocused && !hasPlayedHomePreviewRef.current) {
-      const firstItem = feedItems[FEED_CONSTANTS.ARRAY.FIRST_ITEM_INDEX];
+    if (feedItems.length > FEED.ARRAY.EMPTY_LENGTH && !currentPlayingRef.current && !isFocused && !hasPlayedHomePreviewRef.current) {
+      const firstItem = feedItems[FEED.ARRAY.FIRST_ITEM_INDEX];
       if (firstItem && firstItem.video_playback_url) {
         hasPlayedHomePreviewRef.current = true;
         console.log('[HOME PLAY] Setting up auto-play for first video from home page (startup only):', firstItem.id);
@@ -45,10 +45,10 @@ export const useHomePagePreview = ({
           }
 
           if (!isAlreadyPlaying) {
-            console.log(`[HOME PLAY] Auto-playing first video from home page (muted, ${FEED_CONSTANTS.VIDEO_CONTROL.HOME_PREVIEW.PREVIEW_DURATION}ms preview):`, firstItem.id);
+            console.log(`[HOME PLAY] Auto-playing first video from home page (muted, ${FEED.VIDEO_CONTROL.HOME_PREVIEW.PREVIEW_DURATION}ms preview):`, firstItem.id);
             ref.current.play();
           } else {
-            console.log(`[HOME PLAY] Video already playing from autoPlay, will pause after ${FEED_CONSTANTS.VIDEO_CONTROL.HOME_PREVIEW.PREVIEW_DURATION}ms:`, firstItem.id);
+            console.log(`[HOME PLAY] Video already playing from autoPlay, will pause after ${FEED.VIDEO_CONTROL.HOME_PREVIEW.PREVIEW_DURATION}ms:`, firstItem.id);
           }
 
           currentPlayingRef.current = firstItem.id;
@@ -67,14 +67,14 @@ export const useHomePagePreview = ({
                   console.log('[VIDEO PAUSE] Video was still playing, pausing again:', firstItem.id);
                   ref.current.pause();
                 }
-              }, FEED_CONSTANTS.VIDEO_CONTROL.HOME_PREVIEW.RETRY_PAUSE_DELAY);
+              }, FEED.VIDEO_CONTROL.HOME_PREVIEW.RETRY_PAUSE_DELAY);
               
               currentPlayingRef.current = null;
-              console.log(`[HOME PLAY] Auto-stopped first video preview after ${FEED_CONSTANTS.VIDEO_CONTROL.HOME_PREVIEW.PREVIEW_DURATION}ms:`, firstItem.id);
+              console.log(`[HOME PLAY] Auto-stopped first video preview after ${FEED.VIDEO_CONTROL.HOME_PREVIEW.PREVIEW_DURATION}ms:`, firstItem.id);
             } else {
               console.log('[VIDEO PAUSE] Ref is null, cannot pause:', firstItem.id);
             }
-          }, FEED_CONSTANTS.VIDEO_CONTROL.HOME_PREVIEW.PREVIEW_DURATION);
+          }, FEED.VIDEO_CONTROL.HOME_PREVIEW.PREVIEW_DURATION);
 
           return true;
         };
@@ -85,9 +85,9 @@ export const useHomePagePreview = ({
               if (!checkAndSetupVideo()) {
                 console.log('[HOME PLAY] Failed to setup video after retry:', firstItem.id);
               }
-            }, FEED_CONSTANTS.VIDEO_CONTROL.HOME_PREVIEW.RETRY_DELAY);
+            }, FEED.VIDEO_CONTROL.HOME_PREVIEW.RETRY_DELAY);
           }
-        }, FEED_CONSTANTS.VIDEO_CONTROL.HOME_PREVIEW.INITIAL_DELAY);
+        }, FEED.VIDEO_CONTROL.HOME_PREVIEW.INITIAL_DELAY);
 
         return () => {
           clearTimeout(playTimeoutId);

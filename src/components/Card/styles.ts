@@ -1,18 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, SPACING, TYPOGRAPHY } from '@/services/constants/common';
-import { CARD_CONSTANTS } from './constants';
+import { COLORS, SPACING } from '@/services/constants/common';
+import { TYPOGRAPHY } from '@/services/constants/typography';
+import { CARD } from './constants';
 
-const CARD_BORDER_RADIUS = CARD_CONSTANTS.REGULAR.BORDER_RADIUS;
-const CARD_WIDTH = CARD_CONSTANTS.REGULAR.WIDTH;
-const CARD_HEIGHT = CARD_CONSTANTS.REGULAR.HEIGHT;
-const CARD_GAP = CARD_CONSTANTS.REGULAR.GAP;
+const CARD_BORDER_RADIUS = CARD.REGULAR.BORDER_RADIUS;
+const CARD_WIDTH = CARD.REGULAR.WIDTH;
+const CARD_HEIGHT = CARD.REGULAR.HEIGHT;
+const CARD_GAP = CARD.REGULAR.GAP;
 
-const IMAGE_WIDTH = CARD_CONSTANTS.IMAGE.WIDTH;
-const IMAGE_HEIGHT = CARD_CONSTANTS.IMAGE.HEIGHT;
-const IMAGE_BORDER_RADIUS = CARD_CONSTANTS.IMAGE.BORDER_RADIUS;
+const IMAGE_WIDTH = CARD.IMAGE.WIDTH;
+const IMAGE_HEIGHT = CARD.IMAGE.HEIGHT;
+const IMAGE_BORDER_RADIUS = CARD.IMAGE.BORDER_RADIUS;
 
-const GRID_CARD_WIDTH = CARD_CONSTANTS.GRID.WIDTH;
-const GRID_CARD_HEIGHT = CARD_CONSTANTS.GRID.HEIGHT;
+const GRID_CARD_WIDTH = CARD.GRID.WIDTH;
+const GRID_CARD_HEIGHT = CARD.GRID.HEIGHT;
 const GRID_IMAGE_HEIGHT = GRID_CARD_HEIGHT;
 
 export const styles = StyleSheet.create({
@@ -35,45 +36,36 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    fontFamily: 'Inter',
-    fontWeight: '600',
+    ...TYPOGRAPHY.CARD_TITLE,
     letterSpacing: 0.01,
     color: COLORS.PRIMARY_TEXT,
-    fontSize: CARD_CONSTANTS.STYLES.TITLE_FONT_SIZE,
-    lineHeight: CARD_CONSTANTS.STYLES.TITLE_LINE_HEIGHT,
     marginBottom: SPACING.XS,
   },
   subtitle: {
-    fontFamily: 'Inter',
-    fontWeight: '400',
-    lineHeight: 11,
+    ...TYPOGRAPHY.SUBTITLE_XS,
     letterSpacing: 0,
     textTransform: 'uppercase',
     color: COLORS.SECONDARY_TEXT,
-    fontSize: CARD_CONSTANTS.STYLES.SUBTITLE_FONT_SIZE,
   },
   watchContainer: {
     position: 'absolute',
-    bottom: CARD_HEIGHT - IMAGE_HEIGHT + CARD_CONSTANTS.STYLES.WATCH_CONTAINER_BOTTOM_OFFSET,
-    right: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_RIGHT_OFFSET,
+    bottom: CARD_HEIGHT - IMAGE_HEIGHT + CARD.STYLES.WATCH_CONTAINER_BOTTOM_OFFSET,
+    right: CARD.STYLES.WATCH_CONTAINER_RIGHT_OFFSET,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.OVERLAY_BACKGROUND,
-    paddingHorizontal: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_PADDING_HORIZONTAL,
-    paddingVertical: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_PADDING_VERTICAL,
-    borderRadius: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_BORDER_RADIUS,
+    paddingHorizontal: CARD.STYLES.WATCH_CONTAINER_PADDING_HORIZONTAL,
+    paddingVertical: CARD.STYLES.WATCH_CONTAINER_PADDING_VERTICAL,
+    borderRadius: CARD.STYLES.WATCH_CONTAINER_BORDER_RADIUS,
   },
   eyeIcon: {
-    width: CARD_CONSTANTS.STYLES.EYE_ICON_WIDTH,
-    height: CARD_CONSTANTS.STYLES.EYE_ICON_HEIGHT,
-    marginRight: CARD_CONSTANTS.STYLES.EYE_ICON_MARGIN_RIGHT,
+    width: CARD.STYLES.EYE_ICON_WIDTH,
+    height: CARD.STYLES.EYE_ICON_HEIGHT,
+    marginRight: CARD.STYLES.EYE_ICON_MARGIN_RIGHT,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   watchText: {
-    fontFamily: 'Inter',
-    fontWeight: '400',
-    fontSize: 11,
-    lineHeight: 14,
+    ...TYPOGRAPHY.CARD_WATCH_COUNT,
     letterSpacing: 0,
     textAlign: 'center',
     color: COLORS.PRIMARY_TEXT,
@@ -81,7 +73,7 @@ export const styles = StyleSheet.create({
   gridCard: {
     width: GRID_CARD_WIDTH,
     height: GRID_CARD_HEIGHT,
-    borderRadius: CARD_CONSTANTS.STYLES.GRID_BORDER_RADIUS,
+    borderRadius: CARD.STYLES.GRID_BORDER_RADIUS,
     backgroundColor: COLORS.CARD_BACKGROUND,
     overflow: 'hidden',
   },
@@ -96,14 +88,14 @@ export const styles = StyleSheet.create({
   },
   gridWatchContainer: {
     position: 'absolute',
-    bottom: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_BOTTOM_OFFSET,
-    right: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_RIGHT_OFFSET,
+    bottom: CARD.STYLES.WATCH_CONTAINER_BOTTOM_OFFSET,
+    right: CARD.STYLES.WATCH_CONTAINER_RIGHT_OFFSET,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.OVERLAY_BACKGROUND,
-    paddingHorizontal: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_PADDING_HORIZONTAL,
-    paddingVertical: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_PADDING_VERTICAL,
-    borderRadius: CARD_CONSTANTS.STYLES.WATCH_CONTAINER_BORDER_RADIUS,
+    paddingHorizontal: CARD.STYLES.WATCH_CONTAINER_PADDING_HORIZONTAL,
+    paddingVertical: CARD.STYLES.WATCH_CONTAINER_PADDING_VERTICAL,
+    borderRadius: CARD.STYLES.WATCH_CONTAINER_BORDER_RADIUS,
   },
 });
 

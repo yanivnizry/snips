@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, TYPOGRAPHY} from '@/services/constants/common';
+import {COLORS, SPACING} from '@/services/constants/common';
+import {TYPOGRAPHY} from '@/services/constants/typography';
 
 export const styles = StyleSheet.create({
   section: {
@@ -14,10 +15,7 @@ export const styles = StyleSheet.create({
     marginBottom: SPACING.MD,
   },
   title: {
-    fontFamily: 'Poppins-SemiBold',
-    fontWeight: '600',
-    fontSize: 20,
-    lineHeight: 28,
+    ...TYPOGRAPHY.HEADING,
     letterSpacing: 0.2,
     color: COLORS.PRIMARY_TEXT,
   },

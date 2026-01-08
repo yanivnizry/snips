@@ -17,5 +17,5 @@ const ExploreMoreCard: React.FC = () => {
   );
 };
 
-export default ExploreMoreCard;
+export default React.memo(ExploreMoreCard);
 

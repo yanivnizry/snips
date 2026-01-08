@@ -1,4 +1,4 @@
-export const NAVIGATION_CONSTANTS = {
+export const NAVIGATION = {
   TAB_BAR: {
     FONT_SIZE: 10,
     FONT_WEIGHT: '500',

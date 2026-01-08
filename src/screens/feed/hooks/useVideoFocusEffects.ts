@@ -2,7 +2,7 @@ import { useEffect, useCallback, useRef } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import type { FeedItem as FeedItemType } from '@/services/types/ApiTypes';
 import type { FeedItemRef } from '@/screens/Feed/components/FeedItem/types';
-import { FEED_CONSTANTS } from '../constants';
+import { FEED } from '../constants';
 
 interface UseVideoFocusEffectsProps {
   feedItems: FeedItemType[];
@@ -30,10 +30,10 @@ export const useVideoFocusEffects = ({
       const timeoutId = setTimeout(() => {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            if (!isScrolling && feedItems.length > FEED_CONSTANTS.ARRAY.EMPTY_LENGTH) {
+            if (!isScrolling && feedItems.length > FEED.ARRAY.EMPTY_LENGTH) {
               const itemToPlay = currentVisibleItemRef.current
                 ? feedItems.find((item) => item.id === currentVisibleItemRef.current)
-                : feedItems[FEED_CONSTANTS.ARRAY.FIRST_ITEM_INDEX];
+                : feedItems[FEED.ARRAY.FIRST_ITEM_INDEX];
 
               if (itemToPlay && itemToPlay.video_playback_url) {
                 const ref = getItemRef(itemToPlay.id);
@@ -51,7 +51,7 @@ export const useVideoFocusEffects = ({
             }
           });
         });
-      }, FEED_CONSTANTS.VIDEO_CONTROL.FOCUS_EFFECT.DELAY);
+      }, FEED.VIDEO_CONTROL.FOCUS_EFFECT.DELAY);
 
       return () => {
         clearTimeout(timeoutId);

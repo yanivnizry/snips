@@ -6,6 +6,7 @@ import Home from '@/screens/Home';
 import Feed from '@/screens/Feed';
 import type { RootTabParamList } from './NavigationTypes';
 import { COLORS, SPACING } from '@/services/constants/common';
+import { TYPOGRAPHY } from '@/services/constants/typography';
 import styles from './styles';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -38,8 +39,7 @@ const TabNavigator: React.FC = () => {
         tabBarActiveTintColor: COLORS.PRIMARY_TEXT,
         tabBarInactiveTintColor: COLORS.SECONDARY_TEXT,
         tabBarLabelStyle: {
-          fontSize: 10,
-          fontWeight: '500',
+          ...TYPOGRAPHY.TAB_BAR_LABEL,
         },
       }}>
       <Tab.Screen

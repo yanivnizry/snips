@@ -52,38 +52,7 @@ export const SPACING = {
   XXL: 48,
 };
 
-export const TYPOGRAPHY = {
-  CARD_TITLE: {
-    fontFamily: 'Inter',
-    fontWeight: '600',
-    fontSize: 20,
-    lineHeight: 28,
-    letterSpacing: 0.01,
-  },
-  CARD_SUBTITLE: {
-    fontFamily: 'Inter',
-    fontWeight: '400',
-    fontSize: 11,
-    lineHeight: 11,
-    letterSpacing: 0,
-    textTransform: 'uppercase',
-  },
-  LABEL: {
-    fontFamily: 'Inter',
-    fontWeight: '700',
-    fontSize: 11,
-    lineHeight: 11,
-    letterSpacing: 0,
-    textAlign: 'center',
-    textTransform: 'uppercase',
-  },
-};
-
 export const DIMENSIONS = {
-  DESIGN_BASE: {
-    WIDTH: DESIGN_WIDTH,
-    HEIGHT: DESIGN_HEIGHT,
-  },
   DEVICE: {
     WIDTH: DEVICE_WIDTH,
     HEIGHT: DEVICE_HEIGHT,

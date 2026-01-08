@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {COLORS, SPACING} from '@/services/constants/common';
+import {TYPOGRAPHY} from '@/services/constants/typography';
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,8 +20,8 @@ export const styles = StyleSheet.create({
     padding: SPACING.MD,
   },
   errorText: {
+    ...TYPOGRAPHY.ERROR_TEXT,
     color: COLORS.PRIMARY_TEXT,
-    fontSize: 16,
     textAlign: 'center',
   },
   footerLoader: {

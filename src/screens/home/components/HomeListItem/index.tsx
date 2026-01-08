@@ -5,7 +5,7 @@ import CategorySection from '@/screens/Home/components/CategorySection';
 import Card from '@/components/Card';
 import ExploreMoreCard from '@/components/ExploreMoreCard';
 import { styles } from '../../styles';
-import { HOME_CONSTANTS } from '../../constants';
+import { HOME } from '../../constants';
 import type { HomeListItemProps } from './types';
 
 const HomeListItem: React.FC<HomeListItemProps> = ({
@@ -21,10 +21,10 @@ const HomeListItem: React.FC<HomeListItemProps> = ({
         <View style={styles.featuredSection}>
           <HorizontalList
             ref={featuredListRef}
-            data={item.component.titles.slice(0, HOME_CONSTANTS.FEATURED_COUNT)}
+            data={item.component.titles.slice(0, HOME.FEATURED_COUNT)}
             renderItem={renderFeaturedItem}
             keyExtractor={featuredKeyExtractor}
-            itemWidth={HOME_CONSTANTS.FEATURED_CARD.WIDTH + HOME_CONSTANTS.REGULAR_CARD.GAP}
+            itemWidth={HOME.FEATURED_CARD.WIDTH + HOME.REGULAR_CARD.GAP}
           />
         </View>
       );

@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {COLORS, SPACING, scaleWidth, scaleHeight, DIMENSIONS} from '@/services/constants/common';
-import {FEED_CONSTANTS} from '../../constants';
+import {TYPOGRAPHY} from '@/services/constants/typography';
+import {FEED} from '../../constants';
 
 const SCREEN_WIDTH = DIMENSIONS.SCREEN.WIDTH;
 const CARD_WIDTH = SCREEN_WIDTH;
-const CARD_HEIGHT = FEED_CONSTANTS.DIMENSIONS.ITEM_HEIGHT;
-const CONTENT_BOTTOM_OFFSET = scaleHeight(FEED_CONSTANTS.FEED_ITEM.CONTENT_BOTTOM_OFFSET);
+const CARD_HEIGHT = FEED.DIMENSIONS.ITEM_HEIGHT;
+const CONTENT_BOTTOM_OFFSET = scaleHeight(FEED.FEED_ITEM.CONTENT_BOTTOM_OFFSET);
 
 export const styles = StyleSheet.create({
   card: {
@@ -24,18 +25,18 @@ export const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: scaleHeight(FEED_CONSTANTS.STYLES.BACK_BUTTON_TOP),
+    top: scaleHeight(FEED.STYLES.BACK_BUTTON_TOP),
     left: SPACING.MD,
     zIndex: 10,
     elevation: 10,
-    width: FEED_CONSTANTS.STYLES.BACK_ICON_SIZE,
-    height: FEED_CONSTANTS.STYLES.BACK_ICON_SIZE,
+    width: FEED.STYLES.BACK_ICON_SIZE,
+    height: FEED.STYLES.BACK_ICON_SIZE,
     justifyContent: 'center',
     alignItems: 'center',
   },
   backIcon: {
-    width: FEED_CONSTANTS.STYLES.BACK_ICON_SIZE,
-    height: FEED_CONSTANTS.STYLES.BACK_ICON_SIZE,
+    width: FEED.STYLES.BACK_ICON_SIZE,
+    height: FEED.STYLES.BACK_ICON_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   sideIconButton: {
@@ -43,20 +44,17 @@ export const styles = StyleSheet.create({
     gap: SPACING.XS,
   },
   sideIcon: {
-    width: FEED_CONSTANTS.STYLES.SIDE_ICON_SIZE,
-    height: FEED_CONSTANTS.STYLES.SIDE_ICON_SIZE,
+    width: FEED.STYLES.SIDE_ICON_SIZE,
+    height: FEED.STYLES.SIDE_ICON_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   sideIconSmall: {
-    width: FEED_CONSTANTS.STYLES.SIDE_ICON_SMALL_SIZE,
-    height: FEED_CONSTANTS.STYLES.SIDE_ICON_SMALL_SIZE,
+    width: FEED.STYLES.SIDE_ICON_SMALL_SIZE,
+    height: FEED.STYLES.SIDE_ICON_SMALL_SIZE,
     tintColor: COLORS.PRIMARY_TEXT,
   },
   sideIconText: {
-    fontFamily: 'Inter',
-    fontWeight: '400',
-    fontSize: FEED_CONSTANTS.STYLES.SIDE_ICON_TEXT_FONT_SIZE,
-    lineHeight: FEED_CONSTANTS.STYLES.SIDE_ICON_TEXT_LINE_HEIGHT,
+    ...TYPOGRAPHY.SUBTITLE,
     color: COLORS.PRIMARY_TEXT,
     textAlign: 'center',
   },
@@ -94,10 +92,7 @@ export const styles = StyleSheet.create({
     elevation: 10,
   },
   title: {
-    fontFamily: 'Poppins-SemiBold',
-    fontWeight: '600',
-    fontSize: 20,
-    lineHeight: 28,
+    ...TYPOGRAPHY.HEADING,
     letterSpacing: 0.2,
     color: COLORS.PRIMARY_TEXT,
     marginTop: SPACING.SM,
@@ -142,9 +137,7 @@ export const styles = StyleSheet.create({
     tintColor: COLORS.PRIMARY_TEXT,
   },
   watchNowText: {
-    fontFamily: 'Inter',
-    fontWeight: '600',
-    fontSize: 14,
+    ...TYPOGRAPHY.BUTTON,
     color: COLORS.PRIMARY_TEXT,
     textAlign: 'center',
   },

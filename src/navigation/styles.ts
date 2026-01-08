@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { COLORS } from "@/services/constants/common";
+import { TYPOGRAPHY } from "@/services/constants/typography";
 
 export default StyleSheet.create({
     icon: {
@@ -13,8 +14,7 @@ export default StyleSheet.create({
       backgroundColor: COLORS.BACKGROUND,
     },
     placeholderText: {
+      ...TYPOGRAPHY.PLACEHOLDER,
       color: COLORS.PRIMARY_TEXT,
-      fontSize: 18,
-      fontWeight: '600',
     },
   });

@@ -1,4 +1,4 @@
-export const CARD_CONSTANTS = {
+export const CARD = {
   REGULAR: {
     WIDTH: 160,
     HEIGHT: 254,

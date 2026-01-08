@@ -1,10 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {COLORS, SPACING} from '@/services/constants/common';
-import {EXPLORE_MORE_CARD_CONSTANTS} from './constants';
-
-const CARD_WIDTH = EXPLORE_MORE_CARD_CONSTANTS.WIDTH;
-const CARD_HEIGHT = EXPLORE_MORE_CARD_CONSTANTS.HEIGHT;
-const CARD_BORDER_RADIUS = EXPLORE_MORE_CARD_CONSTANTS.BORDER_RADIUS;
+import {TYPOGRAPHY} from '@/services/constants/typography';
+import {CARD_WIDTH, CARD_HEIGHT, CARD_BORDER_RADIUS} from './constants';
 
 export const styles = StyleSheet.create({
   card: {
@@ -25,10 +22,7 @@ export const styles = StyleSheet.create({
     tintColor: COLORS.WHITE,
   },
   text: {
-    fontFamily: 'Inter',
-    fontWeight: '400',
-    fontSize: 14,
-    lineHeight: 20,
+    ...TYPOGRAPHY.BODY,
     color: COLORS.WHITE,
     textAlign: 'center',
   },

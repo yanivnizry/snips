@@ -10,7 +10,7 @@ import { COLORS } from '@/services/constants/common';
 import type { FeedItem as FeedItemType } from '@/services/types/ApiTypes';
 import { DEVICE_HEIGHT, isIPad, BOTTOM_TAB_BAR_HEIGHT } from '@/services/constants/common';
 import { useFeedVideoControl } from './hooks/useFeedVideoControl';
-import { FEED_CONSTANTS } from './constants';
+import { FEED } from './constants';
 
 const Feed: React.FC<FeedScreenProps> = () => {
   const {
@@ -48,14 +48,14 @@ const Feed: React.FC<FeedScreenProps> = () => {
   });
 
   const viewabilityConfig = useRef({
-    itemVisiblePercentThreshold: FEED_CONSTANTS.VIEWABILITY.ITEM_VISIBLE_PERCENT_THRESHOLD,
-    minimumViewTime: FEED_CONSTANTS.VIEWABILITY.MINIMUM_VIEW_TIME,
+    itemVisiblePercentThreshold: FEED.VIEWABILITY.ITEM_VISIBLE_PERCENT_THRESHOLD,
+    minimumViewTime: FEED.VIEWABILITY.MINIMUM_VIEW_TIME,
   }).current;
 
   const renderItem = useCallback(
     ({ item, index }: { item: FeedItemType; index: number }) => {
       const itemRef = getItemRef(item.id);
-      const isFirstItem = index === FEED_CONSTANTS.ARRAY.FIRST_ITEM_INDEX;
+      const isFirstItem = index === FEED.ARRAY.FIRST_ITEM_INDEX;
       const shouldBeMuted = !isFocused && isFirstItem;
       return (
         <FeedItem
@@ -111,7 +111,7 @@ const Feed: React.FC<FeedScreenProps> = () => {
       return (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>
-            {error instanceof Error ? error.message : 'Failed o load feed. Please try again later.'}
+            {error instanceof Error ? error.message : 'Failed to load feed. Please try again later.'}
           </Text>
         </View>
       );
@@ -128,7 +128,7 @@ const Feed: React.FC<FeedScreenProps> = () => {
         ListEmptyComponent={renderEmpty}
         ListFooterComponent={renderFooter}
         onEndReached={handleLoadMore}
-        onEndReachedThreshold={FEED_CONSTANTS.FLATLIST.END_REACHED_THRESHOLD}
+        onEndReachedThreshold={FEED.FLATLIST.END_REACHED_THRESHOLD}
         onViewableItemsChanged={handleViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         onScrollBeginDrag={handleScrollBeginDrag}
@@ -137,10 +137,10 @@ const Feed: React.FC<FeedScreenProps> = () => {
         scrollEnabled={!isIPad}
         pagingEnabled={true}
         removeClippedSubviews={true}
-        maxToRenderPerBatch={FEED_CONSTANTS.FLATLIST.MAX_TO_RENDER_PER_BATCH}
-        initialNumToRender={FEED_CONSTANTS.FLATLIST.INITIAL_NUM_TO_RENDER}
-        windowSize={FEED_CONSTANTS.FLATLIST.WINDOW_SIZE}
-        scrollEventThrottle={FEED_CONSTANTS.FLATLIST.SCROLL_EVENT_THROTTLE}
+        maxToRenderPerBatch={FEED.FLATLIST.MAX_TO_RENDER_PER_BATCH}
+        initialNumToRender={FEED.FLATLIST.INITIAL_NUM_TO_RENDER}
+        windowSize={FEED.FLATLIST.WINDOW_SIZE}
+        scrollEventThrottle={FEED.FLATLIST.SCROLL_EVENT_THROTTLE}
       />
   );
 };

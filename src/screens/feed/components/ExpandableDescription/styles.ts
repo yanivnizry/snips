@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {COLORS, DIMENSIONS, SPACING} from '@/services/constants/common';
+import {TYPOGRAPHY} from '@/services/constants/typography';
 import { scaleWidth, scaleHeight } from '@/services/constants/common';
 export const styles = StyleSheet.create({
   container: {
@@ -18,10 +19,7 @@ export const styles = StyleSheet.create({
     pointerEvents: 'none',
   },
   description: {
-    fontFamily: 'Inter',
-    fontWeight: '400',
-    fontSize: 14,
-    lineHeight: 17,
+    ...TYPOGRAPHY.BODY_SMALL,
     letterSpacing: 0,
     color: COLORS.PRIMARY_TEXT,
     position: 'relative',
@@ -34,10 +32,7 @@ export const styles = StyleSheet.create({
     zIndex: 2,
   },
   toggleText: {
-    fontFamily: 'Inter',
-    fontWeight: '400',
-    fontSize: 14,
-    lineHeight: 20,
+    ...TYPOGRAPHY.BODY,
     color: COLORS.PRIMARY_TEXT,
     textDecorationLine: 'underline',
   },

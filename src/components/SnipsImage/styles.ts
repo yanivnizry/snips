@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {COLORS} from '@/services/constants/common';
-import {SNIPS_IMAGE_CONSTANTS} from './constants';
+import {TYPOGRAPHY} from '@/services/constants/typography';
+import {SNIPS_IMAGE} from './constants';
 
 export const styles = StyleSheet.create({
   loadingContainer: {
@@ -15,7 +16,7 @@ export const styles = StyleSheet.create({
     zIndex: 1,
   },
   placeholderContainer: {
-    position: 'absolute',
+    position: 'absolute',  
     top: 0,
     left: 0,
     right: 0,
@@ -25,9 +26,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   placeholderText: {
+    ...TYPOGRAPHY.SUBTITLE_XS,
     color: COLORS.SECONDARY_TEXT,
-    fontSize: SNIPS_IMAGE_CONSTANTS.SUBTITLE_FONT_SIZE,
-    fontFamily: 'Inter',
   },
   imageFill: {
     position: 'absolute',

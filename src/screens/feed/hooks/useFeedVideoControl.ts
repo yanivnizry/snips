@@ -5,7 +5,7 @@ import type { FeedItemRef } from '@/screens/Feed/components/FeedItem/types';
 import { useHomePagePreview } from './useHomePagePreview';
 import { useAppStateVideoControl } from './useAppStateVideoControl';
 import { useVideoFocusEffects } from './useVideoFocusEffects';
-import { FEED_CONSTANTS } from '../constants';
+import { FEED } from '../constants';
 
 interface UseFeedVideoControlProps {
   feedItems: FeedItemType[];
@@ -93,7 +93,7 @@ export const useFeedVideoControl = ({
         } else {
           console.log('[VIDEO PLAY] Skipped playback - currently scrolling:', itemId);
         }
-      }, FEED_CONSTANTS.VIDEO_CONTROL.PLAY_DELAY);
+      }, FEED.VIDEO_CONTROL.PLAY_DELAY);
     },
     [isScrolling, getItemRef],
   );
