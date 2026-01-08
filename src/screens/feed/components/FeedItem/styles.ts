@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SPACING, scaleWidth, scaleHeight, DIMENSIONS} from '@/services/constants/common';
-import {TYPOGRAPHY} from '@/services/constants/typography';
+import {COLORS, SPACING, scaleWidth, scaleHeight, DIMENSIONS} from '@/constants/common';
+import {TYPOGRAPHY} from '@/constants/typography';
 import {FEED} from '../../constants';
 
 const SCREEN_WIDTH = DIMENSIONS.SCREEN.WIDTH;

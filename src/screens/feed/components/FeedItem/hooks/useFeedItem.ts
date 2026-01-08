@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo, useImperativeHandle } from 'react
 import { View } from 'react-native';
 import type { VideoRef } from 'react-native-video';
 import type { FeedItemProps, FeedItemRef } from '../types';
-import { scaleHeight } from '@/services/constants/common';
+import { scaleHeight } from '@/constants/common';
 import { FEED } from '../../../constants';
 import { styles } from '../styles';
 

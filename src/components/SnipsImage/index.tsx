@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, ActivityIndicator } from 'react-native';
 import type { SnipsImageProps } from './types';
 import { styles } from './styles';
-import { COLORS } from '@/services/constants/common';
+import { COLORS } from '@/constants/common';
 
 const SnipsImage: React.FC<SnipsImageProps> = ({
   source,

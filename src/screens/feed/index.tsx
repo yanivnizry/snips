@@ -6,9 +6,9 @@ import { useInfiniteFeedPage } from '@/services/queries/useInfiniteFeedPage';
 import FeedItem from '@/screens/Feed/components/FeedItem';
 import type { FeedScreenProps } from './types';
 import { styles } from './styles';
-import { COLORS } from '@/services/constants/common';
+import { COLORS } from '@/constants/common';
 import type { FeedItem as FeedItemType } from '@/services/types/ApiTypes';
-import { DEVICE_HEIGHT, isIPad, BOTTOM_TAB_BAR_HEIGHT } from '@/services/constants/common';
+import { DEVICE_HEIGHT, isIPad, BOTTOM_TAB_BAR_HEIGHT } from '@/constants/common';
 import { useFeedVideoControl } from './hooks/useFeedVideoControl';
 import { FEED } from './constants';
 

@@ -6,7 +6,7 @@ import { styles } from './styles';
 import ExpandableDescription from '../ExpandableDescription';
 import SideIcons from './SideIcons';
 import SnipsImage from '@/components/SnipsImage';
-import { MAX_DESCRIPTION_LENGTH } from '@/services/constants/common';
+import { MAX_DESCRIPTION_LENGTH } from '@/constants/common';
 import { FEED } from '../../constants';
 import { useFeedItem } from './hooks/useFeedItem';
 

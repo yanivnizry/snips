@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
 import {styles} from './styles';
-import {COLORS} from '@/services/constants/common';
+import {COLORS} from '@/constants/common';
 
 interface RankNumberProps {
   rank: number;

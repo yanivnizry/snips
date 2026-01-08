@@ -8,7 +8,7 @@ import { useHomeScrollReset } from './hooks/useHomeScrollReset';
 import FeaturedCard from '@/screens/Home/components/FeaturedCard';
 import HomeListItem from '@/screens/Home/components/HomeListItem';
 import { styles } from './styles';
-import { COLORS } from '@/services/constants/common';
+import { COLORS } from '@/constants/common';
 import { Title } from '@/services/types/ApiTypes';
 import type { HomeListItem as HomeListItemType } from '@/screens/Home/components/HomeListItem/types';
 

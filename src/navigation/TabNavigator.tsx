@@ -5,8 +5,8 @@ import { useSafeAreaInsets, SafeAreaView } from 'react-native-safe-area-context'
 import Home from '@/screens/Home';
 import Feed from '@/screens/Feed';
 import type { RootTabParamList } from './NavigationTypes';
-import { COLORS, SPACING } from '@/services/constants/common';
-import { TYPOGRAPHY } from '@/services/constants/typography';
+import { COLORS, SPACING } from '@/constants/common';
+import { TYPOGRAPHY } from '@/constants/typography';
 import styles from './styles';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();

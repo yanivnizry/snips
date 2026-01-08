@@ -1,4 +1,4 @@
-import { DEVICE_WIDTH, DEVICE_HEIGHT } from '@/services/constants/common';
+import { DEVICE_WIDTH, DEVICE_HEIGHT } from '@/constants/common';
 
 export const FEED = {
   VIDEO_CONTROL: {

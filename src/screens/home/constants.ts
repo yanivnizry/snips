@@ -1,4 +1,4 @@
-import { SPACING } from '@/services/constants/common';
+import { SPACING } from '@/constants/common';
 
 export const HOME = {
   FEATURED_COUNT: 5,

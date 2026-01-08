@@ -1,5 +1,5 @@
 import { Dimensions } from 'react-native';
-import {API_BASE_URL} from '../config/env';
+import {API_BASE_URL} from '../services/config/env';
 
 const DESIGN_WIDTH = 393;
 const DESIGN_HEIGHT = 852;
