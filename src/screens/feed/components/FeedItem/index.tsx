@@ -11,14 +11,20 @@ import { MAX_DESCRIPTION_LENGTH, scaleHeight, DIMENSIONS } from '@/services/cons
 const CONTENT_BOTTOM_OFFSET = scaleHeight(DIMENSIONS.CARD.FEED.CONTENT_BOTTOM_OFFSET);
 const CONTENT_HEIGHT = scaleHeight(279);
 
-const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, isScrolling = false }, ref) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, isScrolling = false, autoPlay = false, muted = false }, ref) => {
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [hasError, setHasError] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [wasPlaying, setWasPlaying] = useState(false);
   const [titleHeight, setTitleHeight] = useState(0);
+  const [isMuted, setIsMuted] = useState(muted);
   const videoRef = useRef<VideoRef>(null);
   const titleRef = useRef<View>(null);
+
+  // Update muted state when prop changes
+  useEffect(() => {
+    setIsMuted(muted);
+  }, [muted]);
 
   const hasVideo = Boolean(item.video_playback_url);
   const shouldShowPlayButton = !isPlaying && !isScrolling && wasPlaying && hasStarted;
@@ -48,6 +54,10 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
       setIsPlaying(false);
     },
     isPlaying: () => isPlaying,
+    setMuted: (muted: boolean) => {
+      setIsMuted(muted);
+    },
+    isMuted: () => isMuted,
   }));
 
   const handlePlayPress = () => {
@@ -93,6 +103,17 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
   }, [isPlaying, hasStarted]);
 
   useEffect(() => {
+    if (autoPlay && hasVideo && !hasError && !hasStarted) {
+      const timer = setTimeout(() => {
+        setIsPlaying(true);
+        setHasStarted(true);
+        setWasPlaying(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [autoPlay, hasVideo, hasError, hasStarted]);
+
+  useEffect(() => {
     return () => {
       setIsPlaying(false);
     };
@@ -113,7 +134,7 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
             onLoad={handleVideoLoad}
             repeat={true}
             controls={false}
-            muted={false}
+            muted={isMuted}
             playInBackground={false}
             playWhenInactive={false}
             ignoreSilentSwitch="ignore"
@@ -135,12 +156,12 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
         </>
       )}
       {!hasVideo && (
-        <SnipsImage
+      <SnipsImage
           source={{ uri: item.poster_url }}
           style={dynamicStyles.image}
           loadingIndicatorSize="large"
-          resizeMode="cover"
-        />
+        resizeMode="cover"
+      />
       )}
       <TouchableOpacity style={styles.backButton}>
         <Image
@@ -161,9 +182,9 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>(({ item, scrollHeight, i
                   const { height } = event.nativeEvent.layout;
                   setTitleHeight(height);
                 }}>
-                <Text style={styles.title} numberOfLines={2}>
-                  {item.name_en}
-                </Text>
+            <Text style={styles.title} numberOfLines={2}>
+              {item.name_en}
+            </Text>
               </View>
               <ExpandableDescription 
                 description={item.captions_en} 

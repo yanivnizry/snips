@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react';
 import { View, Text, FlatList, ActivityIndicator, NativeScrollEvent, NativeSyntheticEvent, AppState } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useNavigationState } from '@react-navigation/native';
 import { useInfiniteFeedPage } from '@/services/queries/useInfiniteFeedPage';
 import FeedItem from '@/screens/Feed/components/FeedItem';
 import type { FeedScreenProps } from './types';
@@ -22,7 +22,13 @@ const Feed: React.FC<FeedScreenProps> = () => {
     isFetchingNextPage,
   } = useInfiniteFeedPage();
   const insets = useSafeAreaInsets();
-  const isFocused = useIsFocused();
+  const navigationState = useNavigationState(state => state);
+  // Check if Feed (ForYou) tab is actually active
+  const isFocused = useMemo(() => {
+    if (!navigationState) return false;
+    const route = navigationState.routes[navigationState.index];
+    return route?.name === 'ForYou';
+  }, [navigationState]);
   const isFocusedRef = useRef(false);
   const SCROLL_HEIGHT = DEVICE_HEIGHT - BOTTOM_TAB_BAR_HEIGHT - insets.bottom;
   const itemRefs = useRef<Map<string, React.RefObject<FeedItemRef | null>>>(new Map());
@@ -39,6 +45,49 @@ const Feed: React.FC<FeedScreenProps> = () => {
   const feedItems = useMemo(() => {
     return data?.pages.flatMap(page => page.feedTitles) || [];
   }, [data]);
+
+  // Auto-play first video for 300ms when data is loaded from home page, muted
+  useEffect(() => {
+    if (feedItems.length > 0 && !currentPlayingRef.current && !isFocused) {
+      const firstItem = feedItems[0];
+      if (firstItem && firstItem.video_playback_url) {
+        let stopTimeoutId: NodeJS.Timeout | null = null;
+        
+        const playTimeoutId = setTimeout(() => {
+          const ref = getItemRef(firstItem.id);
+          if (ref.current && !ref.current.isPlaying()) {
+            // Set muted BEFORE playing to ensure no audio
+            if (ref.current.setMuted) {
+              ref.current.setMuted(true);
+            }
+            // Small delay to ensure muted state is applied
+            setTimeout(() => {
+              if (ref.current) {
+                ref.current.play();
+                currentPlayingRef.current = firstItem.id;
+                currentVisibleItemRef.current = firstItem.id;
+                
+                // Stop after 300ms
+                stopTimeoutId = setTimeout(() => {
+                  if (ref.current && ref.current.isPlaying()) {
+                    ref.current.pause();
+                    currentPlayingRef.current = null;
+                  }
+                }, 300);
+              }
+            }, 50);
+          }
+        }, 500);
+        
+        return () => {
+          clearTimeout(playTimeoutId);
+          if (stopTimeoutId) {
+            clearTimeout(stopTimeoutId);
+          }
+        };
+      }
+    }
+  }, [feedItems, getItemRef, isFocused]);
 
   const getItemRef = useCallback((itemId: string): React.RefObject<FeedItemRef | null> => {
     if (!itemRefs.current.has(itemId)) {
@@ -116,8 +165,14 @@ const Feed: React.FC<FeedScreenProps> = () => {
 
           // Only play if it's not already playing
           const ref = getItemRef(firstVisibleId);
-          if (ref.current && !ref.current.isPlaying()) {
-            playVisibleVideo(firstVisibleId);
+          if (ref.current) {
+            // Unmute when Feed page is focused and video is visible
+            if (ref.current.setMuted && isFocused) {
+              ref.current.setMuted(false);
+            }
+            if (!ref.current.isPlaying()) {
+              playVisibleVideo(firstVisibleId);
+            }
           }
         } else {
           // No video in visible item, pause all
@@ -129,7 +184,7 @@ const Feed: React.FC<FeedScreenProps> = () => {
         pauseAllVideos();
       }
     },
-    [isScrolling, pauseAllVideos, playVisibleVideo, getItemRef],
+    [isScrolling, pauseAllVideos, playVisibleVideo, getItemRef, isFocused],
   );
 
   const handleScrollBeginDrag = useCallback(() => {
@@ -234,7 +289,7 @@ const Feed: React.FC<FeedScreenProps> = () => {
       const timeoutId = setTimeout(() => {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            if (!isScrolling) {
+            if (!isScrolling && feedItems.length > 0) {
               // Play the currently visible item if available, otherwise play the first item
               const itemToPlay = currentVisibleItemRef.current
                 ? feedItems.find(item => item.id === currentVisibleItemRef.current)
@@ -242,9 +297,15 @@ const Feed: React.FC<FeedScreenProps> = () => {
 
               if (itemToPlay && itemToPlay.video_playback_url) {
                 const ref = getItemRef(itemToPlay.id);
-                if (ref.current && !ref.current.isPlaying()) {
-                  ref.current.play();
-                  currentPlayingRef.current = itemToPlay.id;
+                if (ref.current) {
+                  // Unmute when Feed page is focused
+                  if (ref.current.setMuted) {
+                    ref.current.setMuted(false);
+                  }
+                  if (!ref.current.isPlaying()) {
+                    ref.current.play();
+                    currentPlayingRef.current = itemToPlay.id;
+                  }
                 }
               }
             }
@@ -272,12 +333,43 @@ const Feed: React.FC<FeedScreenProps> = () => {
   }).current;
 
   const renderItem = useCallback(
-    ({ item }: { item: FeedItemType }) => {
+    ({ item, index }: { item: FeedItemType; index: number }) => {
       const itemRef = getItemRef(item.id);
-      return <FeedItem ref={itemRef} item={item} scrollHeight={SCROLL_HEIGHT} isScrolling={isScrolling} />;
-
-    }, [SCROLL_HEIGHT, getItemRef, isScrolling],
+      const isFirstItem = index === 0;
+      // When focused, all items should not be muted
+      // When not focused, only first item should be muted (for home page auto-play)
+      const shouldBeMuted = !isFocused && isFirstItem;
+      return (
+        <FeedItem
+          ref={itemRef}
+          item={item}
+          scrollHeight={SCROLL_HEIGHT}
+          isScrolling={isScrolling}
+          autoPlay={isFirstItem && !isFocused}
+          muted={shouldBeMuted}
+        />
+      );
+    }, [SCROLL_HEIGHT, getItemRef, isScrolling, isFocused],
   );
+
+  // Unmute all videos when Feed page becomes focused
+  useEffect(() => {
+    if (isFocused) {
+      // Unmute all videos immediately when Feed page is focused
+      itemRefs.current.forEach((ref) => {
+        if (ref.current && ref.current.setMuted) {
+          ref.current.setMuted(false);
+        }
+      });
+    } else {
+      // Mute all videos when Feed page loses focus (e.g., going to Home)
+      itemRefs.current.forEach((ref) => {
+        if (ref.current && ref.current.setMuted) {
+          ref.current.setMuted(true);
+        }
+      });
+    }
+  }, [isFocused]);
 
   const keyExtractor = useCallback((item: FeedItemType) => item.id, []);
 

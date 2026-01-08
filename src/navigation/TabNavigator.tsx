@@ -65,6 +65,7 @@ const TabNavigator: React.FC = () => {
         component={Feed}
         options={{
           tabBarLabel: 'For you',
+          lazy: false,
           tabBarIcon: ({ focused, color }) => (
             <Image
               source={
