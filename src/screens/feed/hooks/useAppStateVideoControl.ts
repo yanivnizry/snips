@@ -29,14 +29,12 @@ export const useAppStateVideoControl = ({
 
     const handleAppStateChange = (nextAppState: string) => {
       if (nextAppState === 'background' || nextAppState === 'inactive') {
-        console.log('[VIDEO] App state changed to background/inactive - pausing videos');
         pauseAllVideos(true);
         if (activeTimeoutId) {
           clearTimeout(activeTimeoutId);
           activeTimeoutId = null;
         }
       } else if (nextAppState === 'active') {
-        console.log('[VIDEO] App state changed to active - restoring video playback');
         if (isFocusedRef.current && feedItems.length > 0) {
           activeTimeoutId = setTimeout(() => {
             requestAnimationFrame(() => {
@@ -60,7 +58,6 @@ export const useAppStateVideoControl = ({
                 if (itemToPlay && itemToPlay.video_playback_url && isFocusedRef.current) {
                   const ref = getItemRef(itemToPlay.id);
                   if (ref.current && !ref.current.isPlaying()) {
-                    console.log('[VIDEO PLAY] Restoring video after app state change:', itemToPlay.id);
                     ref.current.play();
                     currentPlayingRef.current = itemToPlay.id;
                     currentVisibleItemRef.current = itemToPlay.id;

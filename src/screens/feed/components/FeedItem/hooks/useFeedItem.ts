@@ -16,7 +16,6 @@ export const useFeedItem = (
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [hasError, setHasError] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-  const [wasPlaying, setWasPlaying] = useState(false);
   const [titleHeight, setTitleHeight] = useState(0);
   const [isMuted, setIsMuted] = useState(muted);
   const videoRef = useRef<VideoRef>(null);
@@ -49,7 +48,6 @@ export const useFeedItem = (
     if (hasVideo) {
       setIsPlaying(true);
       setHasStarted(true);
-      setWasPlaying(true);
       setHasError(false);
     }
   };
@@ -58,11 +56,9 @@ export const useFeedItem = (
     if (hasVideo) {
       if (isPlaying) {
         setIsPlaying(false);
-        setWasPlaying(true);
       } else {
         setIsPlaying(true);
         setHasStarted(true);
-        setWasPlaying(true);
       }
     }
   };
@@ -87,17 +83,10 @@ export const useFeedItem = (
   };
 
   useEffect(() => {
-    if (isPlaying && hasStarted) {
-      setWasPlaying(true);
-    }
-  }, [isPlaying, hasStarted]);
-
-  useEffect(() => {
     if (autoPlay && hasVideo && !hasError && !hasStarted) {
       const timer = setTimeout(() => {
         setIsPlaying(true);
         setHasStarted(true);
-        setWasPlaying(true);
       }, FEED.FEED_ITEM.AUTO_PLAY_DELAY);
       return () => clearTimeout(timer);
     }
@@ -106,6 +95,13 @@ export const useFeedItem = (
   useEffect(() => {
     return () => {
       setIsPlaying(false);
+      if (videoRef.current) {
+        try {
+          videoRef.current.seek(0);
+        } catch (error) {
+            console.warn('Error seeking video on cleanup:', error);
+        }
+      }
     };
   }, []);
 
@@ -114,7 +110,6 @@ export const useFeedItem = (
       if (hasVideo && !hasError) {
         setIsPlaying(true);
         setHasStarted(true);
-        setWasPlaying(true);
       }
     },
     pause: () => {
@@ -131,7 +126,6 @@ export const useFeedItem = (
     isPlaying,
     hasError,
     hasStarted,
-    wasPlaying,
     titleHeight,
     isMuted,
     hasVideo,

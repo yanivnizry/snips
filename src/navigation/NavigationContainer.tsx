@@ -11,10 +11,10 @@ const NavigationContainer: React.FC = () => {
     console.log('Navigation ready, prefetching feed...');
     queryClient.prefetchInfiniteQuery(feedPageInfiniteQueryOptions)
       .then(() => {
-        console.log('Feed prefetched successfully');
+    console.log('Feed prefetched successfully');
       })
       .catch((error) => {
-        console.warn('Failed to prefetch feed:', error);
+    console.warn('Failed to prefetch feed:', error);
       });
   }, [queryClient]);
 

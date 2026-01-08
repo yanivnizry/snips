@@ -40,6 +40,18 @@ export const useFeedVideoControl = ({
     isFocusedRef.current = isFocused;
   }, [isFocused]);
 
+  useEffect(() => {
+    const currentItemIds = new Set(feedItems.map(item => item.id));
+    itemRefs.current.forEach((ref, itemId) => {
+      if (!currentItemIds.has(itemId)) {
+        if (ref.current && ref.current.isPlaying()) {
+          ref.current.pause();
+        }
+        itemRefs.current.delete(itemId);
+      }
+    });
+  }, [feedItems]);
+
   const getItemRef = useCallback((itemId: string): React.RefObject<FeedItemRef | null> => {
     if (!itemRefs.current.has(itemId)) {
       itemRefs.current.set(itemId, React.createRef<FeedItemRef | null>());
@@ -50,23 +62,13 @@ export const useFeedVideoControl = ({
   const pauseAllVideos = useCallback((saveState = false) => {
     if (saveState && currentPlayingRef.current) {
       lastPlayingBeforeBackgroundRef.current = currentPlayingRef.current;
-      console.log('[VIDEO PAUSE] Saving state before pause, last playing:', currentPlayingRef.current);
     }
-    let pausedCount = 0;
-    itemRefs.current.forEach((ref, itemId) => {
+    itemRefs.current.forEach((ref) => {
       if (ref.current && ref.current.isPlaying()) {
         ref.current.pause();
-        pausedCount++;
-        console.log('[VIDEO PAUSE] Paused video:', itemId);
       }
     });
-    if (pausedCount > 0) {
-      console.log('[VIDEO PAUSE] Total videos paused:', pausedCount);
-    }
     if (!saveState) {
-      if (currentPlayingRef.current) {
-        console.log('[VIDEO PAUSE] Cleared current playing ref:', currentPlayingRef.current);
-      }
       currentPlayingRef.current = null;
     }
     if (playTimeoutRef.current) {
@@ -85,13 +87,9 @@ export const useFeedVideoControl = ({
         if (!isScrolling) {
           const ref = getItemRef(itemId);
           if (ref.current) {
-            console.log('[VIDEO PLAY] Starting playback for video:', itemId);
             ref.current.play();
             currentPlayingRef.current = itemId;
-            console.log('[VIDEO PLAY] Video playback started:', itemId);
           }
-        } else {
-          console.log('[VIDEO PLAY] Skipped playback - currently scrolling:', itemId);
         }
       }, FEED.VIDEO_CONTROL.PLAY_DELAY);
     },
@@ -109,7 +107,6 @@ export const useFeedVideoControl = ({
       itemRefs.current.forEach((ref, itemId) => {
         if (!viewableItemIds.has(itemId) && ref.current) {
           if (ref.current.isPlaying()) {
-            console.log('[VIDEO PAUSE] Pausing video - no longer visible:', itemId);
             ref.current.pause();
           }
         }
@@ -125,7 +122,6 @@ export const useFeedVideoControl = ({
           itemRefs.current.forEach((ref, itemId) => {
             if (itemId !== firstVisibleId && ref.current) {
               if (ref.current.isPlaying()) {
-                console.log('[VIDEO PAUSE] Pausing video - switching to new visible item:', itemId);
                 ref.current.pause();
               }
             }
@@ -152,7 +148,6 @@ export const useFeedVideoControl = ({
   );
 
   const handleScrollBeginDrag = useCallback(() => {
-    console.log('[VIDEO] Scroll begin drag - pausing all videos');
     setIsScrolling(true);
     pauseAllVideos();
     if (playTimeoutRef.current) {
@@ -173,9 +168,15 @@ export const useFeedVideoControl = ({
     return () => {
       if (playTimeoutRef.current) {
         clearTimeout(playTimeoutRef.current);
+        playTimeoutRef.current = null;
       }
+      pauseAllVideos();
+      itemRefs.current.clear();
+      currentPlayingRef.current = null;
+      currentVisibleItemRef.current = null;
+      lastPlayingBeforeBackgroundRef.current = null;
     };
-  }, []);
+  }, [pauseAllVideos]);
 
   useHomePagePreview({
     feedItems,

@@ -49,6 +49,7 @@ const FeedItem = forwardRef<FeedItemRef, FeedItemProps>((props, ref) => {
             playInBackground={false}
             playWhenInactive={false}
             ignoreSilentSwitch="ignore"
+            poster={item.poster_url}
           />
           <Pressable 
             onPress={handleVideoPress} 

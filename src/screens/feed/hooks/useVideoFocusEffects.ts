@@ -42,7 +42,6 @@ export const useVideoFocusEffects = ({
                     ref.current.setMuted(false);
                   }
                   if (!ref.current.isPlaying()) {
-                    console.log('[VIDEO PLAY] Playing video on focus effect:', itemToPlay.id);
                     ref.current.play();
                     currentPlayingRef.current = itemToPlay.id;
                   }
@@ -62,7 +61,6 @@ export const useVideoFocusEffects = ({
   useFocusEffect(
     useCallback(() => {
       return () => {
-        console.log('[VIDEO] Focus effect cleanup - pausing all videos');
         pauseAllVideos();
       };
     }, [pauseAllVideos]),
@@ -70,14 +68,12 @@ export const useVideoFocusEffects = ({
 
   useEffect(() => {
     if (isFocused) {
-      console.log('[VIDEO] Feed focused - unmuting all videos');
       itemRefs.current.forEach((ref) => {
         if (ref.current && ref.current.setMuted) {
           ref.current.setMuted(false);
         }
       });
     } else {
-      console.log('[VIDEO] Feed unfocused - muting all videos');
       itemRefs.current.forEach((ref) => {
         if (ref.current && ref.current.setMuted) {
           ref.current.setMuted(true);
